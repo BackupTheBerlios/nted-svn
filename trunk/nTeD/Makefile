@@ -6,31 +6,31 @@ nted.exe: tcpconnection.o tedprotocol.o logindialog.o chatdialog.o deckdialog.o 
 	g++ -o nted.exe main.o mainframe.o logindialog.o chatdialog.o deckdialog.o infodialog.o dueldialog.o tedprotocol.o tcpconnection.o nted.o `wx-config --libs`
 
 main.o: main.cpp main.h
-	g++ -c -o main.o -Wall `wx-config --cxxflags` main.cpp
+	g++ -c -o main.o -Wall -Werror `wx-config --cxxflags` main.cpp
 
 mainframe.o: mainframe.cpp mainframe.h
-	g++ -c -o mainframe.o -Wall `wx-config --cxxflags` mainframe.cpp
+	g++ -c -o mainframe.o -Wall -Werror `wx-config --cxxflags` mainframe.cpp
 
 logindialog.o: logindialog.cpp logindialog.h
-	g++ -c -o logindialog.o -Wall `wx-config --cxxflags` logindialog.cpp
+	g++ -c -o logindialog.o -Wall -Werror `wx-config --cxxflags` logindialog.cpp
 
 chatdialog.o: chatdialog.cpp chatdialog.h
-	g++ -c -o chatdialog.o -Wall `wx-config --cxxflags` chatdialog.cpp
+	g++ -c -o chatdialog.o -Wall -Werror `wx-config --cxxflags` chatdialog.cpp
 
 deckdialog.o: deckdialog.cpp deckdialog.h
-	g++ -c -o deckdialog.o -Wall `wx-config --cxxflags` deckdialog.cpp
+	g++ -c -o deckdialog.o -Wall -Werror `wx-config --cxxflags` deckdialog.cpp
 
 infodialog.o: infodialog.cpp infodialog.h
-	g++ -c -o infodialog.o -Wall `wx-config --cxxflags` infodialog.cpp
+	g++ -c -o infodialog.o -Wall -Werror `wx-config --cxxflags` infodialog.cpp
 
 dueldialog.o: dueldialog.cpp dueldialog.h
-	g++ -c -o dueldialog.o -Wall `wx-config --cxxflags` dueldialog.cpp
+	g++ -c -o dueldialog.o -Wall -Werror `wx-config --cxxflags` dueldialog.cpp
 
 tedprotocol.o: tedprotocol.cpp tedprotocol.h
-	g++ -c -o tedprotocol.o -Wall `wx-config --cxxflags` tedprotocol.cpp
+	g++ -c -o tedprotocol.o -Wall -Werror `wx-config --cxxflags` tedprotocol.cpp
 
 tcpconnection.o: tcpconnection.cpp tcpconnection.h
-	g++ -c -o tcpconnection.o -Wall `wx-config --cxxflags` tcpconnection.cpp
+	g++ -c -o tcpconnection.o -Wall -Werror `wx-config --cxxflags` tcpconnection.cpp
 
 nted.o: nted.rc
 	windres --include-dir=/local/include nted.rc nted.o
