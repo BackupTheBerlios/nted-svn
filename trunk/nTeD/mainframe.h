@@ -28,6 +28,7 @@
 
 #include "logindialog.h"
 #include "chatdialog.h"
+#include "infodialog.h"
 #include "tedprotocol.h"
 #include "tcpconnection.h"
 
