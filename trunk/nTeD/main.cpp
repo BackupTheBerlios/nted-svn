@@ -16,7 +16,7 @@ MainApp::OnInit()
 //    wxXmlResource::Get()->Load("nted.xrc");
     frame = new wxMainFrame(NULL);
     frame->Show(TRUE);
-    frame->SetSizeHints(680,380,1600,1200);
+    frame->SetSizeHints(684,380,1600,1200);
     frame->Layout();
     frame->Fit();
     frame->Center();

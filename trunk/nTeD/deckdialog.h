@@ -25,6 +25,7 @@
 ////@end includes
 
 #include <wx/wfstream.h>
+#include <wx/image.h>
 #include "tedprotocol.h"
 
 /*!

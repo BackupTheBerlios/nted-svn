@@ -130,7 +130,7 @@ bool wxDeckDialog::Create( wxWindow* parent, wxWindowID id, const wxString& capt
     ReserveListCtrl->SetColumnWidth(3,50);
     ReserveListCtrl->SetColumnWidth(4,41);
     CurrentDeckListCtrl->SortItems(wxListCompareFunction2,0);
-    CurrentDeckListCtrl->SetSizeHints(260,100);
+    CurrentDeckListCtrl->SetSizeHints(262,100);
     CurrentDeckListCtrl->InsertColumn(0,_("Nombre"));
     CurrentDeckListCtrl->InsertColumn(1,_("#/M"));
     CurrentDeckListCtrl->InsertColumn(2,_("A/D"));
@@ -289,8 +289,40 @@ bool wxDeckDialog::ShowToolTips()
 
 void wxDeckDialog::OnReservelistctrlidSelected( wxListEvent& event )
 {
-    // Insert custom code here
-    event.Skip();
+  wxBitmap clean;
+  wxImage cardbkg;
+  wxImage img;
+  wxBitmap costimg;
+  wxString filename;
+  wxMemoryDC memdc;
+  struct TEDCard *card;
+  wxInt32 cardid;
+
+  // Insert custom code here
+  card=((struct TEDCard *)event.GetItem().GetData());
+  if (card==NULL)
+  {
+    return;
+  }
+  cardid=card->Id;
+  clean.Create(90,120);
+  memdc.SelectObject(clean);
+  cardbkg.LoadFile(_T("imgs/sframe1.gif"),wxBITMAP_TYPE_GIF);
+  filename=_T("imgs/img")+wxString::Format("%d",cardid)+_T(".gif");
+  img.LoadFile(filename,wxBITMAP_TYPE_GIF);
+  img.Rescale(78,53);
+  memdc.DrawBitmap(wxBitmap(cardbkg),0,0);
+  memdc.DrawBitmap(wxBitmap(img),6,22);
+  memdc.SetTextForeground(wxColour(*wxWHITE));
+  memdc.SetFont(wxFont(7,wxSWISS,wxNORMAL,wxLIGHT));
+//  memdc.SetFont(wxFont(7,wxMODERN,wxNORMAL,wxLIGHT));
+  memdc.SetClippingRegion(3,1,58,16);
+  memdc.DrawText(card->Name,3,3);
+  memdc.DestroyClippingRegion();
+  memdc.SetClippingRegion(64,1,24,16);
+  memdc.DrawText(card->Cost,64,3);
+  CardStaticBitmap->SetBitmap(clean);
+  event.Skip();
 }
 
 
@@ -558,7 +590,14 @@ void wxDeckDialog::ProcessDeckDescribe(wxInt32 deckid,wxInt32 carduid,wxInt32 ca
 		{
 		  row=ReserveListCtrl->InsertItem(0,card->Name);
 		  ReserveListCtrl->SetItem(row,1,wxString::Format("%d",card->UId.GetCount()));
-		  ReserveListCtrl->SetItem(row,2,wxString::Format("%d",card->Attack)+_T("/")+wxString::Format("%d",card->Defense));
+		  if ((card->Attack==0) && (card->Defense==0))
+		  {
+  		  ReserveListCtrl->SetItem(row,2,_T("--/--"));
+		  }
+		  else
+		  {
+  		  ReserveListCtrl->SetItem(row,2,wxString::Format("%d",card->Attack)+_T("/")+wxString::Format("%d",card->Defense));
+		  }
 		  ReserveListCtrl->SetItem(row,3,card->Cost);
 		  ReserveListCtrl->SetItem(row,4,wxString::Format("%d",card->Gold));
 		  ReserveListCtrl->SetItemData(row,(long int)card);
@@ -566,8 +605,22 @@ void wxDeckDialog::ProcessDeckDescribe(wxInt32 deckid,wxInt32 carduid,wxInt32 ca
 		else if (deckid==m_TEDProtocol->GetCurrentDeckId())
 		{
 		  row=CurrentDeckListCtrl->InsertItem(0,card->Name);
-		  CurrentDeckListCtrl->SetItem(row,1,wxString::Format("%d",card->UId.GetCount()));
-		  CurrentDeckListCtrl->SetItem(row,2,wxString::Format("%d",card->Attack)+_T("/")+wxString::Format("%d",card->Defense));
+		  if (card->Max==0)
+		  {
+  		  CurrentDeckListCtrl->SetItem(row,1,wxString::Format("%d/*",card->UId.GetCount()));
+		  }
+		  else
+		  {
+  		  CurrentDeckListCtrl->SetItem(row,1,wxString::Format("%d/%d",card->UId.GetCount(),card->Max));
+		  }
+		  if ((card->Attack==0) && (card->Defense==0))
+		  {
+  		  CurrentDeckListCtrl->SetItem(row,2,_T("--/--"));
+		  }
+		  else
+		  {
+  		  CurrentDeckListCtrl->SetItem(row,2,wxString::Format("%d",card->Attack)+_T("/")+wxString::Format("%d",card->Defense));
+		  }
 		  CurrentDeckListCtrl->SetItem(row,3,card->Cost);
 		  CurrentDeckListCtrl->SetItemData(row,(long int)card);
 		}
@@ -584,7 +637,14 @@ void wxDeckDialog::ProcessDeckDescribe(wxInt32 deckid,wxInt32 carduid,wxInt32 ca
     else
     {
       row=CurrentDeckListCtrl->FindItem(-1,(long int)card);
-      CurrentDeckListCtrl->SetItem(row,1,wxString::Format("%d",card->UId.GetCount()));
+		  if (card->Max==0)
+		  {
+  		  CurrentDeckListCtrl->SetItem(row,1,wxString::Format("%d/*",card->UId.GetCount()));
+		  }
+		  else
+		  {
+  		  CurrentDeckListCtrl->SetItem(row,1,wxString::Format("%d/%d",card->UId.GetCount(),card->Max));
+		  }
     }
   }
   if (deckid==0)
@@ -639,7 +699,7 @@ void wxDeckDialog::ProcessDeckMove(struct TEDMovingCard *movingcard)
     }
     else
     {
-      CurrentDeckListCtrl->SetItem(row,1,wxString::Format("%d",card->UId.GetCount()));
+      CurrentDeckListCtrl->SetItem(row,1,wxString::Format("%d/%d",card->UId.GetCount(),card->Max));
     }
   }
   if (movingcard->srcdeckid==0)

@@ -101,7 +101,7 @@ bool wxMainFrame::Create( wxWindow* parent, wxWindowID id, const wxString& capti
     m_ChatWnd->Layout();
     m_ChatWnd->Hide();
     m_DeckWnd=new wxDeckDialog(this);
-    m_DeckWnd->SetSizeHints(650,368);
+    m_DeckWnd->SetSizeHints(652,368);
     m_DeckWnd->Layout();
     m_DeckWnd->Hide();
     m_InfoWnd=new wxInfoDialog(this);

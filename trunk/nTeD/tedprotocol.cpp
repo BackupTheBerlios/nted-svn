@@ -699,3 +699,22 @@ void TEDProtocol::SetUserGold(wxInt32 gold)
   User.Gold=gold;
 }
 
+wxInt32 TEDProtocol::GetDeckNumCards(wxInt32 deckid)
+{
+  struct TEDDeck *deck;
+  TEDCardHash::iterator it;
+  wxInt32 numcards;
+
+  deck=GetDeck(deckid);
+  if (deck==NULL)
+  {
+    return -1;
+  }
+  numcards=0;
+  for (it=deck->Cards.begin();it!=deck->Cards.end();it++)
+  {
+    numcards=numcards+it->second->UId.Count();
+  }
+  return numcards;
+}
+

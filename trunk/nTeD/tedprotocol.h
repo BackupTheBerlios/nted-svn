@@ -164,6 +164,7 @@ class TEDProtocol
     void DeckGet();
     wxInt32 GetUserGold();
     void SetUserGold(wxInt32 gold);
+    wxInt32 GetDeckNumCards(wxInt32 deckid);
 	private:
 	  TCPConnection *TCPConn;
 	  struct TEDUser User;
