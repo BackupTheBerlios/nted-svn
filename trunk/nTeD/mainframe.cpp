@@ -62,6 +62,7 @@ BEGIN_EVENT_TABLE( wxMainFrame, wxFrame )
 
 ////@end wxMainFrame event table entries
     EVT_IDLE( wxMainFrame::OnIdle )
+    EVT_SOCKET(SOCKET_ID, wxMainFrame::OnSocketEvent)
 
 END_EVENT_TABLE()
 
@@ -113,7 +114,7 @@ bool wxMainFrame::Create( wxWindow* parent, wxWindowID id, const wxString& capti
     m_mainsizer->Add(m_ActiveWnd, 1, wxALIGN_LEFT|wxEXPAND|wxALL);
     m_ActiveWnd->Show();
     Layout();
-    m_TEDProtocol=new TEDProtocol();
+    m_TEDProtocol=new TEDProtocol(*this, SOCKET_ID);
     m_LoginWnd->m_TEDProtocol=m_TEDProtocol;
     m_ChatWnd->m_TEDProtocol=m_TEDProtocol;
     m_DeckWnd->m_TEDProtocol=m_TEDProtocol;
@@ -347,12 +348,26 @@ void wxMainFrame::OnIdle(wxIdleEvent& event)
 {
   wxString msg;
 
+//  m_TEDProtocol->GetSocketData();
   while ((msg=m_TEDProtocol->GetMessage())!=wxEmptyString)
   {
-//    ::wxMessageBox(msg,_("Mensaje del Servidor"));
+//    ::wxMessageBox(msg,_("Mensaje del Servidor2"));
     ProcessMessage(msg);
   }
   event.Skip();
+}
+
+void wxMainFrame::OnSocketEvent(wxSocketEvent& event)
+{
+  if (event.GetSocketEvent()==wxSOCKET_INPUT)
+  {
+//    m_TEDProtocol->GetSocketData();
+  }
+  else if (event.GetSocketEvent()==wxSOCKET_LOST)
+  {
+    ::wxMessageBox(_("Se perdió la conexión con el servidor.\nEl cliente se cerrará."));
+    Close();
+  }
 }
 
 void wxMainFrame::ProcessMessage(wxString msg)
@@ -718,9 +733,9 @@ void wxMainFrame::ProcessChatUser(wxString msg)
   else
   {
     ::wxSafeShowMessage(_("Titanes"),_T("El servidor ha respondido con un comando desconocido.\nCU ")+
-      tok+_T(" ")+msgtok.GetString());
+    tok+_T(" ")+msgtok.GetString());
   }
-//  m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
+m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
 }
 
 void wxMainFrame::ProcessDeckList(wxString msg)
