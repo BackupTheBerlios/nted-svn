@@ -339,12 +339,10 @@ bool wxDuelDialog::ShowToolTips()
 
 void wxDuelDialog::ProcessGameStart(wxString name,wxInt32 deckvalue,wxInt32 rank)
 {
-/*
-  TEDProtocol.ChatExit();
-  TEDProtocol.SetOpponent(name,deckvalue,rank);
-  OpponentStaticText.SetLabel(name);
-  TEDProtocol.GameStart();
-*/
+  m_TEDProtocol->ChatExit();
+  m_TEDProtocol->SetOpponent(name,deckvalue,rank);
+  OpponentStaticText->SetLabel(name);
+  m_TEDProtocol->GameStart();
 }
 
 
