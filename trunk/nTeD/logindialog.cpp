@@ -3,13 +3,13 @@
 // Purpose:     
 // Author:      Kintups
 // Modified by: 
-// Created:     02/24/04 15:29:08
+// Created:     04/07/04 14:06:17
 // RCS-ID:      
 // Copyright:   
 // Licence:     
 /////////////////////////////////////////////////////////////////////////////
 
-#ifdef __GNUG__
+#if defined(__GNUG__) && !defined(__APPLE__)
 #pragma implementation "logindialog.h"
 #endif
 
@@ -20,8 +20,11 @@
 #pragma hdrstop
 #endif
 
-////@begin includes
+#ifndef WX_PRECOMP
 #include "wx/wx.h"
+#endif
+
+////@begin includes
 ////@end includes
 
 #include "logindialog.h"
@@ -30,65 +33,79 @@
 ////@end XPM images
 
 /*!
- * LoginDialog type definition
+ * wxLoginDialog type definition
  */
 
-IMPLEMENT_CLASS( LoginDialog, wxDialog )
+IMPLEMENT_CLASS( wxLoginDialog, wxPanel )
 
 /*!
- * LoginDialog event table definition
+ * wxLoginDialog event table definition
  */
 
-BEGIN_EVENT_TABLE( LoginDialog, wxDialog )
+BEGIN_EVENT_TABLE( wxLoginDialog, wxPanel )
 
-////@begin LoginDialog event table entries
-////@end LoginDialog event table entries
+////@begin wxLoginDialog event table entries
+    EVT_BUTTON( ConectarButtonID, wxLoginDialog::OnConectarbuttonClick )
+
+////@end wxLoginDialog event table entries
 
 END_EVENT_TABLE()
 
 /*!
- * LoginDialog constructors
+ * wxLoginDialog constructors
  */
 
-LoginDialog::LoginDialog( )
+wxLoginDialog::wxLoginDialog( )
 {
 }
 
-LoginDialog::LoginDialog( wxWindow* parent, wxWindowID id, const wxString& caption, const wxPoint& pos, const wxSize& size, long style )
+wxLoginDialog::wxLoginDialog( wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style )
 {
-    Create(parent, id, caption, pos, size, style);
+    Create(parent, id, pos, size, style);
 }
+
+/*
+wxLoginDialog::wxLoginDialog( wxNotebook* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style )
+{
+    Create((wxWindow *)parent, id, wxEmptyString, pos, size, style);
+}
+*/
 
 /*!
- * LoginDialog creator
+ * wxLoginDialog creator
  */
 
-bool LoginDialog::Create( wxWindow* parent, wxWindowID id, const wxString& caption, const wxPoint& pos, const wxSize& size, long style )
+bool wxLoginDialog::Create( wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style )
 {
-////@begin LoginDialog member initialisation
-////@end LoginDialog member initialisation
+////@begin wxLoginDialog member initialisation
+    UsuarioStatic = NULL;
+    UsuarioTextCtrl = NULL;
+    ContrasenaStatic = NULL;
+    ContrasenaTextCtrl = NULL;
+    ConectarButton = NULL;
+////@end wxLoginDialog member initialisation
 
-////@begin LoginDialog creation
+////@begin wxLoginDialog creation
     SetExtraStyle(wxWS_EX_BLOCK_EVENTS);
-    wxDialog::Create( parent, id, caption, pos, size, style );
+    wxPanel::Create( parent, id, pos, size, style );
 
     CreateControls();
     GetSizer()->Fit(this);
     GetSizer()->SetSizeHints(this);
     Centre();
-////@end LoginDialog creation
+////@end wxLoginDialog creation
     return TRUE;
 }
 
 /*!
- * Control creation for LoginDialog
+ * Control creation for wxLoginDialog
  */
 
-void LoginDialog::CreateControls()
+void wxLoginDialog::CreateControls()
 {    
-////@begin LoginDialog content construction
+////@begin wxLoginDialog content construction
 
-    LoginDialog* item1 = this;
+    wxLoginDialog* item1 = this;
 
     wxFlexGridSizer* item2 = new wxFlexGridSizer(1, 1, 0, 0);
     item2->AddGrowableRow(0);
@@ -100,23 +117,23 @@ void LoginDialog::CreateControls()
     item3->AddGrowableRow(0);
     item3->AddGrowableRow(2);
     item3->AddGrowableCol(0);
-    item2->Add(item3, 0, wxGROW|wxGROW|wxALL, 5);
+    item2->Add(item3, 0, wxGROW|wxGROW|wxALL|wxADJUST_MINSIZE, 5);
 
     wxFlexGridSizer* item4 = new wxFlexGridSizer(1, 1, 0, 0);
     item4->AddGrowableRow(0);
     item4->AddGrowableCol(0);
-    item3->Add(item4, 0, wxGROW|wxGROW|wxALL, 5);
+    item3->Add(item4, 0, wxGROW|wxGROW|wxALL|wxADJUST_MINSIZE, 5);
 
     wxFlexGridSizer* item5 = new wxFlexGridSizer(1, 3, 0, 0);
     item5->AddGrowableRow(0);
     item5->AddGrowableCol(0);
     item5->AddGrowableCol(2);
-    item3->Add(item5, 0, wxGROW|wxGROW|wxALL, 5);
+    item3->Add(item5, 0, wxGROW|wxGROW|wxALL|wxADJUST_MINSIZE, 5);
 
     wxFlexGridSizer* item6 = new wxFlexGridSizer(1, 1, 0, 0);
     item6->AddGrowableRow(0);
     item6->AddGrowableCol(0);
-    item5->Add(item6, 0, wxGROW|wxGROW|wxALL, 5);
+    item5->Add(item6, 0, wxGROW|wxGROW|wxALL|wxADJUST_MINSIZE, 5);
 
     wxFlexGridSizer* item7 = new wxFlexGridSizer(4, 1, 0, 0);
     item5->Add(item7, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL, 0);
@@ -126,10 +143,14 @@ void LoginDialog::CreateControls()
     item8->AddGrowableCol(1);
     item7->Add(item8, 0, wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL|wxALL, 0);
 
-    wxStaticText* item9 = new wxStaticText( item1, UsuarioStatic, _("Usuario:"), wxDefaultPosition, wxDefaultSize, 0 );
+    wxStaticText* item9 = new wxStaticText;
+    item9->Create( item1, UsuarioStaticID, _("Usuario:"), wxDefaultPosition, wxDefaultSize, 0 );
+    UsuarioStatic = item9;
     item8->Add(item9, 0, wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL|wxALL|wxADJUST_MINSIZE, 5);
 
-    wxTextCtrl* item10 = new wxTextCtrl( item1, UsuarioTextCtrl, _T(""), wxDefaultPosition, wxDefaultSize, 0 );
+    wxTextCtrl* item10 = new wxTextCtrl;
+    item10->Create( item1, UsuarioTextCtrlID, _T(""), wxDefaultPosition, wxDefaultSize, 0 );
+    UsuarioTextCtrl = item10;
     item8->Add(item10, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
     wxFlexGridSizer* item11 = new wxFlexGridSizer(1, 2, 0, 0);
@@ -137,10 +158,14 @@ void LoginDialog::CreateControls()
     item11->AddGrowableCol(1);
     item7->Add(item11, 0, wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL|wxALL, 0);
 
-    wxStaticText* item12 = new wxStaticText( item1, ContrasenaStatic, _("Contraseña:"), wxDefaultPosition, wxDefaultSize, 0 );
+    wxStaticText* item12 = new wxStaticText;
+    item12->Create( item1, ContrasenaStaticID, _("Contraseña:"), wxDefaultPosition, wxDefaultSize, 0 );
+    ContrasenaStatic = item12;
     item11->Add(item12, 0, wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL|wxALL|wxADJUST_MINSIZE, 5);
 
-    wxTextCtrl* item13 = new wxTextCtrl( item1, ContrasenaTextCtrl, _T(""), wxDefaultPosition, wxDefaultSize, wxTE_PASSWORD );
+    wxTextCtrl* item13 = new wxTextCtrl;
+    item13->Create( item1, ContrasenaTextCtrlID, _T(""), wxDefaultPosition, wxDefaultSize, wxTE_PASSWORD );
+    ContrasenaTextCtrl = item13;
     item11->Add(item13, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
     item7->Add(5, 5, 0, wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL|wxALL, 5);
@@ -150,7 +175,10 @@ void LoginDialog::CreateControls()
     item15->AddGrowableCol(0);
     item7->Add(item15, 0, wxGROW|wxGROW|wxALL, 5);
 
-    wxButton* item16 = new wxButton( item1, ConectarButton, CONECTAR, wxDefaultPosition, wxDefaultSize, 0 );
+    wxButton* item16 = new wxButton;
+    item16->Create( item1, ConectarButtonID, _("Conectar"), wxDefaultPosition, wxDefaultSize, 0 );
+    ConectarButton = item16;
+    item16->SetDefault();
     item15->Add(item16, 0, wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL|wxALL, 0);
 
     wxFlexGridSizer* item17 = new wxFlexGridSizer(1, 1, 0, 0);
@@ -163,14 +191,57 @@ void LoginDialog::CreateControls()
     item18->AddGrowableCol(0);
     item3->Add(item18, 0, wxGROW|wxGROW|wxALL, 5);
 
-////@end LoginDialog content construction
+////@end wxLoginDialog content construction
+}
+
+/*!
+ * wxEVT_COMMAND_BUTTON_CLICKED event handler for ConectarButton
+ */
+
+void wxLoginDialog::OnConectarbuttonClick( wxCommandEvent& event )
+{
+    // Insert custom code here
+    ::wxMessageBox(_("Botón Apretado"));
+    if ((UsuarioTextCtrl->GetValue()=="") || (ContrasenaTextCtrl->GetValue()==""))
+    {
+        ::wxMessageBox(_("Escribe tu nombre y clave."),_("Titanes"),wxOK|wxICON_ERROR);
+        event.Skip();
+        return;
+    }
+    ConectarButton->Disable();
+/*
+			
+			try {
+				TCPConnection.Connect();
+			} catch (System.Net.Sockets.SocketException) {
+				MessageBox.Show ("No se puede conectar al servidor.\nIntentalo de nuevo mas tarde.",
+				                 "Titanes",MessageBoxButtons.OK);
+				btnLogin.Enabled = true;
+				return;
+			}
+			
+			TCPConnection.StartListening();
+	
+			ProtLogin Login = new ProtLogin();
+			if (!Login.Login (txtUsername.Text, txtPassword.Text)) {
+				this.Close();
+				return;
+			}
+			
+			User.Name = txtUsername.Text;
+			this.Hide();
+			frmMain f = new frmMain();
+			f.Show();
+*/
+    ConectarButton->Enable();
+    event.Skip();
 }
 
 /*!
  * Should we show tooltips?
  */
 
-bool LoginDialog::ShowToolTips()
+bool wxLoginDialog::ShowToolTips()
 {
     return TRUE;
 }
