@@ -257,6 +257,30 @@ void wxChatDialog::RemoveUser(wxInt32 userid)
   UsuariosListCtrl->DeleteItem(row);
 }
 
+void wxChatDialog::ProcessBroadcastChatMessage(wxInt32 userid,wxString rcvmsg)
+{
+  struct TEDChatter *chatter;
+  wxString username;
+
+  if (userid==0)
+  {
+    username=_("servidor");
+  }
+  else
+  {
+    chatter=m_TEDProtocol->GetUser(userid);
+    if (chatter==NULL)
+    {
+      username=_("desconocido");
+    }
+    else
+    {
+      username=chatter->Name;
+    }
+  }
+  MensajesTextCtrl->AppendText(username+_T(": ")+rcvmsg+_T("\n"));
+}
+
 int wxCALLBACK wxListCompareFunction(long item1,long item2,long sortData)
 {
   return ((struct TEDChatter *)item1)->Name.Cmp(((struct TEDChatter *)item2)->Name);
@@ -281,5 +305,4 @@ void wxChatDialog::OnChatRoomSelected( wxListEvent& event )
 //  ::wxSafeShowMessage(_("Titanes XXX"),((struct TEDChatRoom *)event.GetItem().GetData())->RoomName);
   event.Skip();
 }
-
 

@@ -97,6 +97,7 @@ public:
     void SetChannelNames();
     void AddUser(struct TEDChatter *chatter);
 	  void RemoveUser(wxInt32 userid);
+	  void ProcessBroadcastChatMessage(wxInt32 userid,wxString rcvmsg);
 
     /// Should we show tooltips?
     static bool ShowToolTips();

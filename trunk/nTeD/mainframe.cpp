@@ -561,16 +561,32 @@ void wxMainFrame::ProcessChatMessage(wxString msg)
 {
   wxStringTokenizer msgtok;
   wxString tok;
+  long int longvalue;
+  wxInt32 userid;
+  wxString rcvmsg;
 
   msgtok=wxStringTokenizer(msg);
   tok=msgtok.GetNextToken();
   tok=msgtok.GetNextToken();
-
-  m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
-/*
-			} else if (Msg[0].Equals("CM")) {
-				ChatMessage (Msg);
-*/
+  // CM <type> <user_id> <mensaje>
+  if (tok==_T("B"))
+  {
+    tok=msgtok.GetNextToken();
+    tok.ToLong(&longvalue);
+    userid=longvalue;
+    rcvmsg=msgtok.GetString();
+    m_ChatWnd->ProcessBroadcastChatMessage(userid,rcvmsg);
+  }
+  else if (tok==_T("P"))
+  {
+    // IT IS SUPPOSED WE SHOULD NOT GET THIS KIND OF CHAT MESSAGE
+  }
+  else
+  {
+    ::wxSafeShowMessage(_("Titanes"),_T("El servidor ha respondido con un comando desconocido.\nCM ")+
+      tok+_T(" ")+msgtok.GetString());
+  }
+//  m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
 }
 
 void wxMainFrame::ProcessDuelChallenged(wxString msg)
