@@ -3,13 +3,13 @@
 // Purpose:     
 // Author:      Kintups
 // Modified by: 
-// Created:     02/27/04 09:53:08
+// Created:     04/14/04 19:05:21
 // RCS-ID:      
 // Copyright:   
 // Licence:     
 /////////////////////////////////////////////////////////////////////////////
 
-#ifdef __GNUG__
+#if defined(__GNUG__) && !defined(__APPLE__)
 #pragma implementation "chatdialog.h"
 #endif
 
@@ -20,9 +20,11 @@
 #pragma hdrstop
 #endif
 
-////@begin includes
+#ifndef WX_PRECOMP
 #include "wx/wx.h"
-#include "wx/listctrl.h"
+#endif
+
+////@begin includes
 ////@end includes
 
 #include "chatdialog.h"
@@ -31,65 +33,65 @@
 ////@end XPM images
 
 /*!
- * ChatDialog type definition
+ * wxChatDialog type definition
  */
 
-IMPLEMENT_CLASS( ChatDialog, wxDialog )
+IMPLEMENT_CLASS( wxChatDialog, wxPanel )
 
 /*!
- * ChatDialog event table definition
+ * wxChatDialog event table definition
  */
 
-BEGIN_EVENT_TABLE( ChatDialog, wxDialog )
+BEGIN_EVENT_TABLE( wxChatDialog, wxPanel )
 
-////@begin ChatDialog event table entries
-////@end ChatDialog event table entries
+////@begin wxChatDialog event table entries
+////@end wxChatDialog event table entries
 
 END_EVENT_TABLE()
 
 /*!
- * ChatDialog constructors
+ * wxChatDialog constructors
  */
 
-ChatDialog::ChatDialog( )
+wxChatDialog::wxChatDialog( )
 {
 }
 
-ChatDialog::ChatDialog( wxWindow* parent, wxWindowID id, const wxString& caption, const wxPoint& pos, const wxSize& size, long style )
+wxChatDialog::wxChatDialog( wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style )
 {
-    Create(parent, id, caption, pos, size, style);
+    Create(parent, id, pos, size, style);
 }
 
 /*!
- * ChatDialog creator
+ * wxChatDialog creator
  */
 
-bool ChatDialog::Create( wxWindow* parent, wxWindowID id, const wxString& caption, const wxPoint& pos, const wxSize& size, long style )
+bool wxChatDialog::Create( wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style )
 {
-////@begin ChatDialog member initialisation
-////@end ChatDialog member initialisation
+////@begin wxChatDialog member initialisation
+////@end wxChatDialog member initialisation
 
-////@begin ChatDialog creation
+////@begin wxChatDialog creation
     SetExtraStyle(wxWS_EX_BLOCK_EVENTS);
-    wxDialog::Create( parent, id, caption, pos, size, style );
+    wxPanel::Create( parent, id, pos, size, style );
 
     CreateControls();
     GetSizer()->Fit(this);
     GetSizer()->SetSizeHints(this);
     Centre();
-////@end ChatDialog creation
+////@end wxChatDialog creation
     return TRUE;
 }
 
 /*!
- * Control creation for ChatDialog
+ * Control creation for wxChatDialog
  */
 
-void ChatDialog::CreateControls()
+void wxChatDialog::CreateControls()
 {    
-////@begin ChatDialog content construction
+////@begin wxChatDialog content construction
 
-    ChatDialog* item1 = this;
+    wxChatDialog* item1 = this;
 
     wxFlexGridSizer* item2 = new wxFlexGridSizer(1, 1, 0, 0);
     item2->AddGrowableRow(0);
@@ -100,47 +102,52 @@ void ChatDialog::CreateControls()
     wxFlexGridSizer* item3 = new wxFlexGridSizer(1, 2, 0, 5);
     item3->AddGrowableRow(0);
     item3->AddGrowableCol(0);
-    item2->Add(item3, 1, wxGROW|wxGROW|wxALL, 7);
+    item2->Add(item3, 1, wxGROW|wxGROW|wxALL|wxADJUST_MINSIZE, 7);
 
     wxFlexGridSizer* item4 = new wxFlexGridSizer(2, 1, 5, 0);
     item4->AddGrowableRow(0);
     item4->AddGrowableCol(0);
-    item3->Add(item4, 1, wxGROW|wxGROW|wxALL, 0);
+    item3->Add(item4, 1, wxGROW|wxGROW|wxALL|wxADJUST_MINSIZE, 0);
 
-    wxTextCtrl* item5 = new wxTextCtrl( item1, ID_TEXTCTRL, _T(""), wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE );
+    wxTextCtrl* item5 = new wxTextCtrl;
+    item5->Create( item1, ID_TEXTCTRL, _T(""), wxDefaultPosition, wxSize(400, 300), wxTE_MULTILINE );
     item4->Add(item5, 1, wxGROW|wxGROW|wxALL, 0);
 
     wxFlexGridSizer* item6 = new wxFlexGridSizer(1, 2, 0, 5);
     item6->AddGrowableRow(0);
     item6->AddGrowableCol(0);
-    item4->Add(item6, 1, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0);
+    item4->Add(item6, 1, wxGROW|wxALIGN_BOTTOM|wxALL, 0);
 
-    wxTextCtrl* item7 = new wxTextCtrl( item1, ID_TEXTCTRL1, _T(""), wxDefaultPosition, wxDefaultSize, 0 );
+    wxTextCtrl* item7 = new wxTextCtrl;
+    item7->Create( item1, ID_TEXTCTRL1, _T(""), wxDefaultPosition, wxDefaultSize, 0 );
     item6->Add(item7, 1, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0);
 
-    wxButton* item8 = new wxButton( item1, EnviarButton, _("Enviar"), wxDefaultPosition, wxDefaultSize, 0 );
+    wxButton* item8 = new wxButton;
+    item8->Create( item1, EnviarButton, _("Enviar"), wxDefaultPosition, wxDefaultSize, 0 );
     item8->SetDefault();
     item6->Add(item8, 1, wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL|wxALL, 0);
 
     wxBoxSizer* item9 = new wxBoxSizer(wxVERTICAL);
-    item3->Add(item9, 1, wxALIGN_CENTER_HORIZONTAL|wxGROW|wxALL, 0);
+    item3->Add(item9, 1, wxALIGN_RIGHT|wxGROW|wxALL, 0);
 
-    wxListCtrl* item10 = new wxListCtrl( item1, ID_LISTCTRL, wxDefaultPosition, wxSize(100, 100), wxLC_LIST  );
+    wxListCtrl* item10 = new wxListCtrl;
+    item10->Create( item1, ID_LISTCTRL, wxDefaultPosition, wxSize(150, 100), wxLC_LIST  );
     item9->Add(item10, 1, wxALIGN_RIGHT|wxALL, 0);
 
     item9->Add(5, 5, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 0);
 
-    wxListCtrl* item12 = new wxListCtrl( item1, ID_LISTCTRL1, wxDefaultPosition, wxSize(100, 100), 0 );
+    wxListCtrl* item12 = new wxListCtrl;
+    item12->Create( item1, ID_LISTCTRL1, wxDefaultPosition, wxSize(150, 100), 0 );
     item9->Add(item12, 0, wxALIGN_RIGHT|wxALL, 0);
 
-////@end ChatDialog content construction
+////@end wxChatDialog content construction
 }
 
 /*!
  * Should we show tooltips?
  */
 
-bool ChatDialog::ShowToolTips()
+bool wxChatDialog::ShowToolTips()
 {
     return TRUE;
 }
