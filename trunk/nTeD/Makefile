@@ -34,4 +34,10 @@ nted.o: nted.rc
 
 # rule for cleaning files generated during compilations.
 clean:
-				rm -f nted.exe main.o mainframe.o logindialog.o chatdialog.o deckdialog.o infodialog.o tedprotocol.o tcpconnection.o nted.o
+	rm -f nted.exe main.o mainframe.o logindialog.o chatdialog.o deckdialog.o infodialog.o tedprotocol.o tcpconnection.o nted.o
+
+# rule for making final executable
+dist: nted.exe
+	strip -s -o nted-strip.exe nted.exe
+	upx -9 -o nted-strip-upx.exe --compress-icons=0 nted-strip.exe
+	mv nted-strip-upx.exe nted.exe
