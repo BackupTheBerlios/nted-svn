@@ -130,6 +130,7 @@ public:
     void ProcessDeckNew(wxString deckname,wxInt32 deckid);
     void ProcessDeckClear();
     void ProcessDeckRename();
+    void ProcessDeckActive();
 
 ////@begin wxDeckDialog member function declarations
 

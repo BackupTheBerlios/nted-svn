@@ -23,9 +23,15 @@ TEDProtocol::TEDProtocol()
   m_chatting=FALSE;
   m_tryroom=0;
   m_recoverroom=0;
+  m_actdeck=-1;
+  m_editing=FALSE;
   m_gettingdecklist=FALSE;
+  m_gettingcardlist=FALSE;
   m_currentdeck=-1;
+  m_cardsmoving.Clear();
   m_newdecks.Clear();
+  m_decksrenaming.Clear();
+  m_decksactivating.Clear();
 }
 
 void TEDProtocol::Connect()
@@ -651,5 +657,27 @@ struct TEDRenamingDeck *TEDProtocol::GetRenamingDeck()
   renamingdeck=m_decksrenaming[0];
   m_decksrenaming.RemoveAt(0);
   return renamingdeck;
+}
+
+void TEDProtocol::DeckActive(wxInt32 deckid)
+{
+  wxString sndmsg;
+
+  m_decksactivating.Add(deckid);
+  sndmsg=_T("EA ")+wxString::Format("%d",deckid)+_T("\n");
+  TCPConn->SendMessage(sndmsg);
+}
+
+wxInt32 TEDProtocol::GetActivatingDeck()
+{
+  wxInt32 deckid;
+
+  if (m_decksactivating.IsEmpty()==TRUE)
+  {
+    return -1;
+  }
+  deckid=m_decksactivating[0];
+  m_decksactivating.RemoveAt(0);
+  return deckid;
 }
 

@@ -422,8 +422,21 @@ void wxDeckDialog::OnBorrarbarajabuttonidClick( wxCommandEvent& event )
 
 void wxDeckDialog::OnActivarbarajabuttonidClick( wxCommandEvent& event )
 {
-    // Insert custom code here
-    event.Skip();
+  // Insert custom code here
+  wxInt32 *deckid;
+
+  // Insert custom code here
+  deckid=(wxInt32 *)DecksComboBox->GetClientData(DecksComboBox->GetSelection());
+  if (deckid==NULL)
+  {
+    return;
+  }
+  else if (*deckid==m_TEDProtocol->GetActiveDeckID())
+  {
+    return;
+  }
+  m_TEDProtocol->DeckActive(*deckid);
+  event.Skip();
 }
 
 void wxDeckDialog::ClearDecks()
@@ -619,5 +632,18 @@ void wxDeckDialog::ProcessDeckRename()
   deckid=(wxInt32 *)DecksComboBox->GetClientData(row);
   DecksComboBox->SetString(row,renamingdeck->deckname);
   DecksComboBox->SetSelection(row);
+}
+
+void wxDeckDialog::ProcessDeckActive()
+{
+  wxInt32 deckid;
+
+  // Insert custom code here
+  deckid=m_TEDProtocol->GetActivatingDeck();
+  if (deckid==-1)
+  {
+    return;
+  }
+  m_TEDProtocol->SetActiveDeckID(deckid);
 }
 
