@@ -224,6 +224,8 @@ void wxLoginDialog::OnConectarbuttonClick( wxCommandEvent& event )
     if (m_TEDProtocol->IsLogged()==FALSE)
     {
       ConectarButton->Enable();
+      event.Skip();
+      return;
     }
     ((wxMainFrame *)GetParent())->UpdateToolbar(ChatTool);
     ((wxMainFrame *)GetParent())->m_ChatWnd->SetChannelNames();
