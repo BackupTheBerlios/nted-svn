@@ -45,6 +45,14 @@ IMPLEMENT_CLASS( wxDeckDialog, wxPanel )
 BEGIN_EVENT_TABLE( wxDeckDialog, wxPanel )
 
 ////@begin wxDeckDialog event table entries
+    EVT_LIST_ITEM_SELECTED( ReserveListCtrlID, wxDeckDialog::OnReservelistctrlidSelected )
+    EVT_LIST_ITEM_ACTIVATED( ReserveListCtrlID, wxDeckDialog::OnReservelistctrlidItemActivated )
+
+    EVT_COMBOBOX( DecksComboBoxID, wxDeckDialog::OnDeckscomboboxidSelected )
+
+    EVT_LIST_ITEM_SELECTED( CurrentDeckListCtrlID, wxDeckDialog::OnCurrentdecklistctrlidSelected )
+    EVT_LIST_ITEM_ACTIVATED( CurrentDeckListCtrlID, wxDeckDialog::OnCurrentdecklistctrlidItemActivated )
+
 ////@end wxDeckDialog event table entries
 
 END_EVENT_TABLE()
@@ -77,7 +85,14 @@ bool wxDeckDialog::Create( wxWindow* parent, wxWindowID id, const wxString& capt
     fgscenterchild = NULL;
     CardStaticBitmap = NULL;
     fgsbuttons = NULL;
+    ComprarSobreButton = NULL;
+    CrearBarajaButton = NULL;
+    RenombrarBarajaButton = NULL;
+    BorrarBarajaButton = NULL;
+    ActivarBarajaButton = NULL;
     fgsright = NULL;
+    DecksComboBox = NULL;
+    CurrentDeckListCtrl = NULL;
 ////@end wxDeckDialog member initialisation
 
 ////@begin wxDeckDialog creation
@@ -89,6 +104,32 @@ bool wxDeckDialog::Create( wxWindow* parent, wxWindowID id, const wxString& capt
     GetSizer()->SetSizeHints(this);
     Centre();
 ////@end wxDeckDialog creation
+    ReserveListCtrl->SortItems(wxListCompareFunction2,0);
+    ReserveListCtrl->SetSizeHints(290,100);
+    ReserveListCtrl->InsertColumn(0,_("Nombre"));
+    ReserveListCtrl->InsertColumn(1,_("#"));
+    ReserveListCtrl->InsertColumn(2,_("A/D"));
+    ReserveListCtrl->InsertColumn(3,_("Poder"));
+    ReserveListCtrl->InsertColumn(4,_("Valor"));
+    ReserveListCtrl->SetColumnWidth(0,126);
+    ReserveListCtrl->SetColumnWidth(1,24);
+    ReserveListCtrl->SetColumnWidth(2,40);
+    ReserveListCtrl->SetColumnWidth(3,50);
+    ReserveListCtrl->SetColumnWidth(4,46);
+    CurrentDeckListCtrl->SortItems(wxListCompareFunction2,0);
+    CurrentDeckListCtrl->SetSizeHints(260,100);
+    CurrentDeckListCtrl->InsertColumn(0,_("Nombre"));
+    CurrentDeckListCtrl->InsertColumn(1,_("#/M"));
+    CurrentDeckListCtrl->InsertColumn(2,_("A/D"));
+    CurrentDeckListCtrl->InsertColumn(3,_("Poder"));
+    CurrentDeckListCtrl->SetColumnWidth(0,126);
+    CurrentDeckListCtrl->SetColumnWidth(1,40);
+    CurrentDeckListCtrl->SetColumnWidth(2,40);
+    CurrentDeckListCtrl->SetColumnWidth(3,50);
+    fgsleft->Layout();
+    fgsright->Layout();
+    Layout();
+
     return TRUE;
 }
 
@@ -122,7 +163,7 @@ void wxDeckDialog::CreateControls()
     item4->AddGrowableCol(0);
     item3->Add(item4, 1, wxGROW|wxGROW|wxALL, 0);
 
-    wxListCtrl* item5 = new wxListCtrl( item1, ReserveListCtrlID, wxDefaultPosition, wxSize(100, 100), wxLC_REPORT|wxLC_NO_HEADER );
+    wxListCtrl* item5 = new wxListCtrl( item1, ReserveListCtrlID, wxDefaultPosition, wxSize(100, 100), wxLC_REPORT|wxLC_SINGLE_SEL|wxLC_SORT_ASCENDING );
     ReserveListCtrl = item5;
     item4->Add(item5, 1, wxGROW|wxGROW|wxALL, 0);
 
@@ -143,33 +184,46 @@ void wxDeckDialog::CreateControls()
     CardStaticBitmap = item9;
     item8->Add(item9, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL, 0);
 
-    wxFlexGridSizer* item10 = new wxFlexGridSizer(0, 1, 0, 0);
+    wxFlexGridSizer* item10 = new wxFlexGridSizer(5, 1, 2, 0);
     fgsbuttons = item10;
     item8->Add(item10, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    wxButton* item11 = new wxButton( item1, ID_BUTTON, _("Button"), wxDefaultPosition, wxDefaultSize, 0 );
-    item10->Add(item11, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL, 0);
+    wxButton* item11 = new wxButton( item1, ComprarSobreButtonID, _("Comprar Sobre"), wxDefaultPosition, wxSize(100, -1), 0 );
+    ComprarSobreButton = item11;
+    item10->Add(item11, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0);
 
-    wxButton* item12 = new wxButton( item1, ID_BUTTON1, _("Button"), wxDefaultPosition, wxDefaultSize, 0 );
-    item10->Add(item12, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL, 0);
+    wxButton* item12 = new wxButton( item1, CrearBarajaButtonID, _("Crear Baraja"), wxDefaultPosition, wxSize(100, -1), 0 );
+    CrearBarajaButton = item12;
+    item10->Add(item12, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0);
 
-    wxButton* item13 = new wxButton( item1, ID_BUTTON2, _("Button"), wxDefaultPosition, wxDefaultSize, 0 );
-    item10->Add(item13, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL, 0);
+    wxButton* item13 = new wxButton( item1, RenombrarBarajaButtonID, _("Renombrar Baraja"), wxDefaultPosition, wxSize(100, -1), 0 );
+    RenombrarBarajaButton = item13;
+    item10->Add(item13, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0);
 
-    wxButton* item14 = new wxButton( item1, ID_BUTTON3, _("Button"), wxDefaultPosition, wxDefaultSize, 0 );
-    item10->Add(item14, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL, 0);
+    wxButton* item14 = new wxButton( item1, BorrarBarajaButtonID, _("Borrar Baraja"), wxDefaultPosition, wxSize(100, -1), 0 );
+    BorrarBarajaButton = item14;
+    item10->Add(item14, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0);
 
-    wxButton* item15 = new wxButton( item1, ID_BUTTON4, _("Button"), wxDefaultPosition, wxDefaultSize, 0 );
-    item10->Add(item15, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL, 0);
+    wxButton* item15 = new wxButton( item1, ActivarBarajaButtonID, _("Activar Baraja"), wxDefaultPosition, wxSize(100, -1), 0 );
+    ActivarBarajaButton = item15;
+    item10->Add(item15, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0);
 
-    wxFlexGridSizer* item16 = new wxFlexGridSizer(1, 1, 0, 0);
+    wxFlexGridSizer* item16 = new wxFlexGridSizer(2, 1, 5, 0);
     fgsright = item16;
-    item16->AddGrowableRow(0);
+    item16->AddGrowableRow(1);
     item16->AddGrowableCol(0);
     item3->Add(item16, 1, wxGROW|wxGROW|wxALL, 0);
 
-    wxListCtrl* item17 = new wxListCtrl( item1, ID_LISTCTRL1, wxDefaultPosition, wxSize(100, 100), wxLC_REPORT|wxLC_NO_HEADER );
-    item16->Add(item17, 1, wxGROW|wxGROW|wxALL, 0);
+    wxString item17Strings[] = {
+        _("Pejelagarto barquero")
+    };
+    wxComboBox* item17 = new wxComboBox( item1, DecksComboBoxID, _T(""), wxDefaultPosition, wxDefaultSize, 1, item17Strings, wxCB_READONLY|wxCB_SORT );
+    DecksComboBox = item17;
+    item16->Add(item17, 0, wxGROW|wxALIGN_TOP|wxALL, 0);
+
+    wxListCtrl* item18 = new wxListCtrl( item1, CurrentDeckListCtrlID, wxDefaultPosition, wxSize(100, -1), wxLC_REPORT|wxLC_SINGLE_SEL|wxLC_SORT_ASCENDING );
+    CurrentDeckListCtrl = item18;
+    item16->Add(item18, 1, wxGROW|wxGROW|wxALL, 0);
 
 ////@end wxDeckDialog content construction
 }
@@ -182,3 +236,62 @@ bool wxDeckDialog::ShowToolTips()
 {
     return TRUE;
 }
+/*!
+ * wxEVT_COMMAND_LIST_ITEM_SELECTED event handler for ReserveListCtrlID
+ */
+
+void wxDeckDialog::OnReservelistctrlidSelected( wxListEvent& event )
+{
+    // Insert custom code here
+    event.Skip();
+}
+
+
+/*!
+ * wxEVT_COMMAND_LIST_ITEM_ACTIVATED event handler for ReserveListCtrlID
+ */
+
+void wxDeckDialog::OnReservelistctrlidItemActivated( wxListEvent& event )
+{
+    // Insert custom code here
+    event.Skip();
+}
+
+
+/*!
+ * wxEVT_COMMAND_LIST_ITEM_SELECTED event handler for CurrentDeckListCtrlID
+ */
+
+void wxDeckDialog::OnCurrentdecklistctrlidSelected( wxListEvent& event )
+{
+    // Insert custom code here
+    event.Skip();
+}
+
+/*!
+ * wxEVT_COMMAND_LIST_ITEM_ACTIVATED event handler for CurrentDeckListCtrlID
+ */
+
+void wxDeckDialog::OnCurrentdecklistctrlidItemActivated( wxListEvent& event )
+{
+    // Insert custom code here
+    event.Skip();
+}
+
+
+/*!
+ * wxEVT_COMMAND_COMBOBOX_SELECTED event handler for DecksComboBoxID
+ */
+
+void wxDeckDialog::OnDeckscomboboxidSelected( wxCommandEvent& event )
+{
+    // Insert custom code here
+    event.Skip();
+}
+
+int wxCALLBACK wxListCompareFunction2(long item1,long item2,long sortData)
+{
+  return 0;//((struct TEDChatter *)item1)->Name.Cmp(((struct TEDChatter *)item2)->Name);
+}
+
+

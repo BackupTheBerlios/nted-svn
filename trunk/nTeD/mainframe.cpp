@@ -100,6 +100,10 @@ bool wxMainFrame::Create( wxWindow* parent, wxWindowID id, const wxString& capti
     m_ChatWnd->SetSizeHints(566,348);
     m_ChatWnd->Layout();
     m_ChatWnd->Hide();
+    m_DeckWnd=new wxDeckDialog(this);
+    m_DeckWnd->SetSizeHints(650,348);
+    m_DeckWnd->Layout();
+    m_DeckWnd->Hide();
     m_InfoWnd=new wxInfoDialog(this);
     m_InfoWnd->Hide();
     m_ActiveWnd=m_LoginWnd;
@@ -170,7 +174,10 @@ void wxMainFrame::CreateControls()
 void wxMainFrame::OnConectartoolClick( wxCommandEvent& event )
 {
     // Insert custom code here
-//    UpdateToolbar(ConectarTool);
+    if (m_TEDProtocol->IsLogged()==FALSE)
+    {
+      UpdateToolbar(ConectarTool);
+    }
     event.Skip();
 }
 
@@ -192,6 +199,12 @@ void wxMainFrame::OnChattoolClick( wxCommandEvent& event )
 void wxMainFrame::OnBarajastoolClick( wxCommandEvent& event )
 {
     // Insert custom code here
+    if (m_TEDProtocol->IsChatting()==TRUE)
+    {
+      m_TEDProtocol->SetRecoverRoomID(m_TEDProtocol->GetUserChatRoomID());
+      m_TEDProtocol->ChatExit();
+      m_TEDProtocol->DeckEdit();
+    }
     UpdateToolbar(BarajasTool);
     event.Skip();
 }
@@ -253,6 +266,11 @@ void wxMainFrame::UpdateToolbar(int id)
   m_mainsizer->Detach(m_ActiveWnd);
   switch (id)
   {
+    case ConectarTool:
+    {
+      m_ActiveWnd=m_LoginWnd;
+      break;
+    }
     case ChatTool:
     {
       m_ActiveWnd=m_ChatWnd;
@@ -260,9 +278,7 @@ void wxMainFrame::UpdateToolbar(int id)
     }
     case BarajasTool:
     {
-      if ((m_ActiveWnd)!=(m_ChatWnd))
-      {
-      }
+      m_ActiveWnd=m_DeckWnd;
       break;
     }
     case InfoTool:
@@ -528,15 +544,38 @@ void wxMainFrame::ProcessDeckEdit(wxString msg)
 {
   wxStringTokenizer msgtok;
   wxString tok;
+  wxInt32 deckid;
+  long int longvalue;
 
   msgtok=wxStringTokenizer(msg);
   tok=msgtok.GetNextToken();
   tok=msgtok.GetNextToken();
 
+  // EE OK <id_active_deck>
+  if (tok==_T("OK"))
+  {
+    tok=rcvtok.GetNextToken();
+    tok.ToLong(&longvalue);
+    deckid=longvalue;
+    m_TEDProtocol->SetActiveDeckID(deckid);
+  }
+  else
+  {
+    ::wxSafeShowMessage(_("Titanes"),_T("El servidor ha respondido con un comando desconocido.\nEE ")+
+      tok+_T(" ")+msgtok.GetString());
+  }
   m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
 /*
 			} else if (Msg[0].Equals("EE")) {
-				DeckEdit (Msg);
+			this.ActiveDeck = Convert.ToInt32(Msg[2]);
+			for (int i = 0; i < 20; i++) Decks[i] = null;
+			cbxDeckA.Items.Clear();
+			cbxDeckB.Items.Clear();
+			lstDeckA.Items.Clear();
+			lstDeckB.Items.Clear();
+			this.lblActive.Text = "Mazo: " + this.ActiveDeck;
+			this.lblGold.Text =	"Oro: " + User.Gold + " €";
+			TCPConnection.SendMessage ("EL\n");
 */
 }
 
@@ -939,6 +978,27 @@ void wxMainFrame::ProcessGameUse(wxString msg)
 
 void wxMainFrame::ProcessUnknownMessage(wxString msg)
 {
+  // WHEN WE LOSE THE CONNECTION AND WE TRY TO RECONNECT
+  // WE ENTER AND INFINITE LOOP OR WAIT AT SOMEWHERE
+  // SO WE NEED TO RECHECK HOW WE ARE DOING IT
   m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
+  if (m_TEDProtocol->IsConnected()==FALSE)
+  {
+    m_LoginWnd->ConectarButton->Enable();
+    m_ChatWnd->MensajesTextCtrl->AppendText(_T("Se perdió la conexión\n"));
+  }
+  else
+  {
+    m_ChatWnd->MensajesTextCtrl->AppendText(_T("NO se perdió la conexión\n"));
+    if (m_TEDProtocol->IsLogged()==FALSE)
+    {
+      m_LoginWnd->ConectarButton->Enable();
+      m_ChatWnd->MensajesTextCtrl->AppendText(_T("Se perdió la conexión de usuario\n"));
+    }
+    else
+    {
+      m_ChatWnd->MensajesTextCtrl->AppendText(_T("NO se perdió la conexión de usuario\n"));
+    }
+  }
 }
 

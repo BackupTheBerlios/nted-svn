@@ -74,17 +74,25 @@ class TEDProtocol
 	  bool ChatExit();
 	  wxInt32 GetUserChatRoomID();
 	  wxInt32 GetTryRoomID();
+	  wxInt32 GetRecoverRoomID();
 	  void SetUserChatRoomID(wxInt32 roomid);
 	  void SetTryRoomID(wxInt32 roomid);
+	  void SetRecoverRoomID(wxInt32 roomid);
 	  void AddUser(struct TEDChatter *chatter);
 	  void RemoveUser(wxInt32 userid);
 	  struct TEDChatter *GetUser(wxInt32 userid);
+	  void DeckEdit();
+	  void DeckExit();
+	  wxInt32 GetActiveDeckID();
+	  void SetActiveDeckID(wxInt32 deckid);
 	private:
 	  TCPConnection *TCPConn;
 	  struct TEDUser User;
 	  bool m_logged;
 	  bool m_chatting;
     wxInt32 m_tryroom;
+    wxInt32 m_recoverroom;
+    wxInt32 m_actdeck;
 /*
 	  wxSocketClient *Conn;
 	  wxTextInputStream *Input;

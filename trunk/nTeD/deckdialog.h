@@ -46,12 +46,13 @@ class wxListCtrl;
 #define SYMBOL_WXDECKDIALOG_POSITION wxDefaultPosition
 #define ReserveListCtrlID 10001
 #define CardStaticBitmapID 10008
-#define ID_BUTTON 10002
-#define ID_BUTTON1 10003
-#define ID_BUTTON2 10004
-#define ID_BUTTON3 10005
-#define ID_BUTTON4 10006
-#define ID_LISTCTRL1 10007
+#define ComprarSobreButtonID 10002
+#define CrearBarajaButtonID 10003
+#define RenombrarBarajaButtonID 10004
+#define BorrarBarajaButtonID 10005
+#define ActivarBarajaButtonID 10006
+#define DecksComboBoxID 10009
+#define CurrentDeckListCtrlID 10007
 ////@end control identifiers
 
 /*!
@@ -65,6 +66,8 @@ class wxListCtrl;
 /*!
  * wxDeckDialog class declaration
  */
+
+int wxCALLBACK wxListCompareFunction2(long item1, long item2, long sortData);
 
 class wxDeckDialog: public wxPanel
 {    
@@ -84,6 +87,21 @@ public:
 
 ////@begin wxDeckDialog event handler declarations
 
+    /// wxEVT_COMMAND_LIST_ITEM_SELECTED event handler for ReserveListCtrlID
+    void OnReservelistctrlidSelected( wxListEvent& event );
+
+    /// wxEVT_COMMAND_LIST_ITEM_ACTIVATED event handler for ReserveListCtrlID
+    void OnReservelistctrlidItemActivated( wxListEvent& event );
+
+    /// wxEVT_COMMAND_COMBOBOX_SELECTED event handler for DecksComboBoxID
+    void OnDeckscomboboxidSelected( wxCommandEvent& event );
+
+    /// wxEVT_COMMAND_LIST_ITEM_SELECTED event handler for CurrentDeckListCtrlID
+    void OnCurrentdecklistctrlidSelected( wxListEvent& event );
+
+    /// wxEVT_COMMAND_LIST_ITEM_ACTIVATED event handler for CurrentDeckListCtrlID
+    void OnCurrentdecklistctrlidItemActivated( wxListEvent& event );
+
 ////@end wxDeckDialog event handler declarations
 
 ////@begin wxDeckDialog member function declarations
@@ -102,7 +120,14 @@ public:
     wxFlexGridSizer* fgscenterchild;
     wxStaticBitmap* CardStaticBitmap;
     wxFlexGridSizer* fgsbuttons;
+    wxButton* ComprarSobreButton;
+    wxButton* CrearBarajaButton;
+    wxButton* RenombrarBarajaButton;
+    wxButton* BorrarBarajaButton;
+    wxButton* ActivarBarajaButton;
     wxFlexGridSizer* fgsright;
+    wxComboBox* DecksComboBox;
+    wxListCtrl* CurrentDeckListCtrl;
 ////@end wxDeckDialog member variables
 };
 

@@ -22,6 +22,7 @@ TEDProtocol::TEDProtocol()
   m_logged=FALSE;
   m_chatting=FALSE;
   m_tryroom=0;
+  m_recoverroom=0;
 }
 
 void TEDProtocol::Connect()
@@ -235,16 +236,33 @@ void TEDProtocol::Disconnect()
 
 bool TEDProtocol::IsConnected()
 {
-  return TCPConn->IsConnected();
+  if (TCPConn->IsConnected()==FALSE)
+  {
+    m_chatting=FALSE;
+    m_logged=FALSE;
+    return FALSE;
+  }
+  return TRUE;
 }
 
 bool TEDProtocol::IsLogged()
 {
+  if (m_logged==FALSE)
+  {
+    m_chatting=FALSE;
+    return FALSE;
+  }
+  IsConnected();
   return m_logged;
 }
 
 bool TEDProtocol::IsChatting()
 {
+  if (m_chatting==FALSE)
+  {
+    return FALSE;
+  }
+  IsLogged();
   return m_chatting;
 }
 
@@ -324,7 +342,6 @@ bool TEDProtocol::ChatExit()
 {
   wxString sndmsg;
 
-  // VERIFICAMOS QUE NUESTRA VERSION DEL CLIENTE ES VALIDA
   sndmsg=_T("CX\n");
   TCPConn->SendMessage(sndmsg);
   return FALSE;
@@ -340,6 +357,11 @@ wxInt32 TEDProtocol::GetTryRoomID()
   return m_tryroom;
 }
 
+wxInt32 TEDProtocol::GetRecoverRoomID()
+{
+  return m_recoverroom;
+}
+
 void TEDProtocol::SetUserChatRoomID(wxInt32 roomid)
 {
   User.Room=roomid;
@@ -348,6 +370,11 @@ void TEDProtocol::SetUserChatRoomID(wxInt32 roomid)
 void TEDProtocol::SetTryRoomID(wxInt32 roomid)
 {
   m_tryroom=roomid;
+}
+
+void TEDProtocol::SetRecoverRoomID(wxInt32 roomid)
+{
+  m_recoverroom=roomid;
 }
 
 void TEDProtocol::AddUser(struct TEDChatter *chatter)
@@ -370,5 +397,32 @@ struct TEDChatter *TEDProtocol::GetUser(wxInt32 userid)
     return NULL;
   }
   return it->second;
+}
+
+void TEDProtocol::DeckEdit()
+{
+  wxString sndmsg;
+
+  sndmsg=_T("EE\n");
+  TCPConn->SendMessage(sndmsg);
+}
+
+void TEDProtocol::DeckExit()
+{
+  wxString sndmsg;
+
+  sndmsg=_T("EX\n");
+  TCPConn->SendMessage(sndmsg);
+  return FALSE;
+}
+
+wxInt32 TEDProtocol::GetActiveDeckID()
+{
+  return m_actdeck;
+}
+
+void TEDProtocol::SetActiveDeckID(wxInt32 deckid)
+{
+  m_actdeck=deckid;
 }
 
