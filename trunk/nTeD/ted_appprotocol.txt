@@ -1,0 +1,449 @@
+// Titanes (El Destierro)
+// Proyecto freeware de juego de cartas medieval-fantástico
+// Véase la documentación para info del equipo y más información  
+
+Protocolo de comunicaciones Servidor(DeckServer) <-> Cliente
+
+- Modo texto
+- Todos los mensajes constan de operación (2 chars) seguidos o no de parámetros
+  OP <param> <param>
+- Los separadores son espacios, los parámetros no pueden contener espacios
+  excepto textos (que irán siempre como último parámetro, obviamente)
+- Si el cliente desea soportar tildes, etc... debe enviarlos HTMLEncoded
+  (&aacute; para tildes, por ejemplo). 
+  
+- Cualquier mensaje no entendido por el servidor, vacío, con un número
+  incorrecto de parámetros o con parámetros incorrectos, será respondido
+  con un 'IM', y el servidor cerrará la conexión.
+- Las líneas se separan con un único caracter '\n'
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+FASE DE LOGIN
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+<username>: max 16 caracteres ([a-z][A-Z][0-9]-_=+*!?)
+            no se admiten ñ en esos rangos, es bastante restrictivo :-) 
+            el username diferencia mayúsculas/minúsculas
+
+Al hacer la conexión, el servidor espera un mensaje del cliente:
+
+cl: TC <version>                 
+    significa "Titanes Client", la versión actual está definida como "0.1"
+    (las comillas no deben ser incluidas)
+sv: OK | NO <motivo>
+    si el servidor responde NO, cierra la conexión después automáticamente
+    el motivo es un número: 1 - Version Incorrecta 2 - Server Full 3 - IP Banned
+
+REGISTRO:
+
+cl: UR <username> md5(<password>) <email>
+    significa "User Register", no implementar todavía...
+sv: ...
+    
+LOGIN:
+
+cl: UL <username> md5(<password>)
+    significa "User Login", la contraseña en esta version aun no la hasheamos
+    el servidor no se quejará por parámetros incorrectos si el username
+    contiene caracteres inválidos, simplemente denegará el login
+sv: OK <wins> <looses> <retired> <gold> <deck value> <rank> | NO
+    todos los parámetros son enteros positivos
+    si responde NO, el servidor cierra la conexion
+
+cl: UP <timestamp> 
+    el cliente envia un timestamp que indica el momento de la última
+    actualizacion que tiene, el servidor le responde con la lista
+    de cartas que tiene que obtener: ojo, este timestamp debe
+    ser el que el servidor envió la última vez...
+sv: US <url>
+    el servidor envia ninguno, uno o varios servidores (al principio, sólo enviará
+    uno) de los que se pueden obtener los datos e imágenes de las cartas:
+    para ello envia 'http://servidor/url...'. El cliente añadirá el id
+    y '.txt' si son los datos de la carta, y '.jpg' si es
+    la imagen. En disco, el cliente puede almacenarlos por el numero si lo
+    desea, para acceder facilmente a ellos.
+sv: UC <id>
+    el servidor responde con ninguno, uno o varios UC que son las
+    cartas nuevas o actualizadas, y termina con un OK seguido
+    del nuevo timestamp.
+sv: OK <nuevo_timestamp>
+    Si ha enviado algun servidor y carta, el servidor cierra aqui la conexion
+
+cl: CR
+    significa "Chat Rooms", va seguido de un id con 
+sv: CR <id> <nombre de la sala>
+    significa "Chat Room", va seguido de un id (entero positivo) que
+    será correlativo y el nombre de la sala (que puede tener espacios)
+    el servidor envía varias veces este mensaje (aunque ojo, porque
+    llegarán en un único paquete TCP: los paquetes no deben influir
+    en la separación de mensajes, sino los '\n': el servidor hace
+    esto en más ocasiones). las salas de chat sólo se envían una
+    vez porque no pueden modificarse mientras el servidor está activo
+sv: OK
+    tras terminar con las salas de chat, el servidor ha terminado
+    de enviar info y añade un OK (podremos añadir más cosas antes
+    si hacen falta en el futuro: como el Message Of the Day)
+    ahora el servidor está a la espera de mensajes del cliente
+
+    
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+FASE NEUTRA (o sea, de PH 7 :D)
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+En esta fase, el cliente debe decidir lo que va a hacer:
+entrar en una sala de chat, editar su baraja, o cualquier otra
+función principal que podamos necesitar más adelante.
+
+La iniciativa es del cliente, aunque no se debería descartar que el servidor 
+pueda enviar mensajes (asíncronamente) en el futuro.
+
+cl: CE <id>
+    significa "Chat Enter", va seguido del id de la sala
+sv: CE OK | CE NO <motivo>
+    si el servidor responde NO, lo hará seguido de un entero,
+    y se continúa en la fase Neutra [ 1 (Room is Full) 2 (Incorrect Room) ]
+    si responde OK, es entonces cuando el cliente puede pasarse a modo
+    'chat room'
+    
+cl: EE
+    significa "dEck Editor", en el futuro este comando y todos
+    los de mas de edicion de baraja serán validos dentro del modo de chat,
+    y los comandos de chat dentro del modo de baraja (excepto los comandos
+    de reto, que sólo se podrán enviar y aceptar estando fuera del modo de
+    edición de baraja). Por ahora, se debe salir del modo chat
+    antes de entrar en el modo de edición de baraja, y se debe salir
+    del modo baraja antes de enviar comandos de chat.
+sv: EE OK <id_active_deck>
+    el servidor responde OK seguido del id de baraja por defecto
+    la reserva siempre es la baraja numero cero (0)
+
+
+sv: GS
+    Game Start: lo envia el servidor para llamar a los clientes
+    a duelo. Los clientes solo necesitan aceptar este comando
+    en este modo.
+
+cl: QT
+    significa "Quit Titanes", sirve para salir limpiamente
+    del servidor. el servidor desconecta la sesión.
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+MODO: CHAT ROOM 
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+En este modo los mensajes son enviados de forma asíncrona.
+El usuario va a recibir los usuarios una
+vez que ya esté dentro de la sala (no se han enviado todavía),
+antes que ningún otro comando.
+No se espera que las conexiones/desconexiones aparezcan en la 
+ventana de chat.
+
+En realidad, el servidor cachea las entradas/salidas de usuarios y
+las envía juntas, en un único paquete (posiblemente); la frecuencia
+con la que se hace, aunque es configurable, se puede suponer alrededor 
+de 3-5 seg o así (realmente se hace según tiempo y también según tamaño
+del buffer). Tambien lo hace con los mensajes de chat.
+El cliente no debería preocuparse por esto, porque recibirá varias líneas
+en cualquier caso, que es lo que identifica cada mensaje.
+
+(Nota: Falta el control anti-flood, tenía uno pero no vale para nada
+ tal y como están las cosas, pero se debe tener en cuenta que es un
+ requisito mínimo y será necesario).
+
+cl: CB <mensaje>
+    significa "Chat Broadcast", y se usa para enviar un mensaje
+    el servidor no lo responde, ni reemite el mensaje al usuario
+    que lo envía (un mensaje vacío es un comando incorrecto)
+cl: CP <user_id> <mensaje>
+    significa "Chat Private"
+    envía un mensaje privado a un usuario ¡no implementar!
+cl: DP <user_id>
+    significa "Duel Purpose", especifica que queremos retar al otro
+    usuario: no se podrá enviar otro mensaje igual hasta recibir
+    del servidor indicación de 'Cancelado', o que lo
+    cancelemos nosotros... si se envia el servidor desconectará
+    al usuario
+cl: DC
+    significa "Duel Cancel", e indica que queremos cancelar el duelo
+    que habíamos propuesto
+cl: DD <user_id>
+    significa "Duel Decline", e indica que queremos rechazar una invitación
+    para un reto
+cl: DA <user_id>
+    significa "Duel Accept", e indica que queremos aceptar una invitación
+    de duelo del usuario user_id, si cuando el servidor lo recibe
+    tal invitación sigue activa, enviará a ambos clientes una notificación
+    para pasarse a la sala de duelo, si no siguiese activa o por algún
+    motivo no pudiese comenzar, el servidor no informará de ello a los
+    usuarios, simplemente no empezará la partida
+    Mientras el cliente no recibe el GS aun puede recibir (y si quiere,
+    enviar) comandos de chat (el GS es el comando que indica que el
+    duelo va a comenzar) y/o de propuestas de duelo.
+    
+cl: CX
+    significa "Chat eXit", e indica al servidor que nos vamos de la sala de chat
+    el servidor responde siempre con un CX
+
+sv: CM <type> <user_id> <mensaje>
+    significa "Chat Message", el tipo es B para broadcast y P
+    si se tratase de un mensaje privado (aunque previstos,
+    no se implementará el sistema de mensajes privados).
+    El usuario que lo envió no recibe el mensaje.
+sv: DH <user_id>
+    significa "Duel cHallengued", y nos indica que un usuario quiere
+    retarnos, podremos 'aceptar' o 'declinar' la invitación
+sv: DC [user_id]
+    si el duelo caduca por timeout (o el otro usuario se va), el servidor envía 
+    este mensaje al cliente que inició el duelo, y también al que lo recibió 
+    (éste último recibe también el id del usuario que había iniciado la propuesta: 
+    un cliente  puede ser retado por otros varios, pero sólo puede retar a uno 
+    a la vez: sucesivos DP antes de una cancelación provocan la desconexión).
+    También lo recibe el usuario que propone un duelo si el otro lo declina.
+sv: CU <tipo> <user_num> [<user_name> <deck value> <rank>]
+    significa 'Chat User', y nos informa de entradas salidas de usuarios
+    en la sala (el primer paquete consiste exclusivamente en esto)..
+    <tipo>: 'I' <- usuario que entra o actualización de usuario que ya está
+            'O' <- usuario que sale de la sala
+    el servidor enviará estos datos antes de cualquier mensaje que haga
+    referencia a un usuario recién entrado
+    <user_num> especifica el id de usuario, y el resto de los parámetros
+    sus datos si es que está entrando o actualizándose
+    
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+MODO: DECK EDITOR
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+Al final en este modo no hay chat, y para entrar en él hay que estar
+fuera del chat.
+
+cl: EL 
+    Significa "dEck List". Solicita la lista de barajas del usuario.
+    Esta lista sólo se envía una vez por sesión. Segundas llamadas
+    provocaran un Mensaje Incorrecto y la desconexión del cliente.
+sv: EL <id_baraja> <nombre>
+    El servidor responde con las barajas y un EL OK. Los id no tienen por
+    qué ser correlativos.
+    EL OK
+
+cl: ED <id_baraja>
+    Significa "dEck Describe". Solicita la lista de cartas 
+    de una baraja.
+sv: ED <id_baraja> <uid_carta> <id_carta>
+    El servidor responde con una lista de cartas: su uid (identificador
+    unico de la carta) y su id_carta, que indica el tipo de carta del
+    que se trata. Termina con un "ED OK"
+    ED OK
+    
+cl: EC <id_carta>
+    Significa "dEck Card", devuelve los datos de una carta:
+sv: EC <id_carta> <type> <attack> <deffense> <gold> 
+       <max> <cost> <frequency> <name> <description>
+       Ojo: <name> y <description> van con los espacios sustituidos
+       por guiones bajos ('_')
+    ¡¡¡Este comando no se implementará, los clientes obtendrán los
+    datos de las cartas a través de HTTP!!! El formato a través
+    de http es 'text/plain' con una única línea con el mismo
+    contenido que el indicado antes.
+    Se espera que el cliente mantenga copia local de los datos de
+    las cartas y sólo pida información de cartas que desconoce.
+    
+    - Type es el tipo: 
+        "1: fuente de poder"
+        "2: criatura (permanece en la mesa y tiene ataque/defensa"
+        "3: objeto (permanece en la mesa y tiene efectos)"
+        "4: hechizo (tiene un efecto y se va al cementario en el momento de usarlo)"
+        "5: encantamiento (se aplica a criaturas)"
+        "6: efecto (como un hechizo
+    - Gold es su coste
+    - Max es el número de ellas que puede haber en una baraja
+    - Cost es el coste en poder para bajar la carta
+        Se expresa como: "PPP*" Cada "P" es una unidad de poder y el * es variable
+        "PP" serían 2 unidades de poder, "P*" serían dos, tres, cuatro...
+        (a un asterisco debe asignarse al menos una unidad de poder).
+    - Frequency es la frecuencia de la carta:
+        La primera letra es la rareza:
+        (U)ltrararas (R)aras (I)nfrecuentes (C)omunes (M)oralla
+        El segundo y tercer caracter son guiones (en un futuro pueden
+        ser modificadores de rareza si los diseñadores lo necesitan)
+    - Name y Description (los espacios se sustituyen por guiones)
+      La descripcion puede contener caracteres especiales que habrá
+      que sustituir por imágenes (como 'girar', o 'poder')
+
+cl: EN <nombre baraja>
+    Significa "dEck New". Crea una baraja
+sv: EN OK <id_baraj> | EN NO
+    El servidor responde con OK y el id de la baraja, o EN NO 0
+    si el usuario no puede tener más barajas
+
+cl: EM <id_baraja> <uid_carta>
+    Significa "dEck Move". Pone la carta indicada en la baraja indicada.
+    (0 es la reserva).
+cl: EM OK | EM NO <motivo>
+    Devuelve NO si la carta no se puedo mover porque:
+      1: ya hay el max. de cartas permitidas de ese tipo en la baraja de destino
+      2: la baraja de destino no existe (en este caso, se desconecta al cliente)
+
+cl: EK <id_baraja>
+    Significa "dEck clear", mueve todas las cartas de esa baraja 
+    a la reserva y la elimina.
+sv: EK OK | IM
+    Devuelve OK tras eliminarla, o NO si la baraja no existe o
+    es la baraja activa (y desconecta al cliente).
+
+cl: ER <id_baraja> <nuevo_nombre>
+    Significa "dEck Rename", renombra la baraja al nuevo nombre
+sv: ER OK | IM
+    Devuelve OK tras renombrarla. Si la baraja no existe devuelve
+    IM y cierra la conexion (No se puede renombrar la reserva).
+      
+cl: EA <id_baraja>
+    Significa "dEck Active": Establece la baraja como baraja activa.
+sv: EA OK | IM
+    Devuelve IM (Incorrect Message) si la baraja indicada no existe (en este 
+    caso se desconecta al cliente).
+
+cl: EG <tipo/etc.>
+    Es "dEck Get". Compra un sobre de cartas. El servidor responde con
+    una lista de ED seguida de un OK. Las cartas que se entregan
+    van a parar a la Reserva. El cliente enviara 'EG 1' mientras
+    no se definan varios tipos de sobre/mazo.
+sv: Varios ED <...> | EG NO 
+    EG <oro>. La respuesta indica la cantidad de oro que le queda al jugador.
+    
+cl: EX
+    Significa "dEck Exit". El servidor responde con un EX , oro y valor
+sv: EX <deck value>
+    Ahora los datos de coste de baraja y oro pueden haber cambiado,
+    por eso se envían de nuevo (los datos de coste de baraja durante la edición
+    no se envían)
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+MODO: GAME
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+El servidor llama a los particiapntes a duelo:
+
+sv: GS <user_name> <deck value> <rank>
+    Llamada a duelo (Game Start). Este comando se recibe dentro del
+    chat (y tal vez en otros modos más adelante). Cuando el usuario
+    lo recibe, ya no debe esperar más mensajes de chat .
+    Este mensaje se recibe tras aceptar un duelo (enviando un DA)
+    o cuando un oponente acepta un duelo nuestro (enviado un DP)
+    El usuario puede considerarse fuera del chat en este momento.
+cl: GS OK
+    El cliente responde cuando cargue la ventana, a partir de este
+    momento el cliente no puede enviar ningún comando de chat más (ya
+    debe considerarse fuera del chat desde el momento en que recibe
+    el GS del servidor). Desde el momento en que recibió el 
+    anterior GS se considera al cliente en una partida, y si desparece
+    o no responde se considerará un abandono.
+
+En cualquier momento a partir de ahora el cliente puede recibir un
+comando GZ si el oponente se desconecta. En ese caso, recibirá un:
+sv: GZ 
+cl: GX
+sv: GX OK <wins> <looses> <retired> <gold> <rank>
+
+sv: GZ <W|L|R>
+    El servidor informa del final de la partida: W si el usuario gana
+    L si pierde, y R si el oponente desapareció. El servidor no debe
+    enviar más comandos de juego tras este comando.
+    
+cl: GX
+    EL cliente comunica que ha recibido el fin de partida (y ya no
+    enviará ningún comando de juego ni chat al oponente)
+sv: GX OK <wins> <looses> <retired> <gold> <rank>
+    EL servidor responde a la salida del usuario informándole de
+    sus nuevos datos. Después de esto el usuario está en modo neutro
+    y puede volver al chat o editor de baraja
+
+sv: GI <vida_local> <tam_baraja_local> <vida_oponente> <tam_baraja_oponente>
+    El servidor informa de vida y tamaño de barajas
+    
+sv: GF <W|P> <fase>
+    el servidor envía a cada cliente información de su fase (Game Fase)
+    W es waiting y P es playing, se informa a ambos de la fase 
+    P 1 = desgirar
+    P 2 = fase de mantenimiento
+    P 3 = fase de robar carta 
+    P 4 = fase de bajar poder
+    P 5 = fase de usar cartas ("juego")
+    P 6 = fase de ataque
+    P 7 = fase de usar cartas ("juego")
+    P 8 = fase de descarte
+    
+sv: GC <gid> <id> <jugador (P|W)> <ubicacion> [<gid_target>] 
+    es "Game Card", pone una carta en una posicion 
+    si la carta ya estaba en juego se "mueve" al sitio indicado
+    El <id> puede ser 0, si el jugador aun no conoce de qué carta
+    se trata. cuando el usuario ya la conoce id es el id de la carta 
+    Posiciones: 0-Fuera/Partida 1-Mesa 2-Mesa(T) 3-Mano 
+                4-Cementerio 5-Combate 6-Combate(T) 7-Acoplado a...
+    En el caso de "acoplado a" se envia detras la carta destino (y no
+    importa en este caso el jugador, aunque representa al controlador de
+    la carta) Tambien en el caso de Combate y ser defensor, se envia
+    la carta a la que defiende
+    Nota: El GID no es el identificador de la carta que se envía durante
+          la edición de baraja (y que es único para cada carta). Durante cada
+          partida las cartas tienen una numeración propia y única para ese
+          duelo.
+    
+cl: GT <frase>
+    No se admiten mensajes vacios, y debe implementarse anti-flood
+sv: GT <frase>
+    El servidor reenvía este mensaje al otro cliente
+    
+sv: GE M|O <bitmask_playing> <bitmask_waiting>  [mensaje opcional para el cliente]
+    Game Select: Espera que el cliente elija una carta de ese tipo
+    0: poder        (1)
+    1: criatura     (2)
+    2: objeto       (4)
+    3: conjuro      (8) (solo en tu turno y en fase de "juego")
+    4: encantamiento (16) (para estos, la posicion mesa representa "en juego"
+       siendo el controlador el jugador indicado: aunque el encantamiento
+       esté en la mesa del oponente aplicado a una de sus cartas).
+    5: hechizo      (32) (estos son instantaneos)
+    
+    8: mesa levantada (256)
+    9: mesa girada    (512)
+    10: mano          (1024)
+    11: cementerio    (2048)
+    12: combate levantada (4096)
+    13: combate girada (8192)
+
+    Se envia una mascara para las cartas elegibles del jugador
+    que tiene el turno y tambien de las de su oponente
+    M es Mandatory, y O optional (se permite pasar)
+    En fase de ataque, se refiere a criaturas que han atacado
+    o defendido (para asignar daño)
+    
+cl: GU <uid> 
+    Game Use: Lo envía el cliente y es un intento de usar esa carta
+    No se puede enviar ningun otro comando de duelo (sí de chat) hasta 
+    recibir respuesta. Para pasar el cliente envía GU 0.
+sv: GU NO [texto: motivo] | GU OK (segun la carta sea valida o no)
+    Este Game Use es la respuesta al del cliente, se sigue de OK o
+    NO segun la carta sea valida o no (puede añadir una frase
+    con el motivo).
+
+Nota: faltan comandos para que el server envie mensajes a los clientes
+      (infomrativos), y para que comunique cambios a una carta
+      (de tipo, ataque o defensa, daño recibido, fichas y/o contadores).
+      Falta tambien el sistema para seleccionar como objetivo al
+      jugador. EN el futuro sería interesante permitir enviar varios
+      datos de golpe para ahorrar mensajes de ida y vuelta.
+
+
+TO-DO:
+
+- Falta control para comprobar que el cliente sigue
+  conectado, y tal vez límite de tiempo en duelos para que
+  si el usuario se va y deja el cliente conectado el otro
+  no tenga que perder la partida.
+
+- Mensajes para que el usuario defina qué efectos de la carta
+  quiere usar.
+
+- Sistema de auto-duelos
+
+- Chat durante la edición de baraja
