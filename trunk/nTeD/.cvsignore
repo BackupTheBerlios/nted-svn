@@ -3,4 +3,10 @@ resources
 imagenes
 icons2
 possibleicons
+*_symbols.h
+*_private.*
 *.xrc
+*.exe
+*.dev
+*.layout
+*.pjd
