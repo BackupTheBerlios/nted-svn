@@ -550,7 +550,7 @@ void TEDProtocol::RemoveCardUID(wxInt32 deckid,wxInt32 cardid,wxInt32 carduid)
 //  *uid=carduid;
 //  index=User.Decks[deckid]->Cards[cardid]->UId.Index(uid);
   index=User.Decks[deckid]->Cards[cardid]->UId.Index(carduid);
-::wxSafeShowMessage(_("Titanes"),wxString::Format("IsEmpty %d",index));
+//::wxSafeShowMessage(_("Titanes"),wxString::Format("IsEmpty %d",index));
   if (index==wxNOT_FOUND)
   {
     return;
