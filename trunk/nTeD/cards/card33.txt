@@ -1,0 +1,10 @@
+33
+2
+1
+5
+8
+4
+PPPP
+C
+Bastion
+El Bastion no puede atacar.

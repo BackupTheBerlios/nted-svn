@@ -3,8 +3,8 @@
 0
 0
 18
-4
+1
 PPPP
-I
+R
 Espejo espia
 Mientras el Espejo espia esta en juego, tu oponente juega con su mano al descubierto.

@@ -1,0 +1,10 @@
+41
+4
+0
+0
+11
+4
+PPP
+C
+Pocion curativa
+Ganas 4 vidas.

@@ -6,5 +6,5 @@
 4
 PPPP
 R
-Autogeneracion
+Autogenerar
 Roba 2 cartas.

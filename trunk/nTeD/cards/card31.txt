@@ -1,0 +1,10 @@
+31
+5
+0
+0
+15
+4
+PPP
+I
+Alas de fuego
+La criatura encantada gana la habilidad de volar. Si la criatura encantada muere, las Alas de fuego vuelven a la mano de su controlador.

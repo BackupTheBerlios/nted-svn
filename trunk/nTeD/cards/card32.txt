@@ -1,0 +1,10 @@
+32
+2
+0
+4
+10
+4
+PP
+I
+Muro de piedra
+El Muro de piedra no puede atacar.

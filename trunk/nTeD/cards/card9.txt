@@ -1,10 +1,10 @@
 9
 2
-3
+2
 2
 20
 4
 PP
 R
 Arachr
-Cuando entra en juego, hace 1 punto de daño a tu oponente.
+Vuela. Cuando entra en juego, hace 1 punto de daño a tu oponente.

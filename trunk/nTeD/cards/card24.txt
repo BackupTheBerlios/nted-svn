@@ -2,9 +2,9 @@
 2
 1
 1
-17
-4
-PPP
-R
+30
+1
+PPPP
+U
 Valor
-Perder 1 vida: Valor hace 2 puntos de daño a la criatura oponente objetivo. No puedes gastar mas de 3 vidas de esta forma.
+[Perder 1 vida]: Valor hace 2 puntos de daño a la criatura oponente objetivo. No puedes gastar mas de 2 vidas de esta forma.

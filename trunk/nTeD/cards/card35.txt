@@ -1,0 +1,10 @@
+35
+2
+2
+2
+25
+4
+PP
+R
+Pejelagarto jefe
+[T, Sacrificar]: El Pejelagarto jefe hace 3 puntos de daño a una criatura.

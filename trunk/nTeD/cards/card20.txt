@@ -7,4 +7,4 @@
 PPPP
 C
 Bugbear guerrero
-[PD]: Hace un punto de daño a la criatura objetivo.
+[PT]: Hace un punto de daño a la criatura objetivo.

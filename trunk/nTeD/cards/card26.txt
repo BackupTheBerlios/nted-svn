@@ -2,9 +2,9 @@
 2
 2
 3
-50
+22
 4
 PPPP
 U
 Dominion
-[PP]: Gira o endereza la criatura objetivo. Durante tu mantenimiento, paga [P] o sacrifica el Dominion.
+Vuela. [PP]: Gira o endereza la criatura objetivo. Durante tu mantenimiento, paga [P] o sacrifica el Dominion.

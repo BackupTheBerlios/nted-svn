@@ -1,0 +1,10 @@
+30
+5
+0
+0
+13
+4
+PPP
+C
+Saltar
+La criatura encantada gana la habilidad de saltar (si la criatura que la defiende no vuela, salta o puede bloquear criaturas voladoras, obtiene -1/-1 hasta el final del combate).

@@ -1,0 +1,10 @@
+29
+2
+2
+3
+16
+4
+PPP
+I
+Antilope sagrado
+El Antilope sagrado no se gira al atacar. [T, Sacrificar] Recuperas 4 puntos de vida.

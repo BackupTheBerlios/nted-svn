@@ -1,0 +1,10 @@
+40
+4
+0
+0
+15
+4
+PP
+C
+Romper
+Entierra el objeto o el encantamiento objetivo.
