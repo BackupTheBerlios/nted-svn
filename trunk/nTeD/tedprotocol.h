@@ -161,6 +161,9 @@ class TEDProtocol
     struct TEDRenamingDeck *GetRenamingDeck();
     void DeckActive(wxInt32 deckid);
     wxInt32 GetActivatingDeck();
+    void DeckGet();
+    wxInt32 GetUserGold();
+    void SetUserGold(wxInt32 gold);
 	private:
 	  TCPConnection *TCPConn;
 	  struct TEDUser User;

@@ -930,7 +930,7 @@ void wxMainFrame::ProcessDeckRename(wxString msg)
   }
   else
   {
-    ::wxSafeShowMessage(_("Titanes"),_T("El servidor ha respondido con un comando desconocido.\nEK ")+
+    ::wxSafeShowMessage(_("Titanes"),_T("El servidor ha respondido con un comando desconocido.\nER ")+
       tok+_T(" ")+msgtok.GetString());
   }
   m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
@@ -944,28 +944,42 @@ void wxMainFrame::ProcessDeckActive(wxString msg)
   msgtok=wxStringTokenizer(msg);
   tok=msgtok.GetNextToken();
   tok=msgtok.GetNextToken();
-
+  // EA OK | IM
+  if (tok==_T("OK"))
+  {
+    m_DeckWnd->ProcessDeckActive();
+  }
+  else
+  {
+    ::wxSafeShowMessage(_("Titanes"),_T("El servidor ha respondido con un comando desconocido.\nEA ")+
+      tok+_T(" ")+msgtok.GetString());
+  }
   m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
-/*
-  // THIS COMMAND IS NOT IMPLEMENTED IN THE ALPHA VERSION
-  // BUT IT WORKS FINE ON THE SERVER SIDE
-*/
 }
 
 void wxMainFrame::ProcessDeckGet(wxString msg)
 {
   wxStringTokenizer msgtok;
   wxString tok;
+  long int longvalue;
+  wxInt32 gold;
 
   msgtok=wxStringTokenizer(msg);
   tok=msgtok.GetNextToken();
   tok=msgtok.GetNextToken();
-
+  // ED <...> | EG NO
+  // EG <oro>
+  if (tok!=_T("NO"))
+  {
+    tok.ToLong(&longvalue);
+    gold=longvalue;
+    m_DeckWnd->ProcessDeckGet(gold);
+  }
+  else
+  {
+    ::wxSafeShowMessage(_("Titanes"),_T("No tienes suficiente dinero para comprar otro sobre."));
+  }
   m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
-/*
-			} else if (Msg[0].Equals("EG")) {
-				DeckGet (Msg);
-*/
 }
 
 void wxMainFrame::ProcessDeckExit(wxString msg)

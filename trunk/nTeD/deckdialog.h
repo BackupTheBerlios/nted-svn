@@ -131,6 +131,7 @@ public:
     void ProcessDeckClear();
     void ProcessDeckRename();
     void ProcessDeckActive();
+    void ProcessDeckGet(wxInt32 gold);
 
 ////@begin wxDeckDialog member function declarations
 

@@ -681,3 +681,21 @@ wxInt32 TEDProtocol::GetActivatingDeck()
   return deckid;
 }
 
+void TEDProtocol::DeckGet()
+{
+  wxString sndmsg;
+
+  sndmsg=_T("EG 1\n");
+  TCPConn->SendMessage(sndmsg);
+}
+
+wxInt32 TEDProtocol::GetUserGold()
+{
+  return User.Gold;
+}
+
+void TEDProtocol::SetUserGold(wxInt32 gold)
+{
+  User.Gold=gold;
+}
+

@@ -347,6 +347,7 @@ int wxCALLBACK wxListCompareFunction2(long item1,long item2,long sortData)
 
 void wxDeckDialog::OnComprarsobrebuttonidClick( wxCommandEvent& event )
 {
+  m_TEDProtocol->DeckGet();
   event.Skip();
 }
 
@@ -645,5 +646,10 @@ void wxDeckDialog::ProcessDeckActive()
     return;
   }
   m_TEDProtocol->SetActiveDeckID(deckid);
+}
+
+void wxDeckDialog::ProcessDeckGet(wxInt32 gold)
+{
+  m_TEDProtocol->SetUserGold(gold);
 }
 
