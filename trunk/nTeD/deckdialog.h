@@ -136,6 +136,7 @@ public:
     void ProcessDeckRename();
     void ProcessDeckActive();
     void ProcessDeckGet(wxInt32 gold);
+    void OnLeftDown(wxMouseEvent& event);
 
 ////@begin wxDeckDialog member function declarations
 

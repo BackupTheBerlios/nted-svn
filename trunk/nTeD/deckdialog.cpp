@@ -64,7 +64,7 @@ BEGIN_EVENT_TABLE( wxDeckDialog, wxPanel )
     EVT_LIST_ITEM_ACTIVATED( CurrentDeckListCtrlID, wxDeckDialog::OnCurrentdecklistctrlidItemActivated )
 
 ////@end wxDeckDialog event table entries
-
+    
 END_EVENT_TABLE()
 
 /*!
@@ -139,6 +139,7 @@ bool wxDeckDialog::Create( wxWindow* parent, wxWindowID id, const wxString& capt
     CurrentDeckListCtrl->SetColumnWidth(1,38);
     CurrentDeckListCtrl->SetColumnWidth(2,38);
     CurrentDeckListCtrl->SetColumnWidth(3,48);
+    CardStaticBitmap->Connect(CardStaticBitmapID,-1,wxEVT_LEFT_DOWN,(wxObjectEventFunction) (wxEventFunction) (wxMouseEventFunction)&wxDeckDialog::OnLeftDown );
     fgsleft->Layout();
     fgsright->Layout();
     Layout();
@@ -283,6 +284,12 @@ bool wxDeckDialog::ShowToolTips()
 {
     return TRUE;
 }
+
+void wxDeckDialog::OnLeftDown(wxMouseEvent& event)
+{
+  ::wxSafeShowMessage(_("Titanes"),wxString::Format("X=%d//Y=%d",event.GetX(),event.GetY()));
+}
+
 /*!
  * wxEVT_COMMAND_LIST_ITEM_SELECTED event handler for ReserveListCtrlID
  */
@@ -319,8 +326,16 @@ void wxDeckDialog::OnReservelistctrlidSelected( wxListEvent& event )
   memdc.SetClippingRegion(3,1,58,16);
   memdc.DrawText(card->Name,3,3);
   memdc.DestroyClippingRegion();
+  memdc.SetFont(wxFont(6,wxSWISS,wxNORMAL,wxLIGHT));
   memdc.SetClippingRegion(64,1,24,16);
   memdc.DrawText(card->Cost,64,3);
+  memdc.DestroyClippingRegion();
+  memdc.SetFont(wxFont(6,wxSWISS,wxNORMAL,wxLIGHT));
+  memdc.SetClippingRegion(17,105,72,16);
+  if ((card->Attack!=0) || (card->Defense!=0))
+  {
+    memdc.DrawText(wxString::Format("%d/%d",card->Attack,card->Defense),17,105);
+  }
   CardStaticBitmap->SetBitmap(clean);
   event.Skip();
 }
