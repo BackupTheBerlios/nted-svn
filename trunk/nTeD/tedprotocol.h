@@ -34,7 +34,7 @@ struct TEDChatRoom
   wxString RoomName;
 };
 
-WX_DEFINE_ARRAY(struct TEDChatRoom *,TEDChatRoomArray);
+WX_DEFINE_ARRAY_PTR(struct TEDChatRoom *,TEDChatRoomArray);
 
 struct TEDMovingCard
 {
@@ -44,9 +44,9 @@ struct TEDMovingCard
   wxInt32 carduid;
 };
 
-WX_DEFINE_ARRAY(struct TEDMovingCard *,TEDMovingCardArray);
+WX_DEFINE_ARRAY_PTR(struct TEDMovingCard *,TEDMovingCardArray);
 
-WX_DEFINE_ARRAY(wxInt32 *,TEDCardIdArray);
+WX_DEFINE_ARRAY(wxInt32,TEDCardIdArray);
 
 struct TEDRenamingDeck
 {
@@ -54,9 +54,9 @@ struct TEDRenamingDeck
   wxString deckname;
 };
 
-WX_DEFINE_ARRAY(struct TEDRenamingDeck *,TEDRenamingDeckArray);
+WX_DEFINE_ARRAY_PTR(struct TEDRenamingDeck *,TEDRenamingDeckArray);
 
-WX_DEFINE_ARRAY(wxInt32 *,TEDActivatingDeckArray);
+WX_DEFINE_ARRAY_PTR(wxInt32 *,TEDActivatingDeckArray);
 
 struct TEDCard
 {
@@ -75,7 +75,7 @@ struct TEDCard
 
 WX_DECLARE_HASH_MAP(wxInt32,struct TEDCard *,wxIntegerHash,wxIntegerEqual,TEDCardHash);
 
-WX_DEFINE_ARRAY(struct TEDCard *,TEDCardArray);
+WX_DEFINE_ARRAY_PTR(struct TEDCard *,TEDCardArray);
 
 struct TEDDeck
 {
@@ -124,7 +124,7 @@ struct TEDUser
 class TEDProtocol
 {
 	public:
-	  TEDProtocol();
+	  TEDProtocol(wxEvtHandler& handler, int id);
     void Connect();
     void Login(wxString UserName,wxString UserPass);
 	  wxString GetMessage();
@@ -186,6 +186,7 @@ class TEDProtocol
     wxInt32 GetDeckNumCards(wxInt32 deckid);
     void SetOpponent(wxString name,wxInt32 deckvalue,wxInt32 rank);
     void GameStart();
+    void GetSocketData();
 	private:
 	  TCPConnection *TCPConn;
 	  struct TEDUser User;
