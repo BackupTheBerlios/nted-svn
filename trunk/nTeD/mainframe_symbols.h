@@ -3,14 +3,9 @@
 // Purpose:     String symbols
 // Author:      Kintups
 // Modified by: 
-// Created:     02/25/04 16:07:25
+// Created:     04/15/04 20:34:40
 // RCS-ID:      
 // Copyright:   
 // Licence:     
 /////////////////////////////////////////////////////////////////////////////
 
-#define CONECTAR _("Conectar")
-#define CANALES _("Canales")
-#define BARAJAS _("Barajas")
-#define INFO _("Información")
-#define PREFERENCIAS _("Preferencias")
