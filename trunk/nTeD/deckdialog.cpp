@@ -426,12 +426,12 @@ void wxDeckDialog::ProcessDeckDescribe(wxInt32 deckid,wxInt32 carduid,wxInt32 ca
     card=m_TEDProtocol->GetCard(deckid,cardid);
     if (deckid==0)
     {
-      row=ReserveListCtrl->FindItem(-1,card->Name);
+      row=ReserveListCtrl->FindItem(-1,(long int)card);
       ReserveListCtrl->SetItem(row,1,wxString::Format("%d",card->UId.GetCount()));
     }
     else
     {
-      row=CurrentDeckListCtrl->FindItem(-1,card->Name);
+      row=CurrentDeckListCtrl->FindItem(-1,(long int)card);
       CurrentDeckListCtrl->SetItem(row,1,wxString::Format("%d",card->UId.GetCount()));
     }
   }
@@ -449,7 +449,7 @@ void wxDeckDialog::ProcessDeckMove(struct TEDMovingCard *movingcard)
   ProcessDeckDescribe(movingcard->dstdeckid,movingcard->carduid,movingcard->cardid);
   if (movingcard->srcdeckid==0)
   {
-    row=ReserveListCtrl->FindItem(-1,card->Name);
+    row=ReserveListCtrl->FindItem(-1,(long int)card);
     if (card->UId.IsEmpty()==TRUE)
     {
       ReserveListCtrl->DeleteItem(row);
@@ -461,7 +461,7 @@ void wxDeckDialog::ProcessDeckMove(struct TEDMovingCard *movingcard)
   }
   else
   {
-    row=CurrentDeckListCtrl->FindItem(-1,card->Name);
+    row=CurrentDeckListCtrl->FindItem(-1,(long int)card);
     if (card->UId.IsEmpty()==TRUE)
     {
       CurrentDeckListCtrl->DeleteItem(row);
