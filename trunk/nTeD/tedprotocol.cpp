@@ -23,6 +23,7 @@ TEDProtocol::TEDProtocol()
   m_chatting=FALSE;
   m_tryroom=0;
   m_recoverroom=0;
+  m_gettingdecklist=FALSE;
 }
 
 void TEDProtocol::Connect()
@@ -413,7 +414,6 @@ void TEDProtocol::DeckExit()
 
   sndmsg=_T("EX\n");
   TCPConn->SendMessage(sndmsg);
-  return FALSE;
 }
 
 wxInt32 TEDProtocol::GetActiveDeckID()
@@ -425,4 +425,58 @@ void TEDProtocol::SetActiveDeckID(wxInt32 deckid)
 {
   m_actdeck=deckid;
 }
+
+void TEDProtocol::DeckList()
+{
+  wxString sndmsg;
+
+  sndmsg=_T("EL\n");
+  m_gettingdecklist=TRUE;
+  User.Decks.clear();
+  TCPConn->SendMessage(sndmsg);
+}
+
+bool TEDProtocol::IsGettingDeckList()
+{
+  return m_gettingdecklist;
+}
+
+void TEDProtocol::SetGettingDeckList(bool gettingdecklist)
+{
+  m_gettingdecklist=gettingdecklist;
+}
+
+void TEDProtocol::AddDeck(wxInt32 deckid,wxString deckname)
+{
+  struct TEDDeck *deck;
+
+  deck=new struct TEDDeck;
+  deck->DeckId=deckid;
+  deck->DeckName=deckname;
+  deck->Cards.clear();
+  User.Decks[deckid]=deck;
+}
+
+void TEDProtocol::DeckDescribe(wxInt32 deckid)
+{
+  wxString sndmsg;
+
+  sndmsg=_T("ED ")+wxString::Format("%d",deckid)+_T("\n");
+  // WE WILL NOT NEED m_gettingcardlist BECAUSE WHEN WE BUY A NEW PACK OF CARDS
+  // WE DON'T GET A LIST WITH ALL CARDS IN RESERVE DECK (WASTE OF TIME)
+  // WE JUST GET A LIST OF THE NEW CARDS WE HAVE GOT
+//  m_gettingcardlist=TRUE;
+  TCPConn->SendMessage(sndmsg);
+}
+
+bool TEDProtocol::IsGettingCardList()
+{
+  return m_gettingcardlist;
+}
+
+void TEDProtocol::SetGettingCardList(bool gettingcardlist)
+{
+  m_gettingcardlist=gettingcardlist;
+}
+
 

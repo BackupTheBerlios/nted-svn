@@ -289,6 +289,63 @@ void wxDeckDialog::OnDeckscomboboxidSelected( wxCommandEvent& event )
     event.Skip();
 }
 
+void wxDeckDialog::ClearDecks()
+{
+  ReserveListCtrl->DeleteAllItems();
+  DecksComboBox->Clear();
+  CurrentDeckListCtrl->DeleteAllItems();
+}
+
+void wxDeckDialog::ProcessDeckList(wxInt32 deckid,wxString deckname)
+{
+  wxInt32 *value;
+
+  value=new wxInt32;
+  *value=deckid;
+  ::wxSafeShowMessage(_("Titanes"),deckname);
+  DecksComboBox->Append(deckname);
+//  DecksComboBox->Append(deckname,value);
+//  DecksComboBox->Refresh();
+  m_TEDProtocol->AddDeck(deckid,deckname);
+}
+
+void wxDeckDialog::LoadReserveDeck()
+{
+  m_TEDProtocol->DeckDescribe(0);
+}
+
+void wxDeckDialog::ProcessDeckDescribe(wxInt32 deckid,wxInt32 carduid,wxInt32 cardid)
+{
+/*
+				if (Decks[deck].Cards[id] == null) {
+					// La creamos
+					clsEditCard c = new clsEditCard();
+					StreamReader Data = ((StreamReader)new StreamReader("cards\\card" + id + ".txt"));
+					String[] CD = new String[10]; 
+					for (int i = 0; i < 10; i++) CD[i] = Data.ReadLine();
+					Data.Close();
+					// 6 = 6 2 2 6 60 8 P U Rey_de_Copas Arrolla. 
+					//    id type attack defense gold max cost freq nombre descr.
+					c.Attack = Convert.ToInt32(CD[2]);
+					c.Cost = CD[6];
+					c.Defense = Convert.ToInt32(CD[3]);
+					c.Freq = CD[7];
+					c.Gold = Convert.ToInt32(CD[4]);
+					c.Id = id;
+					c.Max = Convert.ToInt32(CD[5]);
+					c.Name = CD[8];
+					c.Text = CD[9];
+					c.Type = Convert.ToInt32(CD[1]);
+					c.UIDs = new ArrayList();
+					c.UIDs.Add (uid);
+					Decks[deck].Cards.Add (id,c);
+				} else {
+					// La añadimos
+					((clsEditCard)Decks[deck].Cards[id]).UIDs.Add(uid);
+				}
+*/
+}
+
 int wxCALLBACK wxListCompareFunction2(long item1,long item2,long sortData)
 {
   return 0;//((struct TEDChatter *)item1)->Name.Cmp(((struct TEDChatter *)item2)->Name);

@@ -114,6 +114,7 @@ bool wxMainFrame::Create( wxWindow* parent, wxWindowID id, const wxString& capti
     m_TEDProtocol=new TEDProtocol();
     m_LoginWnd->m_TEDProtocol=m_TEDProtocol;
     m_ChatWnd->m_TEDProtocol=m_TEDProtocol;
+    m_DeckWnd->m_TEDProtocol=m_TEDProtocol;
     return TRUE;
 }
 
@@ -187,9 +188,18 @@ void wxMainFrame::OnConectartoolClick( wxCommandEvent& event )
 
 void wxMainFrame::OnChattoolClick( wxCommandEvent& event )
 {
-    // Insert custom code here
-    UpdateToolbar(ChatTool);
-    event.Skip();
+  wxInt32 roomid;
+
+  // Insert custom code here
+  roomid=m_TEDProtocol->GetRecoverRoomID();
+  if (roomid!=0)
+  {
+    m_TEDProtocol->SetRecoverRoomID(0);
+    m_TEDProtocol->DeckExit();
+    m_TEDProtocol->ChatEnter(roomid);
+  }
+  UpdateToolbar(ChatTool);
+  event.Skip();
 }
 
 /*!
@@ -203,8 +213,8 @@ void wxMainFrame::OnBarajastoolClick( wxCommandEvent& event )
     {
       m_TEDProtocol->SetRecoverRoomID(m_TEDProtocol->GetUserChatRoomID());
       m_TEDProtocol->ChatExit();
-      m_TEDProtocol->DeckEdit();
     }
+    m_TEDProtocol->DeckEdit();
     UpdateToolbar(BarajasTool);
     event.Skip();
 }
@@ -554,10 +564,22 @@ void wxMainFrame::ProcessDeckEdit(wxString msg)
   // EE OK <id_active_deck>
   if (tok==_T("OK"))
   {
-    tok=rcvtok.GetNextToken();
+    tok=msgtok.GetNextToken();
     tok.ToLong(&longvalue);
     deckid=longvalue;
     m_TEDProtocol->SetActiveDeckID(deckid);
+    // THIS IS SUPPOSSED TO DO NOT BE NEEDED TO BE DONE
+    // BECAUSE WE DO IT EACH TIME WE LEAVE DECK MODE
+    m_DeckWnd->ClearDecks();
+    m_TEDProtocol->DeckList();
+/*
+			for (int i = 0; i < 20; i++)
+      {
+        Decks[i] = null;
+      }
+			this.lblActive.Text = "Mazo: " + this.ActiveDeck;
+			this.lblGold.Text =	"Oro: " + User.Gold + " €";
+*/
   }
   else
   {
@@ -565,18 +587,6 @@ void wxMainFrame::ProcessDeckEdit(wxString msg)
       tok+_T(" ")+msgtok.GetString());
   }
   m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
-/*
-			} else if (Msg[0].Equals("EE")) {
-			this.ActiveDeck = Convert.ToInt32(Msg[2]);
-			for (int i = 0; i < 20; i++) Decks[i] = null;
-			cbxDeckA.Items.Clear();
-			cbxDeckB.Items.Clear();
-			lstDeckA.Items.Clear();
-			lstDeckB.Items.Clear();
-			this.lblActive.Text = "Mazo: " + this.ActiveDeck;
-			this.lblGold.Text =	"Oro: " + User.Gold + " €";
-			TCPConnection.SendMessage ("EL\n");
-*/
 }
 
 void wxMainFrame::ProcessGameStart(wxString msg)
@@ -705,32 +715,79 @@ void wxMainFrame::ProcessDeckList(wxString msg)
 {
   wxStringTokenizer msgtok;
   wxString tok;
+  long int longvalue;
+  wxInt32 deckid;
+  wxString deckname;
 
   msgtok=wxStringTokenizer(msg);
   tok=msgtok.GetNextToken();
   tok=msgtok.GetNextToken();
-
+  // EL <id_baraja> <nombre>
+  // EL OK
+  if (tok!=_T("OK"))
+  {
+    if (m_TEDProtocol->IsGettingDeckList()==TRUE)
+    {
+      // WE SHOULD CHECK IF WE ARE GETTING A CORRECT DECKID
+      // BUT ON THIS MOMENT WE SUPPOSSE EVERYTHING IS FINE
+      tok.ToLong(&longvalue);
+      deckid=longvalue;
+      deckname=msgtok.GetString();
+      m_DeckWnd->ProcessDeckList(deckid,deckname);
+    }
+    else
+    {
+      ::wxSafeShowMessage(_("Titanes"),_T("El servidor ha respondido con un comando desconocido.\nEL ")+
+        tok+_T(" ")+msgtok.GetString());
+    }
+  }
+  else
+  {
+    // WE HAVE FINISHED GETTING DECK LIST
+    m_TEDProtocol->SetGettingDeckList(FALSE);
+    m_DeckWnd->LoadReserveDeck();
+  }
   m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
-/*
-			} else if (Msg[0].Equals("EL")) {
-				DeckList (Msg);
-*/
 }
 
 void wxMainFrame::ProcessDeckDescribe(wxString msg)
 {
   wxStringTokenizer msgtok;
   wxString tok;
+  long int longvalue;
+  wxInt32 deckid;
+  wxInt32 carduid;
+  wxInt32 cardid;
 
   msgtok=wxStringTokenizer(msg);
   tok=msgtok.GetNextToken();
   tok=msgtok.GetNextToken();
-
-  m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
+  // ED <id_baraja> <uid_carta> <id_carta>
+  // ED OK
+  if (tok!=_T("OK"))
+  {
+    tok.ToLong(&longvalue);
+    deckid=longvalue;
+    tok=msgtok.GetNextToken();
+    tok.ToLong(&longvalue);
+    carduid=longvalue;
+    tok=msgtok.GetNextToken();
+    tok.ToLong(&longvalue);
+    cardid=longvalue;
+    m_DeckWnd->ProcessDeckDescribe(deckid,carduid,cardid);
 /*
-			} else if (Msg[0].Equals("ED")) {
-				DeckDescribe (Msg);
+    else
+    {
+      ::wxSafeShowMessage(_("Titanes"),_T("El servidor ha respondido con un comando desconocido.\nED ")+
+        tok+_T(" ")+msgtok.GetString());
+    }
 */
+  }
+  else
+  {
+    // WE HAVE FINISHED GETTING CARD LIST
+  }
+  m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
 }
 
 void wxMainFrame::ProcessDeckNew(wxString msg)

@@ -36,6 +36,34 @@ struct TEDChatRoom
 
 WX_DEFINE_ARRAY(struct TEDChatRoom *,TEDChatRoomArray);
 
+WX_DEFINE_ARRAY(wxInt32,TEDCardIdArray);
+
+struct TEDCard
+{
+  wxInt32 Id;
+  wxInt32 Type;
+  wxInt32 Attack;
+  wxInt32 Defense;
+  wxInt32 Gold;
+  wxInt32 Max;
+  wxString Cost;
+  wxString Freq;
+  wxString Name;
+  wxString Text;
+  TEDCardIdArray UId;
+};
+
+WX_DECLARE_HASH_MAP(wxInt32,struct TEDCard *,wxIntegerHash,wxIntegerEqual,TEDCardHash);
+
+struct TEDDeck
+{
+  wxInt32 DeckId;
+  wxString DeckName;
+  TEDCardHash Cards;
+};
+
+WX_DECLARE_HASH_MAP(wxInt32,struct TEDDeck *,wxIntegerHash,wxIntegerEqual,TEDDeckHash);
+
 struct TEDUser
 {
   wxString Name;
@@ -48,6 +76,7 @@ struct TEDUser
   TEDChatRoomArray Rooms;
   TEDChatterHash Chatters;
   wxInt32 Room;
+  TEDDeckHash Decks;
 };
 
 /*!
@@ -85,6 +114,13 @@ class TEDProtocol
 	  void DeckExit();
 	  wxInt32 GetActiveDeckID();
 	  void SetActiveDeckID(wxInt32 deckid);
+    void DeckList();
+    bool IsGettingDeckList();
+    void SetGettingDeckList(bool gettingdecklist);
+    void AddDeck(wxInt32 deckid,wxString deckname);
+    void DeckDescribe(wxInt32 deckid);
+    bool IsGettingCardList();
+    void SetGettingCardList(bool gettingcardlist);
 	private:
 	  TCPConnection *TCPConn;
 	  struct TEDUser User;
@@ -93,6 +129,8 @@ class TEDProtocol
     wxInt32 m_tryroom;
     wxInt32 m_recoverroom;
     wxInt32 m_actdeck;
+    bool m_gettingdecklist;
+    bool m_gettingcardlist;
 /*
 	  wxSocketClient *Conn;
 	  wxTextInputStream *Input;

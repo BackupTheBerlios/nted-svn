@@ -24,6 +24,8 @@
 #include "wx/listctrl.h"
 ////@end includes
 
+#include "tedprotocol.h"
+
 /*!
  * Forward declarations
  */
@@ -104,6 +106,11 @@ public:
 
 ////@end wxDeckDialog event handler declarations
 
+    void ClearDecks();
+    void ProcessDeckList(wxInt32 deckid,wxString deckname);
+    void LoadReserveDeck();
+    void ProcessDeckDescribe(wxInt32 deckid,wxInt32 carduid,wxInt32 cardid);
+
 ////@begin wxDeckDialog member function declarations
 
 ////@end wxDeckDialog member function declarations
@@ -128,6 +135,7 @@ public:
     wxFlexGridSizer* fgsright;
     wxComboBox* DecksComboBox;
     wxListCtrl* CurrentDeckListCtrl;
+    TEDProtocol* m_TEDProtocol;
 ////@end wxDeckDialog member variables
 };
 
