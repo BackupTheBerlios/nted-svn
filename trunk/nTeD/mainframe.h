@@ -117,6 +117,31 @@ public:
 ////@end wxMainFrame event handler declarations
 
     void OnIdle(wxIdleEvent &event);
+    void ProcessMessage(wxString msg);
+    void ProcessChatEnter(wxString msg);
+    void ProcessDeckEdit(wxString msg);
+    void ProcessGameStart(wxString msg);
+    void ProcessChatMessage(wxString msg);
+    void ProcessDuelChallenged(wxString msg);
+    void ProcessDuelCancelled(wxString msg);
+    void ProcessChatUser(wxString msg);
+    void ProcessDeckList(wxString msg);
+    void ProcessDeckDescribe(wxString msg);
+    void ProcessDeckNew(wxString msg);
+    void ProcessDeckMove(wxString msg);
+    void ProcessDeckClear(wxString msg);
+    void ProcessDeckRename(wxString msg);
+    void ProcessDeckActive(wxString msg);
+    void ProcessDeckGet(wxString msg);
+    void ProcessDeckExit(wxString msg);
+    void ProcessGameFinish(wxString msg);
+    void ProcessGameExit(wxString msg);
+    void ProcessGameInfo(wxString msg);
+    void ProcessGamePhase(wxString msg);
+    void ProcessGameCard(wxString msg);
+    void ProcessGameText(wxString msg);
+    void ProcessGameSelect(wxString msg);
+    void ProcessGameUse(wxString msg);
 
 ////@begin wxMainFrame member function declarations
 

@@ -311,8 +311,360 @@ void wxMainFrame::OnIdle(wxIdleEvent& event)
   while ((msg=m_TEDProtocol->GetMessage())!=wxEmptyString)
   {
 //    ::wxMessageBox(msg,_("Mensaje del Servidor"));
-    m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
+    ProcessMessage(msg);
   }
   event.Skip();
 }
+
+void wxMainFrame::ProcessMessage(wxString msg)
+{
+  wxStringTokenizer msgtok;
+  wxString tok;
+  
+  msgtok=wxStringTokenizer(msg);
+  if (msgtok.HasMoreTokens()==FALSE)
+  {
+    ::wxLogFatalError(_("Error en la respuesta del servidor."));
+    return;
+  }
+  tok=msgtok.GetNextToken();
+  // MESSAGE CODES WE CAN RECEIVE IN NEUTRAL MODE
+  if (tok==_T("CE"))
+  {
+    ProcessChatEnter(msg);
+  }
+  else if (tok==_T("EE"))
+  {
+    ProcessDeckEdit(msg);
+  }
+  else if (tok==_T("GS"))
+  {
+    ProcessGameStart(msg);
+  }
+  // MESSAGE CODES WE CAN RECEIVE IN CHAT MODE
+  else if (tok==_T("CM"))
+  {
+    ProcessChatMessage(msg);
+  }
+  else if (tok==_T("DH"))
+  {
+    ProcessDuelChallenged(msg);
+  }
+  else if (tok==_T("DC"))
+  {
+    ProcessDuelCancelled(msg);
+  }
+  else if (tok==_T("CU"))
+  {
+    ProcessChatUser(msg);
+  }
+  // MESSAGE CODES WE CAN RECEIVE IN DECK MODE
+  else if (tok==_T("EL"))
+  {
+    ProcessDeckList(msg);
+  }
+  else if (tok==_T("ED"))
+  {
+    ProcessDeckDescribe(msg);
+  }
+  // THIS COMMAND IS NOT GOING TO BE IMPLEMENTED
+  // USERS MUST HAVE A FRESH COPY OF CARDS ON DISK
+/*
+  else if (tok==_T("EC"))
+  {
+    ProcessDeckCard(msg);
+  }
+*/
+  else if (tok==_T("EN"))
+  {
+    ProcessDeckNew(msg);
+  }
+  else if (tok==_T("EM"))
+  {
+    ProcessDeckMove(msg);
+  }
+  else if (tok==_T("EK"))
+  {
+    ProcessDeckClear(msg);
+  }
+  else if (tok==_T("ER"))
+  {
+    ProcessDeckRename(msg);
+  }
+  else if (tok==_T("EA"))
+  {
+    ProcessDeckActive(msg);
+  }
+  else if (tok==_T("EG"))
+  {
+    ProcessDeckGet(msg);
+  }
+  else if (tok==_T("EX"))
+  {
+    ProcessDeckExit(msg);
+  }
+  // MESSAGE CODES WE CAN RECEIVE IN DUEL MODE
+  else if (tok==_T("GZ"))
+  {
+    ProcessGameFinish(msg);
+  }
+  else if (tok==_T("GX"))
+  {
+    ProcessGameExit(msg);
+  }
+  else if (tok==_T("GI"))
+  {
+    ProcessGameInfo(msg);
+  }
+  else if (tok==_T("GF"))
+  {
+    ProcessGamePhase(msg);
+  }
+  else if (tok==_T("GC"))
+  {
+    ProcessGameCard(msg);
+  }
+  else if (tok==_T("GT"))
+  {
+    ProcessGameText(msg);
+  }
+  else if (tok==_T("GE"))
+  {
+    ProcessGameSelect(msg);
+  }
+  else if (tok==_T("GU"))
+  {
+    ProcessGameUse(msg);
+  }
+/*
+			// ESTE NO PUEDE OCURRIR NUNCA
+      } else if (Msg[0].Equals("CX")) {
+				ChatExit ();
+			}
+*/
+}
+
+void wxMainFrame::ProcessChatEnter(wxString msg)
+{
+  m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
+/*
+			if (Msg[0].Equals("CE")) {
+				if (Msg[1].Equals("NO") && Msg[2].Equals("1")) {
+				} else if (Msg[1].Equals("OK")) {
+					ChatEnter (TryRoom);
+				}
+*/
+}
+
+void wxMainFrame::ProcessDeckEdit(wxString msg)
+{
+  m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
+/*
+			} else if (Msg[0].Equals("EE")) {
+				DeckEdit (Msg);
+*/
+}
+
+void wxMainFrame::ProcessGameStart(wxString msg)
+{
+  m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
+/*
+      // SE SUPONE QUE ESTE COMANDO LO RECIBIMOS EN MODO CHAT
+			} else if (Msg[0].Equals("GS")) {
+				StartDuel (Msg);
+*/
+}
+
+void wxMainFrame::ProcessChatMessage(wxString msg)
+{
+  m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
+/*
+			} else if (Msg[0].Equals("CM")) {
+				ChatMessage (Msg);
+*/
+}
+
+void wxMainFrame::ProcessDuelChallenged(wxString msg)
+{
+  m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
+/*
+			} else if (Msg[0].Equals("DH")) {
+				DuelReceived (Msg);
+*/
+}
+
+void wxMainFrame::ProcessDuelCancelled(wxString msg)
+{
+  m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
+/*
+			} else if (Msg[0].Equals("DC")) {
+				DuelCancel (Msg);
+*/
+}
+
+void wxMainFrame::ProcessChatUser(wxString msg)
+{
+  m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
+/*
+			} else if (Msg[0].Equals("CU")) {
+				UserMoves (Msg);
+*/
+}
+
+void wxMainFrame::ProcessDeckList(wxString msg)
+{
+  m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
+/*
+			} else if (Msg[0].Equals("EL")) {
+				DeckList (Msg);
+*/
+}
+
+void wxMainFrame::ProcessDeckDescribe(wxString msg)
+{
+  m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
+/*
+			} else if (Msg[0].Equals("ED")) {
+				DeckDescribe (Msg);
+*/
+}
+
+void wxMainFrame::ProcessDeckNew(wxString msg)
+{
+  m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
+/*
+  // THIS COMMAND IS NOT IMPLEMENTED IN THE ALPHA VERSION
+  // BUT IT WORKS FINE ON THE SERVER SIDE
+*/
+}
+
+void wxMainFrame::ProcessDeckMove(wxString msg)
+{
+  m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
+/*
+			} else if (Msg[0].Equals("EM")) {
+				DeckMove (Msg);
+*/
+}
+
+void wxMainFrame::ProcessDeckClear(wxString msg)
+{
+  m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
+/*
+  // THIS COMMAND IS NOT IMPLEMENTED IN THE ALPHA VERSION
+  // BUT IT WORKS FINE ON THE SERVER SIDE
+*/
+}
+
+void wxMainFrame::ProcessDeckRename(wxString msg)
+{
+  m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
+/*
+  // THIS COMMAND IS NOT IMPLEMENTED IN THE ALPHA VERSION
+  // BUT IT WORKS FINE ON THE SERVER SIDE
+*/
+}
+
+void wxMainFrame::ProcessDeckActive(wxString msg)
+{
+  m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
+/*
+  // THIS COMMAND IS NOT IMPLEMENTED IN THE ALPHA VERSION
+  // BUT IT WORKS FINE ON THE SERVER SIDE
+*/
+}
+
+void wxMainFrame::ProcessDeckGet(wxString msg)
+{
+  m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
+/*
+			} else if (Msg[0].Equals("EG")) {
+				DeckGet (Msg);
+*/
+}
+
+void wxMainFrame::ProcessDeckExit(wxString msg)
+{
+  m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
+/*
+			} else if (Msg[0].Equals("EX")) {
+				User.Editing = 0;
+*/
+}
+
+void wxMainFrame::ProcessGameFinish(wxString msg)
+{
+  m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
+/*
+			} else if (Msg[0].Equals("GZ")) {
+				GameFinish (Msg);
+			}
+*/
+}
+
+void wxMainFrame::ProcessGameExit(wxString msg)
+{
+  m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
+/*
+			} else if (Msg[0].Equals("GX")) {
+				GameExit (Msg);
+*/
+}
+
+void wxMainFrame::ProcessGameInfo(wxString msg)
+{
+  m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
+/*
+			} else if (Msg[0].Equals("GI")) {
+				GameInfo (Msg);
+*/
+}
+
+void wxMainFrame::ProcessGamePhase(wxString msg)
+{
+  m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
+/*
+			} else if (Msg[0].Equals("GF")) {
+				GameFase (Msg);
+*/
+}
+
+void wxMainFrame::ProcessGameCard(wxString msg)
+{
+  m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
+/*
+			} else if (Msg[0].Equals("GC")) {
+				GameCard (Msg);
+*/
+}
+
+void wxMainFrame::ProcessGameText(wxString msg)
+{
+  m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
+/*
+			if (Msg[0].Equals("GT")) {
+				String Ms = "";
+				for (int i = 1; i < Msg.Length; i++) Ms += Msg[i] + " ";
+				ChatWrite (this.OponentName, Ms);
+*/
+}
+
+void wxMainFrame::ProcessGameSelect(wxString msg)
+{
+  m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
+/*
+			} else if (Msg[0].Equals("GE")) {
+				GameSelect (Msg);
+*/
+}
+
+void wxMainFrame::ProcessGameUse(wxString msg)
+{
+  m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
+/*
+			} else if (Msg[0].Equals("GU")) {
+				GameUse (Msg);
+*/
+}
+
 
