@@ -64,13 +64,6 @@ wxLoginDialog::wxLoginDialog( wxWindow* parent, wxWindowID id, const wxPoint& po
     Create(parent, id, pos, size, style);
 }
 
-/*
-wxLoginDialog::wxLoginDialog( wxNotebook* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style )
-{
-    Create((wxWindow *)parent, id, wxEmptyString, pos, size, style);
-}
-*/
-
 /*!
  * wxLoginDialog creator
  */
@@ -201,7 +194,6 @@ void wxLoginDialog::CreateControls()
 void wxLoginDialog::OnConectarbuttonClick( wxCommandEvent& event )
 {
     // Insert custom code here
-    ::wxMessageBox(_("Botón Apretado"));
     if ((UsuarioTextCtrl->GetValue()=="") || (ContrasenaTextCtrl->GetValue()==""))
     {
         ::wxMessageBox(_("Escribe tu nombre y clave."),_("Titanes"),wxOK|wxICON_ERROR);
@@ -209,30 +201,26 @@ void wxLoginDialog::OnConectarbuttonClick( wxCommandEvent& event )
         return;
     }
     ConectarButton->Disable();
-/*
-			
-			try {
-				TCPConnection.Connect();
-			} catch (System.Net.Sockets.SocketException) {
-				MessageBox.Show ("No se puede conectar al servidor.\nIntentalo de nuevo mas tarde.",
-				                 "Titanes",MessageBoxButtons.OK);
-				btnLogin.Enabled = true;
-				return;
-			}
-			
-			TCPConnection.StartListening();
-	
-			ProtLogin Login = new ProtLogin();
-			if (!Login.Login (txtUsername.Text, txtPassword.Text)) {
-				this.Close();
-				return;
-			}
-			
-			User.Name = txtUsername.Text;
-			this.Hide();
-			frmMain f = new frmMain();
-			f.Show();
-*/
+//    ::wxLogFatalError(_("Antes del IsConnected"));
+    ::wxSafeShowMessage(_("Titanes"),_("Antes del IsConnected"));
+    if (m_TEDProtocol->IsConnected()==FALSE)
+    {
+//      ::wxLogFatalError(_("Antes del Connect"));
+      ::wxSafeShowMessage(_("Titanes"),_("Antes del Connect"));
+      m_TEDProtocol->Connect();
+      if (m_TEDProtocol->IsConnected()==FALSE)
+      {
+        ::wxSafeShowMessage(_("Titanes"),_("No se puede conectar al servidor.\nInténtalo de nuevo más tarde."));
+        ConectarButton->Enable();
+        event.Skip();
+        return;
+      }
+    }
+//    ::wxLogFatalError(_("Antes del Login"));
+    ::wxSafeShowMessage(_("Titanes"),_("Antes del Login"));
+    m_TEDProtocol->Login(UsuarioTextCtrl->GetValue(),ContrasenaTextCtrl->GetValue());
+//    ::wxLogFatalError(_("Despues del Login"));
+    ::wxSafeShowMessage(_("Titanes"),_("Despues del Login"));
     ConectarButton->Enable();
     event.Skip();
 }
