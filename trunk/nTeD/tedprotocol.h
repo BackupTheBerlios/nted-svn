@@ -26,7 +26,7 @@ struct TEDChatter
   wxInt32 Rank;
 };
 
-WX_DECLARE_HASH_MAP(wxString,struct TEDChatter *,wxStringHash,wxStringEqual,TEDChatterHash);
+WX_DECLARE_HASH_MAP(wxInt32,struct TEDChatter *,wxIntegerHash,wxIntegerEqual,TEDChatterHash);
 
 struct TEDChatRoom
 {
@@ -76,6 +76,9 @@ class TEDProtocol
 	  wxInt32 GetTryRoomID();
 	  void SetUserChatRoomID(wxInt32 roomid);
 	  void SetTryRoomID(wxInt32 roomid);
+	  void AddUser(struct TEDChatter *chatter);
+	  void RemoveUser(wxInt32 userid);
+	  struct TEDChatter *GetUser(wxInt32 userid);
 	private:
 	  TCPConnection *TCPConn;
 	  struct TEDUser User;

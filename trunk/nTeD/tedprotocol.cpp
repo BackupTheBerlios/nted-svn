@@ -350,4 +350,25 @@ void TEDProtocol::SetTryRoomID(wxInt32 roomid)
   m_tryroom=roomid;
 }
 
+void TEDProtocol::AddUser(struct TEDChatter *chatter)
+{
+  User.Chatters[chatter->Id]=chatter;
+}
+
+void TEDProtocol::RemoveUser(wxInt32 userid)
+{
+  User.Chatters.erase(userid);
+}
+
+struct TEDChatter *TEDProtocol::GetUser(wxInt32 userid)
+{
+  TEDChatterHash::iterator it;
+
+  it=User.Chatters.find(userid);
+  if (it==User.Chatters.end())
+  {
+    return NULL;
+  }
+  return it->second;
+}
 

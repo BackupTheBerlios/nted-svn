@@ -65,6 +65,8 @@ class wxListCtrl;
  * wxChatDialog class declaration
  */
 
+int wxCALLBACK wxListCompareFunction(long item1, long item2, long sortData);
+
 class wxChatDialog: public wxPanel
 {    
     DECLARE_CLASS( wxChatDialog )
@@ -93,6 +95,8 @@ public:
 
 ////@end wxChatDialog member function declarations
     void SetChannelNames();
+    void AddUser(struct TEDChatter *chatter);
+	  void RemoveUser(wxInt32 userid);
 
     /// Should we show tooltips?
     static bool ShowToolTips();

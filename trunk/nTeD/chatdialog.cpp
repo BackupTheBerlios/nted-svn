@@ -88,6 +88,7 @@ bool wxChatDialog::Create( wxWindow* parent, wxWindowID id, const wxPoint& pos, 
     GetSizer()->SetSizeHints(this);
     Centre();
 ////@end wxChatDialog creation
+    UsuariosListCtrl->SortItems(wxListCompareFunction,0);
     UsuariosListCtrl->SetSizeHints(200,100);
     UsuariosListCtrl->InsertColumn(0,_("Nombre"));
     UsuariosListCtrl->InsertColumn(1,_("Valor"));
@@ -168,7 +169,7 @@ void wxChatDialog::CreateControls()
     item3->Add(item9, 1, wxALIGN_RIGHT|wxGROW|wxALL, 0);
 
     wxListCtrl* item10 = new wxListCtrl;
-    item10->Create( item1, UsuariosListCtrlID, wxDefaultPosition, wxSize(200, 100), wxLC_REPORT|wxLC_SINGLE_SEL );
+    item10->Create( item1, UsuariosListCtrlID, wxDefaultPosition, wxSize(200, 100), wxLC_REPORT|wxLC_SINGLE_SEL|wxLC_SORT_ASCENDING );
     UsuariosListCtrl = item10;
     item9->Add(item10, 1, wxALIGN_RIGHT|wxALL, 0);
 
@@ -180,6 +181,9 @@ void wxChatDialog::CreateControls()
     item9->Add(item12, 0, wxALIGN_RIGHT|wxALL, 0);
 
 ////@end wxChatDialog content construction
+
+// REMEMBER WE NEED TO SET USER IN ASCENDING ORDER
+//    item10->Create( item1, UsuariosListCtrlID, wxDefaultPosition, wxSize(200, 100), wxLC_REPORT|wxLC_SINGLE_SEL|wxLC_SORT_ASCENDING );
 }
 
 /*!
@@ -227,6 +231,37 @@ void wxChatDialog::SetChannelNames()
   return;
 }
 
+void wxChatDialog::AddUser(struct TEDChatter *chatter)
+{
+  wxInt32 row;
+  
+  row=UsuariosListCtrl->InsertItem(0,chatter->Name);
+  UsuariosListCtrl->SetItem(row,1,wxString::Format("%d",chatter->DeckValue));
+  UsuariosListCtrl->SetItem(row,2,wxString::Format("%d",chatter->Rank));
+  UsuariosListCtrl->SetItemData(row,(long int)chatter);
+  m_TEDProtocol->AddUser(chatter);
+}
+
+void wxChatDialog::RemoveUser(wxInt32 userid)
+{
+  wxInt32 row;
+  struct TEDChatter *chatter;
+
+  chatter=m_TEDProtocol->GetUser(userid);
+  if (chatter==NULL)
+  {
+    return;
+  }
+  m_TEDProtocol->RemoveUser(userid);
+  row=UsuariosListCtrl->FindItem(-1,(long int)chatter);
+  UsuariosListCtrl->DeleteItem(row);
+}
+
+int wxCALLBACK wxListCompareFunction(long item1,long item2,long sortData)
+{
+  return ((struct TEDChatter *)item1)->Name.Cmp(((struct TEDChatter *)item2)->Name);
+}
+
 void wxChatDialog::OnChatRoomSelected( wxListEvent& event )
 {
   if (m_TEDProtocol->IsChatting()==FALSE)
@@ -246,4 +281,5 @@ void wxChatDialog::OnChatRoomSelected( wxListEvent& event )
 //  ::wxSafeShowMessage(_("Titanes XXX"),((struct TEDChatRoom *)event.GetItem().GetData())->RoomName);
   event.Skip();
 }
+
 

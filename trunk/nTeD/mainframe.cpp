@@ -300,6 +300,7 @@ void wxMainFrame::UpdateToolbar(int id)
 void wxMainFrame::OnCloseWindow( wxCloseEvent& event )
 {
     // Insert custom code here
+    // WE NEED TO DO SOME CLEANUP HERE
     event.Skip();
 }
 
@@ -453,7 +454,6 @@ void wxMainFrame::ProcessChatEnter(wxString msg)
   msgtok=wxStringTokenizer(msg);
   tok=msgtok.GetNextToken();
   tok=msgtok.GetNextToken();
-
   if (tok==_T("OK"))
   {
     m_TEDProtocol->SetUserChatRoomID(m_TEDProtocol->GetTryRoomID());
@@ -500,7 +500,6 @@ void wxMainFrame::ProcessChatExit(wxString msg)
   msgtok=wxStringTokenizer(msg);
   tok=msgtok.GetNextToken();
   tok=msgtok.GetNextToken();
-
   if (tok==_T("OK"))
   {
     m_TEDProtocol->SetUserChatRoomID(0);
@@ -610,16 +609,41 @@ void wxMainFrame::ProcessChatUser(wxString msg)
 {
   wxStringTokenizer msgtok;
   wxString tok;
+  struct TEDChatter *chatter;
+  long int longvalue;
 
   msgtok=wxStringTokenizer(msg);
   tok=msgtok.GetNextToken();
   tok=msgtok.GetNextToken();
-
-  m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
-/*
-			} else if (Msg[0].Equals("CU")) {
-				UserMoves (Msg);
-*/
+  // CU <tipo> <user_num> [<user_name> <deck value> <rank>]
+  if (tok==_T("I"))
+  {
+    chatter=new struct TEDChatter;
+    tok=msgtok.GetNextToken();
+    tok.ToLong(&longvalue);
+    chatter->Id=longvalue;
+    tok=msgtok.GetNextToken();
+    chatter->Name=tok;
+    tok=msgtok.GetNextToken();
+    tok.ToLong(&longvalue);
+    chatter->DeckValue=longvalue;
+    tok=msgtok.GetNextToken();
+    tok.ToLong(&longvalue);
+    chatter->Rank=longvalue;
+    m_ChatWnd->AddUser(chatter);
+  }
+  else if (tok==_T("O"))
+  {
+    tok=msgtok.GetNextToken();
+    tok.ToLong(&longvalue);
+    m_ChatWnd->RemoveUser(longvalue);
+  }
+  else
+  {
+    ::wxSafeShowMessage(_("Titanes"),_T("El servidor ha respondido con un comando desconocido.\nCU ")+
+      tok+_T(" ")+msgtok.GetString());
+  }
+//  m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
 }
 
 void wxMainFrame::ProcessDeckList(wxString msg)
