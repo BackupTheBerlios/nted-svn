@@ -21,7 +21,7 @@
  */
 
 ////@begin includes
-#include "logindialog_symbols.h"
+//#include "logindialog_symbols.h"
 ////@end includes
 
 #include <wx/msgdlg.h>

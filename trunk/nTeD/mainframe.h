@@ -21,7 +21,7 @@
  */
 
 ////@begin includes
-#include "mainframe_symbols.h"
+//#include "mainframe_symbols.h"
 #include "wx/frame.h"
 #include "wx/toolbar.h"
 ////@end includes

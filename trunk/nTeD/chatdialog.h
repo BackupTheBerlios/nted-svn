@@ -21,7 +21,7 @@
  */
 
 ////@begin includes
-#include "chatdialog_symbols.h"
+//#include "chatdialog_symbols.h"
 #include "wx/listctrl.h"
 ////@end includes
 

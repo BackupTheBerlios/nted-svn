@@ -21,7 +21,7 @@
  */
 
 ////@begin includes
-#include "infodialog_symbols.h"
+//#include "infodialog_symbols.h"
 #include "wx/html/htmlwin.h"
 ////@end includes
 
