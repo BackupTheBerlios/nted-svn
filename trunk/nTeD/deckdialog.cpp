@@ -377,13 +377,26 @@ void wxDeckDialog::OnCrearbarajabuttonidClick( wxCommandEvent& event )
 
 void wxDeckDialog::OnRenombrarbarajabuttonidClick( wxCommandEvent& event )
 {
-    // Insert custom code here
-    event.Skip();
-}
+  wxInt32 *deckid;
+  wxString deckname;
 
-/*!
- * wxEVT_COMMAND_BUTTON_CLICKED event handler for BorrarBarajaButtonID
- */
+  // Insert custom code here
+  deckid=(wxInt32 *)DecksComboBox->GetClientData(DecksComboBox->GetSelection());
+  if (deckid==NULL)
+  {
+    return;
+  }
+  deckname=::wxGetTextFromUser(_("Nuevo nombre de la baraja: "),_("Titanes"),wxEmptyString,this);
+  if (deckname!=wxEmptyString)
+  {
+    // WE COULD TRY TO CHECK IF USER HAS ENTERED A STUPID NAME LIKE SPACES,
+    // TABS OR ANY GROUP OF BLANK CHARACTER BUT TAKING INTO ACCOUNT THAT
+    // THE SERVER WILL RETURN AN ILLEGAL MESSAGE AND CLOSE THE CONNECTION
+    // THE USER WILL NOT DO SUCH A STUPID THING AGAIN
+    m_TEDProtocol->DeckRename(*deckid,deckname);
+  }
+  event.Skip();
+}
 
 void wxDeckDialog::OnBorrarbarajabuttonidClick( wxCommandEvent& event )
 {
@@ -588,5 +601,23 @@ void wxDeckDialog::ProcessDeckClear()
   m_TEDProtocol->SetCurrentDeckId(-1);
   m_TEDProtocol->ClearDeck(0);
   LoadReserveDeck();
+}
+
+void wxDeckDialog::ProcessDeckRename()
+{
+  wxInt32 row;
+  wxInt32 *deckid;
+  struct TEDRenamingDeck *renamingdeck;
+
+  // Insert custom code here
+  renamingdeck=m_TEDProtocol->GetRenamingDeck();
+  if (renamingdeck==NULL)
+  {
+    return;
+  }
+  row=DecksComboBox->GetSelection();
+  deckid=(wxInt32 *)DecksComboBox->GetClientData(row);
+  DecksComboBox->SetString(row,renamingdeck->deckname);
+  DecksComboBox->SetSelection(row);
 }
 

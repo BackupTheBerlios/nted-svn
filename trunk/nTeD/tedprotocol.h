@@ -48,6 +48,14 @@ WX_DEFINE_ARRAY(struct TEDMovingCard *,TEDMovingCardArray);
 
 WX_DEFINE_ARRAY(wxInt32,TEDCardIdArray);
 
+struct TEDRenamingDeck
+{
+  wxInt32 deckid;
+  wxString deckname;
+};
+
+WX_DEFINE_ARRAY(struct TEDRenamingDeck *,TEDRenamingDeckArray);
+
 struct TEDCard
 {
   wxInt32 Id;
@@ -147,6 +155,8 @@ class TEDProtocol
     void DeckNew(wxString deckname);
     wxString GetNewDeck();
     void DeckClear(wxInt32 deckid);
+    void DeckRename(wxInt32 deckid,wxString deckname);
+    struct TEDRenamingDeck *GetRenamingDeck();
 	private:
 	  TCPConnection *TCPConn;
 	  struct TEDUser User;
@@ -161,6 +171,7 @@ class TEDProtocol
     wxInt32 m_currentdeck;
     TEDMovingCardArray m_cardsmoving;
     wxArrayString m_newdecks;
+    TEDRenamingDeckArray m_decksrenaming; 
 /*
 	  wxSocketClient *Conn;
 	  wxTextInputStream *Input;

@@ -627,4 +627,29 @@ void TEDProtocol::DeckClear(wxInt32 deckid)
   TCPConn->SendMessage(sndmsg);
 }
 
+void TEDProtocol::DeckRename(wxInt32 deckid,wxString deckname)
+{
+  wxString sndmsg;
+  struct TEDRenamingDeck *renamingdeck;
+
+  renamingdeck=new struct TEDRenamingDeck;
+  renamingdeck->deckid=deckid;
+  renamingdeck->deckname=deckname;
+  m_decksrenaming.Add(renamingdeck);
+  sndmsg=_T("ER ")+wxString::Format("%d ",deckid)+deckname+_T("\n");
+  TCPConn->SendMessage(sndmsg);
+}
+
+struct TEDRenamingDeck *TEDProtocol::GetRenamingDeck()
+{
+  struct TEDRenamingDeck *renamingdeck;
+  
+  if (m_decksrenaming.IsEmpty()==TRUE)
+  {
+    return NULL;
+  }
+  renamingdeck=m_decksrenaming[0];
+  m_decksrenaming.RemoveAt(0);
+  return renamingdeck;
+}
 
