@@ -62,6 +62,7 @@ class wxLoginDialog;
 #define PrefTool 10006
 #define SalirTool 10007
 ////@end control identifiers
+#define SOCKET_ID 10000
 
 /*!
  * Compatibility
@@ -118,6 +119,8 @@ public:
 
 ////@end wxMainFrame event handler declarations
 
+    // socket event handler
+    void OnSocketEvent(wxSocketEvent& event);
     void OnIdle(wxIdleEvent &event);
     void ProcessMessage(wxString msg);
     void ProcessChatEnter(wxString msg);
