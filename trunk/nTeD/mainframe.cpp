@@ -1,12 +1,12 @@
 /////////////////////////////////////////////////////////////////////////////
 // Name:        mainframe.cpp
-// Purpose:     
+// Purpose:
 // Author:      Kintups
-// Modified by: 
+// Modified by:
 // Created:     04/14/04 16:36:40
-// RCS-ID:      
-// Copyright:   
-// Licence:     
+// RCS-ID:
+// Copyright:
+// Licence:
 /////////////////////////////////////////////////////////////////////////////
 
 #if defined(__GNUG__) && !defined(__APPLE__)
@@ -119,7 +119,7 @@ bool wxMainFrame::Create( wxWindow* parent, wxWindowID id, const wxString& capti
  */
 
 void wxMainFrame::CreateControls()
-{    
+{
 ////@begin wxMainFrame content construction
 
     wxMainFrame* item1 = this;
@@ -307,7 +307,7 @@ void wxMainFrame::OnCloseWindow( wxCloseEvent& event )
 void wxMainFrame::OnIdle(wxIdleEvent& event)
 {
   wxString msg;
-  
+
   while ((msg=m_TEDProtocol->GetMessage())!=wxEmptyString)
   {
 //    ::wxMessageBox(msg,_("Mensaje del Servidor"));
@@ -320,7 +320,7 @@ void wxMainFrame::ProcessMessage(wxString msg)
 {
   wxStringTokenizer msgtok;
   wxString tok;
-  
+
   msgtok=wxStringTokenizer(msg);
   if (msgtok.HasMoreTokens()==FALSE)
   {
@@ -436,6 +436,10 @@ void wxMainFrame::ProcessMessage(wxString msg)
   {
     ProcessGameUse(msg);
   }
+  else
+  {
+    ProcessUnknownMessage(msg);
+  }
 /*
 			// ESTE NO PUEDE OCURRIR NUNCA
       } else if (Msg[0].Equals("CX")) {
@@ -446,7 +450,15 @@ void wxMainFrame::ProcessMessage(wxString msg)
 
 void wxMainFrame::ProcessChatEnter(wxString msg)
 {
+  wxStringTokenizer msgtok;
+  wxString tok;
+
+  msgtok=wxStringTokenizer(msg);
+  tok=msgtok.GetNextToken();
+  tok=msgtok.GetNextToken();
+
   m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
+
 /*
 			if (Msg[0].Equals("CE")) {
 				if (Msg[1].Equals("NO") && Msg[2].Equals("1")) {
@@ -458,6 +470,13 @@ void wxMainFrame::ProcessChatEnter(wxString msg)
 
 void wxMainFrame::ProcessDeckEdit(wxString msg)
 {
+  wxStringTokenizer msgtok;
+  wxString tok;
+
+  msgtok=wxStringTokenizer(msg);
+  tok=msgtok.GetNextToken();
+  tok=msgtok.GetNextToken();
+
   m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
 /*
 			} else if (Msg[0].Equals("EE")) {
@@ -467,6 +486,13 @@ void wxMainFrame::ProcessDeckEdit(wxString msg)
 
 void wxMainFrame::ProcessGameStart(wxString msg)
 {
+  wxStringTokenizer msgtok;
+  wxString tok;
+
+  msgtok=wxStringTokenizer(msg);
+  tok=msgtok.GetNextToken();
+  tok=msgtok.GetNextToken();
+
   m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
 /*
       // SE SUPONE QUE ESTE COMANDO LO RECIBIMOS EN MODO CHAT
@@ -477,6 +503,13 @@ void wxMainFrame::ProcessGameStart(wxString msg)
 
 void wxMainFrame::ProcessChatMessage(wxString msg)
 {
+  wxStringTokenizer msgtok;
+  wxString tok;
+
+  msgtok=wxStringTokenizer(msg);
+  tok=msgtok.GetNextToken();
+  tok=msgtok.GetNextToken();
+
   m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
 /*
 			} else if (Msg[0].Equals("CM")) {
@@ -486,6 +519,13 @@ void wxMainFrame::ProcessChatMessage(wxString msg)
 
 void wxMainFrame::ProcessDuelChallenged(wxString msg)
 {
+  wxStringTokenizer msgtok;
+  wxString tok;
+
+  msgtok=wxStringTokenizer(msg);
+  tok=msgtok.GetNextToken();
+  tok=msgtok.GetNextToken();
+
   m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
 /*
 			} else if (Msg[0].Equals("DH")) {
@@ -495,6 +535,13 @@ void wxMainFrame::ProcessDuelChallenged(wxString msg)
 
 void wxMainFrame::ProcessDuelCancelled(wxString msg)
 {
+  wxStringTokenizer msgtok;
+  wxString tok;
+
+  msgtok=wxStringTokenizer(msg);
+  tok=msgtok.GetNextToken();
+  tok=msgtok.GetNextToken();
+
   m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
 /*
 			} else if (Msg[0].Equals("DC")) {
@@ -504,6 +551,13 @@ void wxMainFrame::ProcessDuelCancelled(wxString msg)
 
 void wxMainFrame::ProcessChatUser(wxString msg)
 {
+  wxStringTokenizer msgtok;
+  wxString tok;
+
+  msgtok=wxStringTokenizer(msg);
+  tok=msgtok.GetNextToken();
+  tok=msgtok.GetNextToken();
+
   m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
 /*
 			} else if (Msg[0].Equals("CU")) {
@@ -513,6 +567,13 @@ void wxMainFrame::ProcessChatUser(wxString msg)
 
 void wxMainFrame::ProcessDeckList(wxString msg)
 {
+  wxStringTokenizer msgtok;
+  wxString tok;
+
+  msgtok=wxStringTokenizer(msg);
+  tok=msgtok.GetNextToken();
+  tok=msgtok.GetNextToken();
+
   m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
 /*
 			} else if (Msg[0].Equals("EL")) {
@@ -522,6 +583,13 @@ void wxMainFrame::ProcessDeckList(wxString msg)
 
 void wxMainFrame::ProcessDeckDescribe(wxString msg)
 {
+  wxStringTokenizer msgtok;
+  wxString tok;
+
+  msgtok=wxStringTokenizer(msg);
+  tok=msgtok.GetNextToken();
+  tok=msgtok.GetNextToken();
+
   m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
 /*
 			} else if (Msg[0].Equals("ED")) {
@@ -531,6 +599,13 @@ void wxMainFrame::ProcessDeckDescribe(wxString msg)
 
 void wxMainFrame::ProcessDeckNew(wxString msg)
 {
+  wxStringTokenizer msgtok;
+  wxString tok;
+
+  msgtok=wxStringTokenizer(msg);
+  tok=msgtok.GetNextToken();
+  tok=msgtok.GetNextToken();
+
   m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
 /*
   // THIS COMMAND IS NOT IMPLEMENTED IN THE ALPHA VERSION
@@ -540,6 +615,13 @@ void wxMainFrame::ProcessDeckNew(wxString msg)
 
 void wxMainFrame::ProcessDeckMove(wxString msg)
 {
+  wxStringTokenizer msgtok;
+  wxString tok;
+
+  msgtok=wxStringTokenizer(msg);
+  tok=msgtok.GetNextToken();
+  tok=msgtok.GetNextToken();
+
   m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
 /*
 			} else if (Msg[0].Equals("EM")) {
@@ -549,6 +631,13 @@ void wxMainFrame::ProcessDeckMove(wxString msg)
 
 void wxMainFrame::ProcessDeckClear(wxString msg)
 {
+  wxStringTokenizer msgtok;
+  wxString tok;
+
+  msgtok=wxStringTokenizer(msg);
+  tok=msgtok.GetNextToken();
+  tok=msgtok.GetNextToken();
+
   m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
 /*
   // THIS COMMAND IS NOT IMPLEMENTED IN THE ALPHA VERSION
@@ -558,6 +647,13 @@ void wxMainFrame::ProcessDeckClear(wxString msg)
 
 void wxMainFrame::ProcessDeckRename(wxString msg)
 {
+  wxStringTokenizer msgtok;
+  wxString tok;
+
+  msgtok=wxStringTokenizer(msg);
+  tok=msgtok.GetNextToken();
+  tok=msgtok.GetNextToken();
+
   m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
 /*
   // THIS COMMAND IS NOT IMPLEMENTED IN THE ALPHA VERSION
@@ -567,6 +663,13 @@ void wxMainFrame::ProcessDeckRename(wxString msg)
 
 void wxMainFrame::ProcessDeckActive(wxString msg)
 {
+  wxStringTokenizer msgtok;
+  wxString tok;
+
+  msgtok=wxStringTokenizer(msg);
+  tok=msgtok.GetNextToken();
+  tok=msgtok.GetNextToken();
+
   m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
 /*
   // THIS COMMAND IS NOT IMPLEMENTED IN THE ALPHA VERSION
@@ -576,6 +679,13 @@ void wxMainFrame::ProcessDeckActive(wxString msg)
 
 void wxMainFrame::ProcessDeckGet(wxString msg)
 {
+  wxStringTokenizer msgtok;
+  wxString tok;
+
+  msgtok=wxStringTokenizer(msg);
+  tok=msgtok.GetNextToken();
+  tok=msgtok.GetNextToken();
+
   m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
 /*
 			} else if (Msg[0].Equals("EG")) {
@@ -585,6 +695,13 @@ void wxMainFrame::ProcessDeckGet(wxString msg)
 
 void wxMainFrame::ProcessDeckExit(wxString msg)
 {
+  wxStringTokenizer msgtok;
+  wxString tok;
+
+  msgtok=wxStringTokenizer(msg);
+  tok=msgtok.GetNextToken();
+  tok=msgtok.GetNextToken();
+
   m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
 /*
 			} else if (Msg[0].Equals("EX")) {
@@ -594,6 +711,13 @@ void wxMainFrame::ProcessDeckExit(wxString msg)
 
 void wxMainFrame::ProcessGameFinish(wxString msg)
 {
+  wxStringTokenizer msgtok;
+  wxString tok;
+
+  msgtok=wxStringTokenizer(msg);
+  tok=msgtok.GetNextToken();
+  tok=msgtok.GetNextToken();
+
   m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
 /*
 			} else if (Msg[0].Equals("GZ")) {
@@ -604,6 +728,13 @@ void wxMainFrame::ProcessGameFinish(wxString msg)
 
 void wxMainFrame::ProcessGameExit(wxString msg)
 {
+  wxStringTokenizer msgtok;
+  wxString tok;
+
+  msgtok=wxStringTokenizer(msg);
+  tok=msgtok.GetNextToken();
+  tok=msgtok.GetNextToken();
+
   m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
 /*
 			} else if (Msg[0].Equals("GX")) {
@@ -613,6 +744,13 @@ void wxMainFrame::ProcessGameExit(wxString msg)
 
 void wxMainFrame::ProcessGameInfo(wxString msg)
 {
+  wxStringTokenizer msgtok;
+  wxString tok;
+
+  msgtok=wxStringTokenizer(msg);
+  tok=msgtok.GetNextToken();
+  tok=msgtok.GetNextToken();
+
   m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
 /*
 			} else if (Msg[0].Equals("GI")) {
@@ -622,6 +760,13 @@ void wxMainFrame::ProcessGameInfo(wxString msg)
 
 void wxMainFrame::ProcessGamePhase(wxString msg)
 {
+  wxStringTokenizer msgtok;
+  wxString tok;
+
+  msgtok=wxStringTokenizer(msg);
+  tok=msgtok.GetNextToken();
+  tok=msgtok.GetNextToken();
+
   m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
 /*
 			} else if (Msg[0].Equals("GF")) {
@@ -631,6 +776,13 @@ void wxMainFrame::ProcessGamePhase(wxString msg)
 
 void wxMainFrame::ProcessGameCard(wxString msg)
 {
+  wxStringTokenizer msgtok;
+  wxString tok;
+
+  msgtok=wxStringTokenizer(msg);
+  tok=msgtok.GetNextToken();
+  tok=msgtok.GetNextToken();
+
   m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
 /*
 			} else if (Msg[0].Equals("GC")) {
@@ -640,6 +792,13 @@ void wxMainFrame::ProcessGameCard(wxString msg)
 
 void wxMainFrame::ProcessGameText(wxString msg)
 {
+  wxStringTokenizer msgtok;
+  wxString tok;
+
+  msgtok=wxStringTokenizer(msg);
+  tok=msgtok.GetNextToken();
+  tok=msgtok.GetNextToken();
+
   m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
 /*
 			if (Msg[0].Equals("GT")) {
@@ -651,6 +810,13 @@ void wxMainFrame::ProcessGameText(wxString msg)
 
 void wxMainFrame::ProcessGameSelect(wxString msg)
 {
+  wxStringTokenizer msgtok;
+  wxString tok;
+
+  msgtok=wxStringTokenizer(msg);
+  tok=msgtok.GetNextToken();
+  tok=msgtok.GetNextToken();
+
   m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
 /*
 			} else if (Msg[0].Equals("GE")) {
@@ -660,6 +826,13 @@ void wxMainFrame::ProcessGameSelect(wxString msg)
 
 void wxMainFrame::ProcessGameUse(wxString msg)
 {
+  wxStringTokenizer msgtok;
+  wxString tok;
+
+  msgtok=wxStringTokenizer(msg);
+  tok=msgtok.GetNextToken();
+  tok=msgtok.GetNextToken();
+
   m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
 /*
 			} else if (Msg[0].Equals("GU")) {
@@ -667,4 +840,8 @@ void wxMainFrame::ProcessGameUse(wxString msg)
 */
 }
 
+void wxMainFrame::ProcessUnknownMessage(wxString msg)
+{
+  m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
+}
 

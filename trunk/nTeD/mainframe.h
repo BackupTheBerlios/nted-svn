@@ -142,6 +142,7 @@ public:
     void ProcessGameText(wxString msg);
     void ProcessGameSelect(wxString msg);
     void ProcessGameUse(wxString msg);
+    void ProcessUnknownMessage(wxString msg);
 
 ////@begin wxMainFrame member function declarations
 
