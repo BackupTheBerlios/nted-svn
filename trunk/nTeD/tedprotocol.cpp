@@ -220,6 +220,11 @@ wxString TEDProtocol::WaitMessage()
   return msg;
 }
 
+void TEDProtocol::SendMessage(wxString msg)
+{
+  TCPConn->SendMessage(msg);
+}
+
 void TEDProtocol::Disconnect()
 {
   TCPConn->Disconnect();

@@ -130,7 +130,7 @@ void wxMainFrame::CreateControls()
     item2->SetToolBitmapSize(wxSize(32, 32));
     item2->AddSeparator();
 
-    wxBitmap item4Bitmap(_T("icons/btn_connect.png"), wxBITMAP_TYPE_PNG);
+    wxBitmap item4Bitmap(_T("icons/btn_conectar.png"), wxBITMAP_TYPE_PNG);
     item2->AddTool(ConectarTool, _("Conectar"), item4Bitmap, _("Conectar"), wxITEM_NORMAL);
 
     item2->AddSeparator();
@@ -144,7 +144,7 @@ void wxMainFrame::CreateControls()
     wxBitmap item8Bitmap(_T("icons/btn_info.png"), wxBITMAP_TYPE_PNG);
     item2->AddTool(InfoTool, _("Información"), item8Bitmap, _("Información"), wxITEM_RADIO);
 
-    wxBitmap item9Bitmap(_T("icons/btn_preferencias_2.png"), wxBITMAP_TYPE_PNG);
+    wxBitmap item9Bitmap(_T("icons/btn_preferencias.png"), wxBITMAP_TYPE_PNG);
     item2->AddTool(PrefTool, _("Preferencias"), item9Bitmap, _("Preferencias"), wxITEM_RADIO);
 
     item2->AddSeparator();
@@ -310,7 +310,8 @@ void wxMainFrame::OnIdle(wxIdleEvent& event)
   
   while ((msg=m_TEDProtocol->GetMessage())!=wxEmptyString)
   {
-    ::wxMessageBox(msg,_("Mensaje del Servidor"));
+//    ::wxMessageBox(msg,_("Mensaje del Servidor"));
+    m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
   }
   event.Skip();
 }

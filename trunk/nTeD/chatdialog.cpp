@@ -89,6 +89,26 @@ bool wxChatDialog::Create( wxWindow* parent, wxWindowID id, const wxPoint& pos, 
     Centre();
 ////@end wxChatDialog creation
     UsuariosListCtrl->SetSizeHints(200,100);
+/*
+    UsuariosListCtrl->InsertColumn(0,_("Nombre"));
+    UsuariosListCtrl->InsertColumn(1,_("Valor"));
+    UsuariosListCtrl->InsertColumn(2,_("Ranking"));
+    UsuariosListCtrl->InsertItem(0,_T("0,0"));
+    UsuariosListCtrl->SetItem(0,1,_T("0,1"));
+    UsuariosListCtrl->SetItem(0,2,_T("0,2"));
+    UsuariosListCtrl->InsertItem(1,_T("1,0"));
+    UsuariosListCtrl->SetItem(1,1,_T("1,1"));
+    UsuariosListCtrl->SetItem(1,2,_T("1,2"));
+    UsuariosListCtrl->InsertItem(2,_T("2,0"));
+    UsuariosListCtrl->SetItem(2,1,_T("2,1"));
+    UsuariosListCtrl->SetItem(2,2,_T("2,2"));
+    UsuariosListCtrl->SetColumnWidth(0,wxLIST_AUTOSIZE);
+    UsuariosListCtrl->SetColumnWidth(1,wxLIST_AUTOSIZE);
+    UsuariosListCtrl->SetColumnWidth(2,wxLIST_AUTOSIZE);
+    UsuariosListCtrl->InsertItem(3,_T("Nombre largo"));
+    UsuariosListCtrl->SetItem(3,1,_T("3,1"));
+    UsuariosListCtrl->SetItem(3,2,_T("3,2"));
+*/
     CanalesListCtrl->SetSizeHints(200,100);
     Layout();
 
@@ -176,25 +196,8 @@ bool wxChatDialog::ShowToolTips()
 void wxChatDialog::OnEnviarbuttonClick( wxCommandEvent& event )
 {
     // Insert custom code here
-    UsuariosListCtrl->InsertColumn(0,_("Nombre"));
-    UsuariosListCtrl->InsertColumn(1,_("Valor"));
-    UsuariosListCtrl->InsertColumn(2,_("Ranking"));
-    UsuariosListCtrl->InsertItem(0,_T("0,0"));
-    UsuariosListCtrl->SetItem(0,1,_T("0,1"));
-    UsuariosListCtrl->SetItem(0,2,_T("0,2"));
-    UsuariosListCtrl->InsertItem(1,_T("1,0"));
-    UsuariosListCtrl->SetItem(1,1,_T("1,1"));
-    UsuariosListCtrl->SetItem(1,2,_T("1,2"));
-    UsuariosListCtrl->InsertItem(2,_T("2,0"));
-    UsuariosListCtrl->SetItem(2,1,_T("2,1"));
-    UsuariosListCtrl->SetItem(2,2,_T("2,2"));
-    UsuariosListCtrl->SetColumnWidth(0,wxLIST_AUTOSIZE);
-    UsuariosListCtrl->SetColumnWidth(1,wxLIST_AUTOSIZE);
-    UsuariosListCtrl->SetColumnWidth(2,wxLIST_AUTOSIZE);
-    UsuariosListCtrl->InsertItem(3,_T("Nombre largo"));
-    UsuariosListCtrl->SetItem(3,1,_T("3,1"));
-    UsuariosListCtrl->SetItem(3,2,_T("3,2"));
-    event.Skip();
+  m_TEDProtocol->SendMessage(MensajeTextCtrl->GetValue()+_T("\n"));
+  event.Skip();
 }
 
 void wxChatDialog::SetChannelNames()

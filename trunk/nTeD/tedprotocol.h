@@ -61,6 +61,7 @@ class TEDProtocol
     void Login(wxString UserName,wxString UserPass);
 	  wxString GetMessage();
 	  wxString WaitMessage();
+	  void SendMessage(wxString msg);
 	  void Disconnect();
 	  bool IsConnected();
 	  bool IsLogged();
