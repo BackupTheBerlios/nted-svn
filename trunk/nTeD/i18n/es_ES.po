@@ -1,0 +1,115 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: nTeD\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2004-04-20 09:45+0100\n"
+"Last-Translator: Kintups <kintups@spymac.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../chatdialog.cpp:126
+msgid "Enviar"
+msgstr "Enviar"
+
+#: ../tcpconnection.cpp:26
+msgid "Dentro del Thread."
+msgstr "Dentro del Thread."
+
+#: ../tcpconnection.cpp:26
+#: ../tcpconnection.cpp:75
+#: ../logindialog.cpp:207
+msgid "Titanes"
+msgstr "Titanes"
+
+#: ../tcpconnection.cpp:45
+msgid ""
+"Error al crear el hilo de la conexión.\n"
+"No hay suficientes recursos."
+msgstr ""
+"Error al crear el hilo de la conexión.\n"
+"No hay suficientes recursos."
+
+#: ../tcpconnection.cpp:50
+msgid ""
+"Error al crear el hilo de la conexión.\n"
+"El hilo ya está ejecutándose."
+msgstr ""
+"Error al crear el hilo de la conexión.\n"
+"El hilo ya está ejecutándose."
+
+#: ../tcpconnection.cpp:57
+#, c-format
+msgid "Error desconocido(%d) al crear el hilo de la conexión.\n"
+msgstr "Error desconocido(%d) al crear el hilo de la conexión.\n"
+
+#: ../tcpconnection.cpp:69
+msgid ""
+"Error al crear el socket de conexión.\n"
+";"
+msgstr ""
+"Error al crear el socket de conexión.\n"
+";"
+
+#: ../tcpconnection.cpp:75
+msgid ""
+"Tiempo de espera agotado al conectar al servidor.\n"
+"¿Reintentar conexión?"
+msgstr ""
+"Tiempo de espera agotado al conectar al servidor.\n"
+"¿Reintentar conexión?"
+
+#: ../mainframe.cpp:124
+#: ../logindialog.cpp:179
+msgid "Conectar"
+msgstr "Conectar"
+
+#: ../mainframe.cpp:129
+msgid "Canales"
+msgstr "Canales"
+
+#: ../mainframe.cpp:132
+msgid "Barajas"
+msgstr "Barajas"
+
+#: ../mainframe.cpp:137
+msgid "Información"
+msgstr "Información"
+
+#: ../mainframe.cpp:140
+msgid "Preferencias"
+msgstr "Preferencias"
+
+#: ../mainframe.cpp:145
+msgid "Salir"
+msgstr "Salir"
+
+#: ../logindialog.cpp:147
+msgid "Usuario:"
+msgstr "Usuario:"
+
+#: ../logindialog.cpp:162
+msgid "Contraseña:"
+msgstr "Contraseña:"
+
+#: ../logindialog.cpp:204
+msgid "Botón Apretado"
+msgstr "Botón Apretado"
+
+#: ../logindialog.cpp:207
+msgid "Escribe tu nombre y clave."
+msgstr "Escribe tu nombre y clave."
+
+#: ../logindialog.h:43
+msgid "Login"
+msgstr "Login"
+
+#: ../mainframe.h:47
+msgid "Titanes: el Destierro"
+msgstr "Titanes: el Destierro"
+
+#: ../chatdialog.h:42
+msgid "Chat"
+msgstr "Chat"
+
