@@ -140,7 +140,7 @@ wxString TCPConnection::WaitMessage()
   while ((msg=GetMessage())==wxEmptyString)
   {
     ::wxSafeYield();
-    ::wxUsleep(100);
+    ::wxMilliSleep(100);
   }
   return msg;
 }
