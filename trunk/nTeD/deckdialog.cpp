@@ -163,7 +163,7 @@ void wxDeckDialog::CreateControls()
     item1->SetSizer(item2);
     item1->SetAutoLayout(TRUE);
 
-    wxFlexGridSizer* item3 = new wxFlexGridSizer(1, 3, 0, 0);
+    wxFlexGridSizer* item3 = new wxFlexGridSizer(1, 3, 0, 2);
     fgschild = item3;
     item3->AddGrowableRow(0);
     item3->AddGrowableCol(0);
@@ -180,7 +180,7 @@ void wxDeckDialog::CreateControls()
     ReserveListCtrl = item5;
     item4->Add(item5, 1, wxGROW|wxGROW|wxALL, 0);
 
-    wxFlexGridSizer* item6 = new wxFlexGridSizer(1, 2, 0, 2);
+    wxFlexGridSizer* item6 = new wxFlexGridSizer(1, 3, 0, 2);
     item4->Add(item6, 0, wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL|wxALL, 0);
 
     wxStaticText* item7 = new wxStaticText( item1, wxID_STATIC, _("Cartas:"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -190,81 +190,87 @@ void wxDeckDialog::CreateControls()
     ReserveNumCardsStaticText = item8;
     item6->Add(item8, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL|wxADJUST_MINSIZE, 5);
 
-    wxFlexGridSizer* item9 = new wxFlexGridSizer(2, 1, 0, 0);
-    fgscenter = item9;
-    item9->AddGrowableRow(0);
-    item9->AddGrowableCol(0);
-    item3->Add(item9, 1, wxGROW|wxGROW|wxALL, 0);
+    item6->Add(5, 5, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    item9->Add(5, 5, 1, wxGROW|wxGROW|wxALL, 0);
+    wxFlexGridSizer* item10 = new wxFlexGridSizer(2, 1, 0, 0);
+    fgscenter = item10;
+    item10->AddGrowableRow(0);
+    item10->AddGrowableCol(0);
+    item3->Add(item10, 1, wxGROW|wxGROW|wxALL, 0);
 
-    wxFlexGridSizer* item11 = new wxFlexGridSizer(3, 1, 5, 0);
-    fgscenterchild = item11;
-    item9->Add(item11, 1, wxGROW|wxGROW|wxALL, 0);
+    item10->Add(5, 5, 1, wxGROW|wxGROW|wxALL, 0);
 
-    wxBitmap item12Bitmap;
-    wxStaticBitmap* item12 = new wxStaticBitmap( item1, CardStaticBitmapID, item12Bitmap, wxDefaultPosition, wxSize(90, 120), 0 );
-    CardStaticBitmap = item12;
-    item11->Add(item12, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL, 0);
+    wxFlexGridSizer* item12 = new wxFlexGridSizer(3, 1, 5, 0);
+    fgscenterchild = item12;
+    item10->Add(item12, 1, wxGROW|wxGROW|wxALL, 0);
 
-    wxFlexGridSizer* item13 = new wxFlexGridSizer(1, 2, 0, 2);
-    item11->Add(item13, 0, wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL|wxALL, 0);
+    wxBitmap item13Bitmap;
+    wxStaticBitmap* item13 = new wxStaticBitmap( item1, CardStaticBitmapID, item13Bitmap, wxDefaultPosition, wxSize(90, 120), 0 );
+    CardStaticBitmap = item13;
+    item12->Add(item13, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL, 0);
 
-    wxStaticText* item14 = new wxStaticText( item1, wxID_STATIC, _("Oro:"), wxDefaultPosition, wxDefaultSize, 0 );
-    item13->Add(item14, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL|wxADJUST_MINSIZE, 5);
+    wxFlexGridSizer* item14 = new wxFlexGridSizer(1, 3, 0, 2);
+    item12->Add(item14, 0, wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL|wxALL, 0);
 
-    wxStaticText* item15 = new wxStaticText( item1, GoldStaticTextID, _T(""), wxDefaultPosition, wxDefaultSize, 0 );
-    GoldStaticText = item15;
-    item13->Add(item15, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL|wxADJUST_MINSIZE, 5);
+    wxStaticText* item15 = new wxStaticText( item1, wxID_STATIC, _("Oro:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item14->Add(item15, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL|wxADJUST_MINSIZE, 5);
 
-    wxFlexGridSizer* item16 = new wxFlexGridSizer(5, 1, 2, 0);
-    fgsbuttons = item16;
-    item11->Add(item16, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL, 5);
+    wxStaticText* item16 = new wxStaticText( item1, GoldStaticTextID, _T(""), wxDefaultPosition, wxDefaultSize, 0 );
+    GoldStaticText = item16;
+    item14->Add(item16, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL|wxADJUST_MINSIZE, 5);
 
-    wxButton* item17 = new wxButton( item1, ComprarSobreButtonID, _("Comprar Sobre"), wxDefaultPosition, wxSize(100, -1), 0 );
-    ComprarSobreButton = item17;
-    item16->Add(item17, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0);
+    item14->Add(5, 5, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    wxButton* item18 = new wxButton( item1, CrearBarajaButtonID, _("Crear Baraja"), wxDefaultPosition, wxSize(100, -1), 0 );
-    CrearBarajaButton = item18;
-    item16->Add(item18, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0);
+    wxFlexGridSizer* item18 = new wxFlexGridSizer(5, 1, 2, 0);
+    fgsbuttons = item18;
+    item12->Add(item18, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    wxButton* item19 = new wxButton( item1, RenombrarBarajaButtonID, _("Renombrar Baraja"), wxDefaultPosition, wxSize(100, -1), 0 );
-    RenombrarBarajaButton = item19;
-    item16->Add(item19, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0);
+    wxButton* item19 = new wxButton( item1, ComprarSobreButtonID, _("Comprar Sobre"), wxDefaultPosition, wxSize(100, -1), 0 );
+    ComprarSobreButton = item19;
+    item18->Add(item19, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0);
 
-    wxButton* item20 = new wxButton( item1, BorrarBarajaButtonID, _("Borrar Baraja"), wxDefaultPosition, wxSize(100, -1), 0 );
-    BorrarBarajaButton = item20;
-    item16->Add(item20, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0);
+    wxButton* item20 = new wxButton( item1, CrearBarajaButtonID, _("Crear Baraja"), wxDefaultPosition, wxSize(100, -1), 0 );
+    CrearBarajaButton = item20;
+    item18->Add(item20, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0);
 
-    wxButton* item21 = new wxButton( item1, ActivarBarajaButtonID, _("Activar Baraja"), wxDefaultPosition, wxSize(100, -1), 0 );
-    ActivarBarajaButton = item21;
-    item16->Add(item21, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0);
+    wxButton* item21 = new wxButton( item1, RenombrarBarajaButtonID, _("Renombrar Baraja"), wxDefaultPosition, wxSize(100, -1), 0 );
+    RenombrarBarajaButton = item21;
+    item18->Add(item21, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0);
 
-    wxFlexGridSizer* item22 = new wxFlexGridSizer(2, 1, 5, 0);
-    fgsright = item22;
-    item22->AddGrowableRow(1);
-    item22->AddGrowableCol(0);
-    item3->Add(item22, 1, wxGROW|wxGROW|wxALL, 0);
+    wxButton* item22 = new wxButton( item1, BorrarBarajaButtonID, _("Borrar Baraja"), wxDefaultPosition, wxSize(100, -1), 0 );
+    BorrarBarajaButton = item22;
+    item18->Add(item22, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0);
 
-    wxString* item23Strings = NULL;
-    wxComboBox* item23 = new wxComboBox( item1, DecksComboBoxID, _T(""), wxDefaultPosition, wxDefaultSize, 0, item23Strings, wxCB_READONLY|wxCB_SORT );
-    DecksComboBox = item23;
-    item22->Add(item23, 0, wxGROW|wxALIGN_TOP|wxALL, 0);
+    wxButton* item23 = new wxButton( item1, ActivarBarajaButtonID, _("Activar Baraja"), wxDefaultPosition, wxSize(100, -1), 0 );
+    ActivarBarajaButton = item23;
+    item18->Add(item23, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0);
 
-    wxListCtrl* item24 = new wxListCtrl( item1, CurrentDeckListCtrlID, wxDefaultPosition, wxSize(100, -1), wxLC_REPORT|wxLC_SINGLE_SEL|wxLC_SORT_ASCENDING );
-    CurrentDeckListCtrl = item24;
-    item22->Add(item24, 1, wxGROW|wxGROW|wxALL, 0);
+    wxFlexGridSizer* item24 = new wxFlexGridSizer(2, 1, 5, 0);
+    fgsright = item24;
+    item24->AddGrowableRow(1);
+    item24->AddGrowableCol(0);
+    item3->Add(item24, 1, wxGROW|wxGROW|wxALL, 0);
 
-    wxFlexGridSizer* item25 = new wxFlexGridSizer(1, 2, 0, 2);
-    item22->Add(item25, 0, wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL|wxALL, 0);
+    wxString* item25Strings = NULL;
+    wxComboBox* item25 = new wxComboBox( item1, DecksComboBoxID, _T(""), wxDefaultPosition, wxDefaultSize, 0, item25Strings, wxCB_READONLY|wxCB_SORT );
+    DecksComboBox = item25;
+    item24->Add(item25, 0, wxGROW|wxALIGN_TOP|wxALL, 0);
 
-    wxStaticText* item26 = new wxStaticText( item1, wxID_STATIC, _("Cartas:"), wxDefaultPosition, wxDefaultSize, 0 );
-    item25->Add(item26, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL|wxADJUST_MINSIZE, 5);
+    wxListCtrl* item26 = new wxListCtrl( item1, CurrentDeckListCtrlID, wxDefaultPosition, wxSize(100, -1), wxLC_REPORT|wxLC_SINGLE_SEL|wxLC_SORT_ASCENDING );
+    CurrentDeckListCtrl = item26;
+    item24->Add(item26, 1, wxGROW|wxGROW|wxALL, 0);
 
-    wxStaticText* item27 = new wxStaticText( item1, CurrentNumCardsStaticTextID, _T(""), wxDefaultPosition, wxDefaultSize, 0 );
-    CurrentNumCardsStaticText = item27;
-    item25->Add(item27, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL|wxADJUST_MINSIZE, 5);
+    wxFlexGridSizer* item27 = new wxFlexGridSizer(1, 3, 0, 2);
+    item24->Add(item27, 0, wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL|wxALL, 0);
+
+    wxStaticText* item28 = new wxStaticText( item1, wxID_STATIC, _("Cartas:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item27->Add(item28, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL|wxADJUST_MINSIZE, 5);
+
+    wxStaticText* item29 = new wxStaticText( item1, CurrentNumCardsStaticTextID, _T(""), wxDefaultPosition, wxDefaultSize, 0 );
+    CurrentNumCardsStaticText = item29;
+    item27->Add(item29, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL|wxADJUST_MINSIZE, 5);
+
+    item27->Add(5, 5, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
 ////@end wxDeckDialog content construction
 }
@@ -507,6 +513,7 @@ void wxDeckDialog::ProcessDeckDescribe(wxInt32 deckid,wxInt32 carduid,wxInt32 ca
   wxString filename;
   long int longvalue;
   wxInt32 row;
+  wxInt32 numcards;
 
   if (m_TEDProtocol->AlreadyHaveCardType(deckid,cardid)==FALSE)
   {
@@ -580,6 +587,24 @@ void wxDeckDialog::ProcessDeckDescribe(wxInt32 deckid,wxInt32 carduid,wxInt32 ca
       CurrentDeckListCtrl->SetItem(row,1,wxString::Format("%d",card->UId.GetCount()));
     }
   }
+  if (deckid==0)
+  {
+    numcards=m_TEDProtocol->GetDeckNumCards(deckid);
+    if (numcards==-1)
+    {
+      return;
+    }
+    ReserveNumCardsStaticText->SetLabel(wxString::Format("%d",numcards));
+  }
+  else if (deckid==m_TEDProtocol->GetCurrentDeckId())
+  {
+    numcards=m_TEDProtocol->GetDeckNumCards(deckid);
+    if (numcards==-1)
+    {
+      return;
+    }
+    CurrentNumCardsStaticText->SetLabel(wxString::Format("%d",numcards));
+  }
 }
 
 void wxDeckDialog::ProcessDeckMove(struct TEDMovingCard *movingcard)
@@ -588,6 +613,7 @@ void wxDeckDialog::ProcessDeckMove(struct TEDMovingCard *movingcard)
   struct TEDDeck *dstdeck;
   struct TEDCard *card;
   wxInt32 row;
+  wxInt32 numcards;
 
   card=m_TEDProtocol->GetCard(movingcard->srcdeckid,movingcard->cardid);
   m_TEDProtocol->RemoveCardUID(movingcard->srcdeckid,movingcard->cardid,movingcard->carduid);
@@ -615,6 +641,24 @@ void wxDeckDialog::ProcessDeckMove(struct TEDMovingCard *movingcard)
     {
       CurrentDeckListCtrl->SetItem(row,1,wxString::Format("%d",card->UId.GetCount()));
     }
+  }
+  if (movingcard->srcdeckid==0)
+  {
+    numcards=m_TEDProtocol->GetDeckNumCards(movingcard->srcdeckid);
+    if (numcards==-1)
+    {
+      return;
+    }
+    ReserveNumCardsStaticText->SetLabel(wxString::Format("%d",numcards));
+  }
+  else if (movingcard->srcdeckid==m_TEDProtocol->GetCurrentDeckId())
+  {
+    numcards=m_TEDProtocol->GetDeckNumCards(movingcard->srcdeckid);
+    if (numcards==-1)
+    {
+      return;
+    }
+    CurrentNumCardsStaticText->SetLabel(wxString::Format("%d",numcards));
   }
 }
 
@@ -647,6 +691,7 @@ void wxDeckDialog::ProcessDeckClear()
   }
   m_TEDProtocol->SetCurrentDeckId(-1);
   m_TEDProtocol->ClearDeck(0);
+  CurrentNumCardsStaticText->SetLabel(_(""));
   LoadReserveDeck();
 }
 
