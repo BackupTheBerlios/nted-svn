@@ -205,7 +205,7 @@ void wxDeckDialog::CreateControls()
     fgscenterchild = item12;
     item10->Add(item12, 1, wxGROW|wxGROW|wxALL, 0);
 
-    wxBitmap item13Bitmap;
+    wxBitmap item13Bitmap(wxNullBitmap);
     wxStaticBitmap* item13 = new wxStaticBitmap( item1, CardStaticBitmapID, item13Bitmap, wxDefaultPosition, wxSize(90, 120), 0 );
     CardStaticBitmap = item13;
     item12->Add(item13, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL, 0);
@@ -406,7 +406,7 @@ void wxDeckDialog::OnDeckscomboboxidSelected( wxCommandEvent& event )
 
 int wxCALLBACK wxListCompareFunction2(long item1,long item2,long sortData)
 {
-  return 0;//((struct TEDChatter *)item1)->Name.Cmp(((struct TEDChatter *)item2)->Name);
+  return ((struct TEDCard *)item1)->Name.Cmp(((struct TEDCard *)item2)->Name);
 }
 
 /*!
@@ -491,7 +491,6 @@ void wxDeckDialog::OnBorrarbarajabuttonidClick( wxCommandEvent& event )
 
 void wxDeckDialog::OnActivarbarajabuttonidClick( wxCommandEvent& event )
 {
-  // Insert custom code here
   wxInt32 *deckid;
 
   // Insert custom code here
@@ -721,13 +720,6 @@ void wxDeckDialog::ProcessDeckMove(struct TEDMovingCard *movingcard)
 
 void wxDeckDialog::ProcessDeckNew(wxString deckname,wxInt32 deckid)
 {
-/*
-  wxString cadena=deckname;
-
-  cadena=deckname;
-::wxSafeShowMessage(_("Titanes 1"),_("stepA"));
-::wxSafeShowMessage(_("Titanes 2"),cadena+wxString::Format(" %d",deckid));
-*/
   ProcessDeckList(deckid,deckname);
 }
 
@@ -857,7 +849,7 @@ void wxDeckDialog::LoadBigCardBitmap(struct TEDCard *card,wxBitmap *cardbitmap)
   memdc.DrawBitmap(wxBitmap(img),11,41);
   memdc.SetTextForeground(wxColour(*wxWHITE));
   memdc.SetFont(wxFont(10,wxSWISS,wxNORMAL,wxLIGHT));
-//  memdc.SetFont(wxFont(8,wxMODERN,wxNORMAL,wxLIGHT));
+//  memdc.SetFont(wxFont(10,wxMODERN,wxNORMAL,wxLIGHT));
   memdc.GetTextExtent(card->Cost,&width,&height);
   memdc.SetClippingRegion(6,6,169-18-width,height);
   memdc.DrawText(card->Name,6,6);
@@ -874,3 +866,27 @@ void wxDeckDialog::LoadBigCardBitmap(struct TEDCard *card,wxBitmap *cardbitmap)
   }
 }
 
+
+/*!
+ * Get bitmap resources
+ */
+
+wxBitmap wxDeckDialog::GetBitmapResource( const wxString& name )
+{
+    // Bitmap retrieval
+////@begin wxDeckDialog bitmap retrieval
+    return wxNullBitmap;
+////@end wxDeckDialog bitmap retrieval
+}
+
+/*!
+ * Get icon resources
+ */
+
+wxIcon wxDeckDialog::GetIconResource( const wxString& name )
+{
+    // Icon retrieval
+////@begin wxDeckDialog icon retrieval
+    return wxNullIcon;
+////@end wxDeckDialog icon retrieval
+}

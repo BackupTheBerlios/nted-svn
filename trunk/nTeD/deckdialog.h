@@ -141,6 +141,12 @@ public:
     void LoadBigCardBitmap(struct TEDCard *card,wxBitmap *cardbitmap);
 ////@begin wxDeckDialog member function declarations
 
+
+    /// Retrieves bitmap resources
+    wxBitmap GetBitmapResource( const wxString& name );
+
+    /// Retrieves icon resources
+    wxIcon GetIconResource( const wxString& name );
 ////@end wxDeckDialog member function declarations
 
     /// Should we show tooltips?
