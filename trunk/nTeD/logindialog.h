@@ -25,6 +25,8 @@
 ////@end includes
 
 #include <wx/msgdlg.h>
+#include "tedprotocol.h"
+
 
 /*!
  * Forward declarations
@@ -39,7 +41,7 @@
 
 ////@begin control identifiers
 #define LoginDialogID 10000
-#define SYMBOL_WXLOGINDIALOG_STYLE wxCLOSE_BOX
+#define SYMBOL_WXLOGINDIALOG_STYLE 0
 #define SYMBOL_WXLOGINDIALOG_TITLE _("Login")
 #define SYMBOL_WXLOGINDIALOG_IDNAME LoginDialogID
 #define SYMBOL_WXLOGINDIALOG_SIZE wxSize(250, 180)
@@ -72,7 +74,6 @@ public:
     /// Constructors
     wxLoginDialog( );
     wxLoginDialog( wxWindow* parent, wxWindowID id = SYMBOL_WXLOGINDIALOG_IDNAME, const wxPoint& pos = SYMBOL_WXLOGINDIALOG_POSITION, const wxSize& size = SYMBOL_WXLOGINDIALOG_SIZE, long style = SYMBOL_WXLOGINDIALOG_STYLE );
-//    wxLoginDialog( wxNotebook* parent,  wxWindowID id = SYMBOL_WXLOGINDIALOG_IDNAME, const wxPoint& pos = SYMBOL_WXLOGINDIALOG_POSITION, const wxSize& size = SYMBOL_WXLOGINDIALOG_SIZE, long style = wxSUNKEN_BORDER|wxTAB_TRAVERSAL );
 
     /// Creation
     bool Create( wxWindow* parent, wxWindowID id = SYMBOL_WXLOGINDIALOG_IDNAME, const wxPoint& pos = SYMBOL_WXLOGINDIALOG_POSITION, const wxSize& size = SYMBOL_WXLOGINDIALOG_SIZE, long style = SYMBOL_WXLOGINDIALOG_STYLE );
@@ -100,6 +101,7 @@ public:
     wxStaticText* ContrasenaStatic;
     wxTextCtrl* ContrasenaTextCtrl;
     wxButton* ConectarButton;
+    TEDProtocol *m_TEDProtocol;
 ////@end wxLoginDialog member variables
 };
 
