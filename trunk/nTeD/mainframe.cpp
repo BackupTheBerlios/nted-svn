@@ -130,7 +130,7 @@ void wxMainFrame::CreateControls()
     item2->SetToolBitmapSize(wxSize(32, 32));
     item2->AddSeparator();
 
-    wxBitmap item4Bitmap(_T("icons/btn_conectar.png"), wxBITMAP_TYPE_PNG);
+    wxBitmap item4Bitmap(_T("icons/btn_connect.png"), wxBITMAP_TYPE_PNG);
     item2->AddTool(ConectarTool, _("Conectar"), item4Bitmap, _("Conectar"), wxITEM_NORMAL);
 
     item2->AddSeparator();
