@@ -331,7 +331,10 @@ void wxDeckDialog::OnReservelistctrlidItemActivated( wxListEvent& event )
   {
     return;
   }
-  m_TEDProtocol->DeckMove(0,m_TEDProtocol->GetCurrentDeckId(),card->Id,*card->UId[0]);
+//  m_TEDProtocol->DeckMove(0,m_TEDProtocol->GetCurrentDeckId(),card->Id,*card->UId[0]);
+//::wxSafeShowMessage(_("Titanes"),wxString::Format("deckid %d",m_TEDProtocol->GetCurrentDeckId()));
+//::wxSafeShowMessage(_("Titanes"),wxString::Format("carduid %d",card->UId[0]));
+  m_TEDProtocol->DeckMove(0,m_TEDProtocol->GetCurrentDeckId(),card->Id,card->UId[0]);
   event.Skip();
 }
 
@@ -374,7 +377,8 @@ void wxDeckDialog::OnCurrentdecklistctrlidItemActivated( wxListEvent& event )
   {
     return;
   }
-  m_TEDProtocol->DeckMove(m_TEDProtocol->GetCurrentDeckId(),0,card->Id,*card->UId[0]);
+//  m_TEDProtocol->DeckMove(m_TEDProtocol->GetCurrentDeckId(),0,card->Id,*card->UId[0]);
+  m_TEDProtocol->DeckMove(m_TEDProtocol->GetCurrentDeckId(),0,card->Id,card->UId[0]);
   event.Skip();
 }
 
@@ -550,6 +554,7 @@ void wxDeckDialog::ProcessDeckDescribe(wxInt32 deckid,wxInt32 carduid,wxInt32 ca
   *cuid=carduid;
   if (m_TEDProtocol->AlreadyHaveCardType(deckid,cardid)==FALSE)
   {
+//::wxSafeShowMessage(_("Titanes"),_("POR EL FALSE"));
     card=new struct TEDCard;
     filename=_T("cards/card")+wxString::Format("%d",cardid)+_T(".txt");
     input=new wxFileInputStream(filename);
@@ -585,7 +590,8 @@ void wxDeckDialog::ProcessDeckDescribe(wxInt32 deckid,wxInt32 carduid,wxInt32 ca
 		card->Name=text->ReadLine();
 		card->Text=text->ReadLine();
 		card->UId.Clear();
-		card->UId.Add(cuid);
+//		card->UId.Add(cuid);
+		card->UId.Add(carduid);
 		m_TEDProtocol->AddCard(deckid,cardid,card);
 		if (deckid==0)
 		{
@@ -628,6 +634,7 @@ void wxDeckDialog::ProcessDeckDescribe(wxInt32 deckid,wxInt32 carduid,wxInt32 ca
   }
   else
   {
+//::wxSafeShowMessage(_("Titanes"),_("POR EL TRUE"));
     m_TEDProtocol->AddCardUID(deckid,cardid,carduid);
     card=m_TEDProtocol->GetCard(deckid,cardid);
     if (deckid==0)
@@ -679,30 +686,52 @@ void wxDeckDialog::ProcessDeckMove(struct TEDMovingCard *movingcard)
   wxInt32 numcards;
 
   card=m_TEDProtocol->GetCard(movingcard->srcdeckid,movingcard->cardid);
+//::wxSafeShowMessage(_("Titanes"),wxString::Format("IsEmpty %d",card->UId.IsEmpty()));
+//::wxSafeShowMessage(_("Titanes"),wxString::Format("GetCount %d",card->UId.GetCount()));
+//::wxSafeShowMessage(_("Titanes"),wxString::Format("FindItem %d",(int)ReserveListCtrl->FindItem(-1,(long)card)));
   m_TEDProtocol->RemoveCardUID(movingcard->srcdeckid,movingcard->cardid,movingcard->carduid);
+//::wxSafeShowMessage(_("Titanes"),wxString::Format("IsEmpty %d",card->UId.IsEmpty()));
+//::wxSafeShowMessage(_("Titanes"),wxString::Format("GetCount %d",card->UId.GetCount()));
+//::wxSafeShowMessage(_("Titanes"),wxString::Format("FindItem %d",(int)ReserveListCtrl->FindItem(-1,(long)card)));
   ProcessDeckDescribe(movingcard->dstdeckid,movingcard->carduid,movingcard->cardid);
+//::wxSafeShowMessage(_("Titanes"),wxString::Format("IsEmpty %d",card->UId.IsEmpty()));
+//::wxSafeShowMessage(_("Titanes"),wxString::Format("GetCount %d",card->UId.GetCount()));
+//::wxSafeShowMessage(_("Titanes"),wxString::Format("FindItem %d",(int)ReserveListCtrl->FindItem(-1,(long)card)));
   if (movingcard->srcdeckid==0)
   {
-    row=ReserveListCtrl->FindItem(-1,(long int)card);
+    row=ReserveListCtrl->FindItem(-1,(long)card);
+//::wxSafeShowMessage(_("Titanes"),wxString::Format("fila reserva %d",row));
     if (card->UId.IsEmpty()==TRUE)
     {
+//::wxSafeShowMessage(_("Titanes"),"por el deleteitem");
       ReserveListCtrl->DeleteItem(row);
     }
     else
     {
+//::wxSafeShowMessage(_("Titanes"),"NO por el deleteitem");
       ReserveListCtrl->SetItem(row,1,wxString::Format("%d",card->UId.GetCount()));
     }
   }
   else
   {
-    row=CurrentDeckListCtrl->FindItem(-1,(long int)card);
+    row=CurrentDeckListCtrl->FindItem(-1,(long)card);
+//::wxSafeShowMessage(_("Titanes"),wxString::Format("fila baraja %d",row));
     if (card->UId.IsEmpty()==TRUE)
     {
+//::wxSafeShowMessage(_("Titanes"),"por el deleteitem");
       CurrentDeckListCtrl->DeleteItem(row);
     }
     else
     {
-      CurrentDeckListCtrl->SetItem(row,1,wxString::Format("%d/%d",card->UId.GetCount(),card->Max));
+//::wxSafeShowMessage(_("Titanes"),"NO por el deleteitem");
+		  if (card->Max==0)
+		  {
+  		  CurrentDeckListCtrl->SetItem(row,1,wxString::Format("%d/*",card->UId.GetCount()));
+		  }
+		  else
+		  {
+  		  CurrentDeckListCtrl->SetItem(row,1,wxString::Format("%d/%d",card->UId.GetCount(),card->Max));
+		  }
     }
   }
   if (movingcard->srcdeckid==0)
