@@ -28,6 +28,8 @@
 
 #include "logindialog.h"
 #include "chatdialog.h"
+#include "tedprotocol.h"
+#include "tcpconnection.h"
 
 
 /*!
@@ -86,6 +88,9 @@ public:
 
 ////@begin wxMainFrame event handler declarations
 
+    /// wxEVT_CLOSE_WINDOW event handler for MainFrame
+    void OnCloseWindow( wxCloseEvent& event );
+
     /// wxEVT_SIZE event handler for MainFrame
     void OnSize( wxSizeEvent& event );
 
@@ -104,7 +109,12 @@ public:
     /// wxEVT_COMMAND_MENU_SELECTED event handler for PrefTool
     void OnPreftoolClick( wxCommandEvent& event );
 
+    /// wxEVT_COMMAND_MENU_SELECTED event handler for SalirTool
+    void OnSalirtoolClick( wxCommandEvent& event );
+
 ////@end wxMainFrame event handler declarations
+
+    void OnIdle(wxIdleEvent &event);
 
 ////@begin wxMainFrame member function declarations
 
@@ -112,6 +122,7 @@ public:
 
     /// Should we show tooltips?
     static bool ShowToolTips();
+    void UpdateToolbar(int id);
 
 ////@begin wxMainFrame member variables
     wxToolBar* MainToolBar;
@@ -119,8 +130,8 @@ public:
     wxLoginDialog *m_LoginWnd;
     wxChatDialog *m_ChatWnd;
     wxFlexGridSizer *m_mainsizer;
+    TEDProtocol *m_TEDProtocol;
 ////@end wxMainFrame member variables
 };
 
-#endif
-    // _MAINFRAME_H_
+#endif // _MAINFRAME_H_
