@@ -217,6 +217,7 @@ void wxMainFrame::OnBarajastoolClick( wxCommandEvent& event )
       m_TEDProtocol->SetRecoverRoomID(m_TEDProtocol->GetUserChatRoomID());
       m_TEDProtocol->ChatExit();
     }
+    m_DeckWnd->GoldStaticText->SetLabel(wxString::Format("%d",m_TEDProtocol->GetUserGold()));
     m_TEDProtocol->DeckEdit();
     UpdateToolbar(BarajasTool);
     event.Skip();
@@ -563,8 +564,6 @@ void wxMainFrame::ProcessDeckEdit(wxString msg)
     deckid=longvalue;
     m_TEDProtocol->SetEditing(TRUE);
     m_TEDProtocol->SetActiveDeckID(deckid);
-    // THIS IS SUPPOSSED TO DO NOT BE NEEDED TO BE DONE
-    // BECAUSE WE DO IT EACH TIME WE LEAVE DECK MODE
     m_DeckWnd->ClearDecks();
     m_TEDProtocol->DeckList();
 /*

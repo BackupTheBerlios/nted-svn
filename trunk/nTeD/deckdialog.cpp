@@ -684,5 +684,6 @@ void wxDeckDialog::ProcessDeckActive()
 void wxDeckDialog::ProcessDeckGet(wxInt32 gold)
 {
   m_TEDProtocol->SetUserGold(gold);
+  GoldStaticText->SetLabel(wxString::Format("%d",gold));
 }
 
