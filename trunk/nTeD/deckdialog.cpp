@@ -302,10 +302,7 @@ void wxDeckDialog::ProcessDeckList(wxInt32 deckid,wxString deckname)
 
   value=new wxInt32;
   *value=deckid;
-  ::wxSafeShowMessage(_("Titanes"),deckname);
-  DecksComboBox->Append(deckname);
-//  DecksComboBox->Append(deckname,value);
-//  DecksComboBox->Refresh();
+  DecksComboBox->Append(deckname,value);
   m_TEDProtocol->AddDeck(deckid,deckname);
 }
 

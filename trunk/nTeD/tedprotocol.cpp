@@ -309,7 +309,7 @@ bool TEDProtocol::ChatEnter(wxInt32 roomindex)
   long int longvalue;
   struct TEDChatRoom *room;
 
-  // VERIFICAMOS QUE NUESTRA VERSION DEL CLIENTE ES VALIDA
+  m_tryroom=roomindex;
   sndmsg=_T("CE ")+wxString::Format("%d",roomindex)+_T("\n");
   TCPConn->SendMessage(sndmsg);
 /*
@@ -414,6 +414,16 @@ void TEDProtocol::DeckExit()
 
   sndmsg=_T("EX\n");
   TCPConn->SendMessage(sndmsg);
+}
+
+bool TEDProtocol::IsEditing()
+{
+  return m_editing;
+}
+
+void TEDProtocol::SetEditing(bool editing)
+{
+  m_editing=editing;
 }
 
 wxInt32 TEDProtocol::GetActiveDeckID()

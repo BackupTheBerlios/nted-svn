@@ -112,6 +112,8 @@ class TEDProtocol
 	  struct TEDChatter *GetUser(wxInt32 userid);
 	  void DeckEdit();
 	  void DeckExit();
+	  bool IsEditing();
+	  void SetEditing(bool editing);
 	  wxInt32 GetActiveDeckID();
 	  void SetActiveDeckID(wxInt32 deckid);
     void DeckList();
@@ -129,6 +131,7 @@ class TEDProtocol
     wxInt32 m_tryroom;
     wxInt32 m_recoverroom;
     wxInt32 m_actdeck;
+    bool m_editing;
     bool m_gettingdecklist;
     bool m_gettingcardlist;
 /*

@@ -191,11 +191,15 @@ void wxMainFrame::OnChattoolClick( wxCommandEvent& event )
   wxInt32 roomid;
 
   // Insert custom code here
+  if (m_TEDProtocol->IsEditing()==TRUE)
+  {
+    m_TEDProtocol->DeckExit();
+  }
   roomid=m_TEDProtocol->GetRecoverRoomID();
+  ::wxSafeShowMessage(_("Titanes2"),wxString::Format("%d",roomid));
   if (roomid!=0)
   {
     m_TEDProtocol->SetRecoverRoomID(0);
-    m_TEDProtocol->DeckExit();
     m_TEDProtocol->ChatEnter(roomid);
   }
   UpdateToolbar(ChatTool);
@@ -212,6 +216,7 @@ void wxMainFrame::OnBarajastoolClick( wxCommandEvent& event )
     if (m_TEDProtocol->IsChatting()==TRUE)
     {
       m_TEDProtocol->SetRecoverRoomID(m_TEDProtocol->GetUserChatRoomID());
+  ::wxSafeShowMessage(_("Titanes1"),wxString::Format("%d",m_TEDProtocol->GetRecoverRoomID()));
       m_TEDProtocol->ChatExit();
     }
     m_TEDProtocol->DeckEdit();
@@ -529,7 +534,11 @@ void wxMainFrame::ProcessChatExit(wxString msg)
   if (tok==_T("OK"))
   {
     m_TEDProtocol->SetUserChatRoomID(0);
-    m_TEDProtocol->SetTryRoomID(0);
+    // IF WE SET TRY ROOM TO ZERO WE CAN HAVE PROBLEMS BECAUSE
+    // IF WE DO A CALL TO CHATEXIT AND THEN WE CALL CHATENTER
+    // WE ARE GOING TO RECEIVE A CHATEXIT MESSAGE AFTER SETTING TRYROOM
+    // SO WE ARE GOING TO UNSET IT AND THAT'S NOT GOOD
+//    m_TEDProtocol->SetTryRoomID(0);
     m_TEDProtocol->SetChatting(FALSE);
     m_ChatWnd->UsuariosListCtrl->DeleteAllItems();
 /*
@@ -567,6 +576,7 @@ void wxMainFrame::ProcessDeckEdit(wxString msg)
     tok=msgtok.GetNextToken();
     tok.ToLong(&longvalue);
     deckid=longvalue;
+    m_TEDProtocol->SetEditing(TRUE);
     m_TEDProtocol->SetActiveDeckID(deckid);
     // THIS IS SUPPOSSED TO DO NOT BE NEEDED TO BE DONE
     // BECAUSE WE DO IT EACH TIME WE LEAVE DECK MODE
@@ -894,7 +904,7 @@ void wxMainFrame::ProcessDeckExit(wxString msg)
   msgtok=wxStringTokenizer(msg);
   tok=msgtok.GetNextToken();
   tok=msgtok.GetNextToken();
-
+  m_TEDProtocol->SetEditing(FALSE);
   m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
 /*
 			} else if (Msg[0].Equals("EX")) {
