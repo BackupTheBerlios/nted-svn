@@ -32,14 +32,12 @@
 class TCPThread:public wxThread
 {
 	public:
-//    TCPThread(wxTextInputStream *Input,wxArrayString *MsgList,wxCriticalSection *m_critsec);
     TCPThread(wxTextInputStream *Input,wxArrayString *MsgList);
     // thread execution starts here
     virtual void *Entry();
   private:
     wxTextInputStream *m_input;
     wxArrayString *m_msglist;
-//    wxCriticalSection *m_critsec;
 };
 
 /*!
@@ -65,7 +63,6 @@ class TCPConnection
     wxTextOutputStream *Output;
     wxArrayString *MsgList;
     TCPThread *ListenThread;
-//    wxCriticalSection *m_critsec;
 };
 
 #endif // _TCPCONNECTION_H_

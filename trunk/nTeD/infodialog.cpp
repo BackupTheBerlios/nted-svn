@@ -104,32 +104,39 @@ void wxInfoDialog::CreateControls()
     item1->SetSizer(item2);
     item1->SetAutoLayout(TRUE);
 
-    wxFlexGridSizer* item3 = new wxFlexGridSizer(0, 1, 5, 0);
+    wxFlexGridSizer* item3 = new wxFlexGridSizer(2, 1, 5, 0);
+    item3->AddGrowableRow(0);
     item3->AddGrowableCol(0);
     item2->Add(item3, 0, wxGROW|wxGROW|wxALL|wxADJUST_MINSIZE, 5);
 
     wxHtmlWindow* item4 = new wxHtmlWindow;
     item4->Create( item1, InfoHtmlWindowID, wxDefaultPosition, wxDefaultSize, wxHW_SCROLLBAR_AUTO|wxSUNKEN_BORDER );
     InfoHtmlWindow = item4;
-    item4->SetPage(wxT("<center><font size=5>Titanes -=[ El Destierro ]=-</font></center>
-<p>
-Titanes, el juego de cartas coleccionables online multiusuario y gratuíto, es un proyecto desarrollado conjuntamente por personas de diferentes países.
-<p>
-<strong>Equipo de desarrollo:</strong><br>
-<ul>
-<li>Attradis (programación del cliente)</li>
-<li>JJpRiVaTe (programación del servidor)</li>
-<li><a href=mailto:kintups@titanes.com>Kintups</a> (seguridad del servidor e integridad del protocolo)</li>
-<li>Loko (mantenimiento web)</li>
-<li>Mariana (dibujante)</li>
-<li>Seln (diseño gráfico y coordinación, mantenimiento web)</li>
-<li>YaW (jugabilidad y diseño, scripts para el desarrollo, coordinación)</li>
-</ul>
-<p>
-El equipo de desarrollo quiere agradecer su interés a todos los que han seguido y siguen el desarrollo del proyecto, y colaboran con sus emails a los coordinadores y sus comentarios en los foros.
-<p>
-<a href=http://www.titanesed.ya.st>http://www.titanesed.ya.st></a>
-"));
+    item4->SetPage(wxT("<html>"
+"<head>"
+"</head>"
+"<body>"
+"<center><font size=5>Titanes -=[ El Destierro ]=-</font></center>"
+"<p>"
+"Titanes, el juego de cartas coleccionables online multiusuario y gratuíto, es un proyecto desarrollado conjuntamente por personas de diferentes países."
+"<p>"
+"<strong>Equipo de desarrollo:</strong><br>"
+"<ul>"
+"<li>Attradis (programación del cliente)</li>"
+"<li>JJpRiVaTe (programación del servidor)</li>"
+"<li><a href=\"mailto:kintups@titanes.com\">Kintups</a> (seguridad del servidor e integridad del protocolo)</li>"
+"<li>Loko (mantenimiento web)</li>"
+"<li>Mariana (dibujante)</li>"
+"<li>Seln (diseño gráfico y coordinación, mantenimiento web)</li>"
+"<li>YaW (jugabilidad y diseño, scripts para el desarrollo, coordinación)</li>"
+"</ul>"
+"<p>"
+"El equipo de desarrollo quiere agradecer su interés a todos los que han seguido y siguen el desarrollo del proyecto, y colaboran con sus emails a los coordinadores y sus comentarios en los foros."
+"<p>"
+"<a href=\"http://www.titanesed.ya.st\">http://www.titanesed.ya.st</a>"
+"</body>"
+"</html>"
+));
     item3->Add(item4, 0, wxGROW|wxGROW|wxALL, 0);
 
     wxTextCtrl* item5 = new wxTextCtrl;
@@ -138,6 +145,31 @@ El equipo de desarrollo quiere agradecer su interés a todos los que han seguido 
     item3->Add(item5, 0, wxGROW|wxGROW|wxALL, 0);
 
 ////@end wxInfoDialog content construction
+    InfoHtmlWindow->SetPage(_("<html>"
+"<head>"
+"</head>"
+"<body>"
+"<center><font size=5>Titanes -=[ El Destierro ]=-</font></center>"
+"<p>"
+"Titanes, el juego de cartas coleccionables online multiusuario y gratuíto, es un proyecto desarrollado conjuntamente por personas de diferentes países."
+"<p>"
+"<strong>Equipo de desarrollo:</strong><br>"
+"<ul>"
+"<li>Attradis (programación del cliente)</li>"
+"<li>JJpRiVaTe (programación del servidor)</li>"
+"<li><a href=\"mailto:kintups@titanes.com\">Kintups</a> (seguridad del servidor e integridad del protocolo)</li>"
+"<li>Loko (mantenimiento web)</li>"
+"<li>Mariana (dibujante)</li>"
+"<li>Seln (diseño gráfico y coordinación, mantenimiento web)</li>"
+"<li>YaW (jugabilidad y diseño, scripts para el desarrollo, coordinación)</li>"
+"</ul>"
+"<p>"
+"El equipo de desarrollo quiere agradecer su interés a todos los que han seguido y siguen el desarrollo del proyecto, y colaboran con sus emails a los coordinadores y sus comentarios en los foros."
+"<p>"
+"<a href=\"http://www.titanesed.ya.st\">http://www.titanesed.ya.st</a>"
+"</body>"
+"</html>"));
+
 }
 
 /*!

@@ -11,6 +11,8 @@ class MainApp : public wxApp
   public:
     bool OnInit(void);
 //    wxCriticalSection m_critsec;
+    wxMainFrame *frame;
+
 };
 
 DECLARE_APP(MainApp)
@@ -28,5 +30,4 @@ DECLARE_APP(MainApp)
 IMPLEMENT_APP(MainApp)
 
 
-#endif _MAIN_H__
-
+#endif // _MAIN_H_

@@ -10,11 +10,9 @@
 bool
 MainApp::OnInit()
 {
-    wxMainFrame *frame;
-
 		wxInitAllImageHandlers();
-		wxXmlResource::Get()->InitAllHandlers();
-    wxXmlResource::Get()->Load("nted.xrc");
+//		wxXmlResource::Get()->InitAllHandlers();
+//    wxXmlResource::Get()->Load("nted.xrc");
     frame = new wxMainFrame(NULL);
     frame->Show(TRUE);
     frame->SetSizeHints(580,360,1600,1200);

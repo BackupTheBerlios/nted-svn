@@ -26,6 +26,7 @@
 
 #include <wx/msgdlg.h>
 #include "tedprotocol.h"
+#include "mainframe.h"
 
 
 /*!

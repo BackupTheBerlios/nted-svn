@@ -202,11 +202,11 @@ void wxLoginDialog::OnConectarbuttonClick( wxCommandEvent& event )
     }
     ConectarButton->Disable();
 //    ::wxLogFatalError(_("Antes del IsConnected"));
-    ::wxSafeShowMessage(_("Titanes"),_("Antes del IsConnected"));
+//    ::wxSafeShowMessage(_("Titanes"),_("Antes del IsConnected"));
     if (m_TEDProtocol->IsConnected()==FALSE)
     {
 //      ::wxLogFatalError(_("Antes del Connect"));
-      ::wxSafeShowMessage(_("Titanes"),_("Antes del Connect"));
+//      ::wxSafeShowMessage(_("Titanes"),_("Antes del Connect"));
       m_TEDProtocol->Connect();
       if (m_TEDProtocol->IsConnected()==FALSE)
       {
@@ -217,11 +217,16 @@ void wxLoginDialog::OnConectarbuttonClick( wxCommandEvent& event )
       }
     }
 //    ::wxLogFatalError(_("Antes del Login"));
-    ::wxSafeShowMessage(_("Titanes"),_("Antes del Login"));
+//    ::wxSafeShowMessage(_("Titanes"),_("Antes del Login"));
     m_TEDProtocol->Login(UsuarioTextCtrl->GetValue(),ContrasenaTextCtrl->GetValue());
 //    ::wxLogFatalError(_("Despues del Login"));
-    ::wxSafeShowMessage(_("Titanes"),_("Despues del Login"));
-    ConectarButton->Enable();
+//    ::wxSafeShowMessage(_("Titanes"),_("Despues del Login"));
+    if (m_TEDProtocol->IsLogged()==FALSE)
+    {
+      ConectarButton->Enable();
+    }
+    ((wxMainFrame *)GetParent())->UpdateToolbar(ChatTool);
+    ((wxMainFrame *)GetParent())->m_ChatWnd->SetChannelNames();
     event.Skip();
 }
 

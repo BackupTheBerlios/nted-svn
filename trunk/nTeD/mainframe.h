@@ -39,6 +39,7 @@
 
 ////@begin forward declarations
 ////@end forward declarations
+class wxLoginDialog;
 
 /*!
  * Control identifiers
@@ -132,6 +133,7 @@ public:
     wxChatDialog *m_ChatWnd;
     wxFlexGridSizer *m_mainsizer;
     TEDProtocol *m_TEDProtocol;
+    wxInfoDialog *m_InfoWnd;
 ////@end wxMainFrame member variables
 };
 

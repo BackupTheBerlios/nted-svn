@@ -146,7 +146,7 @@ wxString TCPConnection::WaitMessage()
 
 void TCPConnection::Disconnect()
 {
-  is (ListenThread->IsAlive()==TRUE)
+  if (ListenThread->IsAlive()==TRUE)
   {
     ListenThread->Delete();
   }

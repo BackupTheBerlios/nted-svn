@@ -48,6 +48,7 @@ BEGIN_EVENT_TABLE( wxChatDialog, wxPanel )
     EVT_BUTTON( EnviarButtonID, wxChatDialog::OnEnviarbuttonClick )
 
 ////@end wxChatDialog event table entries
+  EVT_LIST_ITEM_SELECTED(CanalesListCtrlID, wxChatDialog::OnChatRoomSelected)
 
 END_EVENT_TABLE()
 
@@ -145,14 +146,14 @@ void wxChatDialog::CreateControls()
     item3->Add(item9, 1, wxALIGN_RIGHT|wxGROW|wxALL, 0);
 
     wxListCtrl* item10 = new wxListCtrl;
-    item10->Create( item1, UsuariosListCtrlID, wxDefaultPosition, wxSize(200, 100), wxLC_REPORT|wxLC_SINGLE_SEL|wxLC_HRULES|wxLC_VRULES );
+    item10->Create( item1, UsuariosListCtrlID, wxDefaultPosition, wxSize(200, 100), wxLC_REPORT|wxLC_SINGLE_SEL );
     UsuariosListCtrl = item10;
     item9->Add(item10, 1, wxALIGN_RIGHT|wxALL, 0);
 
     item9->Add(5, 5, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 0);
 
     wxListCtrl* item12 = new wxListCtrl;
-    item12->Create( item1, CanalesListCtrlID, wxDefaultPosition, wxSize(200, 100), 0 );
+    item12->Create( item1, CanalesListCtrlID, wxDefaultPosition, wxSize(200, 100), wxLC_REPORT|wxLC_NO_HEADER|wxLC_SINGLE_SEL );
     CanalesListCtrl = item12;
     item9->Add(item12, 0, wxALIGN_RIGHT|wxALL, 0);
 
@@ -167,6 +168,7 @@ bool wxChatDialog::ShowToolTips()
 {
     return TRUE;
 }
+
 /*!
  * wxEVT_COMMAND_BUTTON_CLICKED event handler for EnviarButton
  */
@@ -195,4 +197,36 @@ void wxChatDialog::OnEnviarbuttonClick( wxCommandEvent& event )
     event.Skip();
 }
 
+void wxChatDialog::SetChannelNames()
+{
+  wxInt32 chatroomid;
+  wxInt32 numchatrooms;
+  struct TEDChatRoom *chatroom;
+  wxString chatroomname;
+
+//  ::wxSafeShowMessage(_("Titanes"),_("Antes del ClearAll"));
+  CanalesListCtrl->ClearAll();
+//  ::wxSafeShowMessage(_("Titanes"),_("Antes del GetNumChatRooms"));
+  numchatrooms=m_TEDProtocol->GetNumChatRooms();
+//  ::wxSafeShowMessage(_("Titanes"),_("Antes del for"));
+  CanalesListCtrl->InsertColumn(0,_("Sala"));
+  for (chatroomid=0;chatroomid<numchatrooms;chatroomid++)
+  {
+//    chatroomname=m_TEDProtocol->GetChatRoomName(chatroom);
+    chatroom=m_TEDProtocol->GetChatRoom(chatroomid);
+    CanalesListCtrl->InsertItem(chatroomid,chatroom->RoomName);
+    CanalesListCtrl->SetItemData(chatroomid,(long int)chatroom);
+  }
+  CanalesListCtrl->SetColumnWidth(0,wxLIST_AUTOSIZE);
+//  ::wxSafeShowMessage(_("Titanes"),_("Despues del for"));
+  return;
+}
+
+void wxChatDialog::OnChatRoomSelected( wxListEvent& event )
+{
+  m_TEDProtocol->ChatEnter(((struct TEDChatRoom *)event.GetItem().GetData())->RoomId);
+//  ::wxSafeShowMessage(_("Titanes"),event.GetItem().GetText());
+//  ::wxSafeShowMessage(_("Titanes XXX"),((struct TEDChatRoom *)event.GetItem().GetData())->RoomName);
+  event.Skip();
+}
 

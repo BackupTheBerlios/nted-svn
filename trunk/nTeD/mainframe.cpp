@@ -100,6 +100,8 @@ bool wxMainFrame::Create( wxWindow* parent, wxWindowID id, const wxString& capti
     m_ChatWnd->SetSizeHints(566,348);
     m_ChatWnd->Layout();
     m_ChatWnd->Hide();
+    m_InfoWnd=new wxInfoDialog(this);
+    m_InfoWnd->Hide();
     m_ActiveWnd=m_LoginWnd;
     m_mainsizer=(wxFlexGridSizer*)GetSizer();
     m_mainsizer->Add(m_ActiveWnd, 1, wxALIGN_LEFT|wxEXPAND|wxALL);
@@ -107,6 +109,7 @@ bool wxMainFrame::Create( wxWindow* parent, wxWindowID id, const wxString& capti
     Layout();
     m_TEDProtocol=new TEDProtocol();
     m_LoginWnd->m_TEDProtocol=m_TEDProtocol;
+    m_ChatWnd->m_TEDProtocol=m_TEDProtocol;
 
     return TRUE;
 }
@@ -265,9 +268,7 @@ void wxMainFrame::UpdateToolbar(int id)
     }
     case InfoTool:
     {
-      if ((m_ActiveWnd)!=(m_ChatWnd))
-      {
-      }
+      m_ActiveWnd=m_InfoWnd;
       break;
     }
     case PrefTool:
@@ -282,12 +283,14 @@ void wxMainFrame::UpdateToolbar(int id)
   m_ActiveWnd->Show();
   Layout();
 //    MainToolBar->FindById(ConectarTool)->Toggle(FALSE);
+/*
     MainToolBar->FindById(ChatTool)->Toggle(FALSE);
     MainToolBar->FindById(BarajasTool)->Toggle(FALSE);
     MainToolBar->FindById(InfoTool)->Toggle(FALSE);
     MainToolBar->FindById(PrefTool)->Toggle(FALSE);
+*/
 //    MainToolBar->FindById(SalirTool)->Toggle(FALSE);
-    MainToolBar->FindById(id)->Toggle(TRUE);
+//    MainToolBar->FindById(id)->Toggle(TRUE);
     return;
 }
 
@@ -305,12 +308,10 @@ void wxMainFrame::OnIdle(wxIdleEvent& event)
 {
   wxString msg;
   
-//  ::wxGetApp().m_critsec.Enter();
   while ((msg=m_TEDProtocol->GetMessage())!=wxEmptyString)
   {
     ::wxMessageBox(msg,_("Mensaje del Servidor"));
   }
-//  ::wxGetApp().m_critsec.Leave();
   event.Skip();
 }
 

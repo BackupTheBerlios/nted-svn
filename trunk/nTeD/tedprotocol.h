@@ -63,9 +63,15 @@ class TEDProtocol
 	  wxString WaitMessage();
 	  void Disconnect();
 	  bool IsConnected();
+	  bool IsLogged();
+	  wxInt32 GetNumChatRooms();
+	  struct TEDChatRoom *GetChatRoom(wxInt32 roomindex);
+	  wxString GetChatRoomName(wxInt32 roomindex);
+	  bool ChatEnter(wxInt32 roomindex);
 	private:
 	  TCPConnection *TCPConn;
 	  struct TEDUser User;
+	  bool m_logged;
 /*
 	  wxSocketClient *Conn;
 	  wxTextInputStream *Input;

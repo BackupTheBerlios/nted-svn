@@ -25,6 +25,8 @@
 #include "wx/listctrl.h"
 ////@end includes
 
+#include "tedprotocol.h"
+
 /*!
  * Forward declarations
  */
@@ -85,10 +87,12 @@ public:
     void OnEnviarbuttonClick( wxCommandEvent& event );
 
 ////@end wxChatDialog event handler declarations
+    void OnChatRoomSelected( wxListEvent& event );
 
 ////@begin wxChatDialog member function declarations
 
 ////@end wxChatDialog member function declarations
+    void SetChannelNames();
 
     /// Should we show tooltips?
     static bool ShowToolTips();
@@ -99,6 +103,7 @@ public:
     wxButton* EnviarButton;
     wxListCtrl* UsuariosListCtrl;
     wxListCtrl* CanalesListCtrl;
+    TEDProtocol *m_TEDProtocol;
 ////@end wxChatDialog member variables
 };
 
