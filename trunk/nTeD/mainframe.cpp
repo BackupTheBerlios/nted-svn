@@ -61,6 +61,7 @@ BEGIN_EVENT_TABLE( wxMainFrame, wxFrame )
     EVT_MENU( SalirTool, wxMainFrame::OnSalirtoolClick )
 
 ////@end wxMainFrame event table entries
+    EVT_IDLE( wxMainFrame::OnIdle )
 
 END_EVENT_TABLE()
 
@@ -96,7 +97,7 @@ bool wxMainFrame::Create( wxWindow* parent, wxWindowID id, const wxString& capti
     m_LoginWnd=new wxLoginDialog(this);
     m_LoginWnd->Hide();
     m_ChatWnd=new wxChatDialog(this);
-    m_ChatWnd->SetSizeHints(626,348);
+    m_ChatWnd->SetSizeHints(566,348);
     m_ChatWnd->Layout();
     m_ChatWnd->Hide();
     m_ActiveWnd=m_LoginWnd;
@@ -126,26 +127,26 @@ void wxMainFrame::CreateControls()
     item2->SetToolBitmapSize(wxSize(32, 32));
     item2->AddSeparator();
 
-    wxBitmap item4Bitmap(_T("conectar.png"), wxBITMAP_TYPE_PNG);
+    wxBitmap item4Bitmap(_T("icons/btn_conectar.png"), wxBITMAP_TYPE_PNG);
     item2->AddTool(ConectarTool, _("Conectar"), item4Bitmap, _("Conectar"), wxITEM_NORMAL);
 
     item2->AddSeparator();
 
-    wxBitmap item6Bitmap(_T("btn_irc.xpm"), wxBITMAP_TYPE_XPM);
+    wxBitmap item6Bitmap(_T("icons/btn_canales.png"), wxBITMAP_TYPE_PNG);
     item2->AddTool(ChatTool, _("Canales"), item6Bitmap, _("Canales"), wxITEM_RADIO);
 
-    wxBitmap item7Bitmap(_T("globes_blue_p6.png"), wxBITMAP_TYPE_PNG);
+    wxBitmap item7Bitmap(_T("icons/btn_baraja.png"), wxBITMAP_TYPE_PNG);
     item2->AddTool(BarajasTool, _("Barajas"), item7Bitmap, _("Barajas"), wxITEM_RADIO);
 
-    wxBitmap item8Bitmap(_T("Info Balloon_p08.png"), wxBITMAP_TYPE_PNG);
+    wxBitmap item8Bitmap(_T("icons/btn_info.png"), wxBITMAP_TYPE_PNG);
     item2->AddTool(InfoTool, _("Información"), item8Bitmap, _("Información"), wxITEM_RADIO);
 
-    wxBitmap item9Bitmap(_T("btn_preferences.xpm"), wxBITMAP_TYPE_XPM);
+    wxBitmap item9Bitmap(_T("icons/btn_preferencias_2.png"), wxBITMAP_TYPE_PNG);
     item2->AddTool(PrefTool, _("Preferencias"), item9Bitmap, _("Preferencias"), wxITEM_RADIO);
 
     item2->AddSeparator();
 
-    wxBitmap item11Bitmap(_T("Log Off_p07.png"), wxBITMAP_TYPE_PNG);
+    wxBitmap item11Bitmap(_T("icons/btn_salir.png"), wxBITMAP_TYPE_PNG);
     item2->AddTool(SalirTool, _("Salir"), item11Bitmap, _("Salir"), wxITEM_NORMAL);
 
     item2->Realize();
