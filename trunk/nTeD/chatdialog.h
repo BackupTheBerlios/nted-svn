@@ -90,6 +90,14 @@ public:
 
 ////@end wxChatDialog event handler declarations
     void OnChatRoomSelected( wxListEvent& event );
+    /// wxEVT_COMMAND_TEXT_ENTER event handler for MensajeTextCtrlID
+    void OnMensajetextctrlidEnter( wxCommandEvent& event );
+    /// wxEVT_COMMAND_LIST_ITEM_SELECTED event handler for UsuariosListCtrlID
+    void OnUsuarioslistctrlidSelected( wxListEvent& event );
+    /// wxEVT_COMMAND_LIST_ITEM_ACTIVATED event handler for UsuariosListCtrlID
+    void OnUsuarioslistctrlidItemActivated( wxListEvent& event );
+    /// wxEVT_COMMAND_LIST_ITEM_RIGHT_CLICK event handler for UsuariosListCtrlID
+    void OnUsuarioslistctrlidRightClick( wxListEvent& event );
 
 ////@begin wxChatDialog member function declarations
 
@@ -98,7 +106,7 @@ public:
     void AddUser(struct TEDChatter *chatter);
 	  void RemoveUser(wxInt32 userid);
 	  void ProcessBroadcastChatMessage(wxInt32 userid,wxString rcvmsg);
-
+	  void ProcessDuelChallenged(wxInt32 userid);
     /// Should we show tooltips?
     static bool ShowToolTips();
 

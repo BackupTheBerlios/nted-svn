@@ -28,7 +28,7 @@ TCPThread::TCPThread(wxTextInputStream *Input,wxArrayString *MsgList):wxThread()
 void *TCPThread::Entry()
 {
   wxString msg;
-  
+
 //::wxSafeShowMessage(_("Titanes"),_("Dentro del Thread."));
   while (TestDestroy()==FALSE)
   {
@@ -79,8 +79,9 @@ TCPConnection::TCPConnection()
 
 void TCPConnection::Connect()
 {
+#if 0
   bool reconnect=TRUE;
-
+#endif
   address=new wxIPV4address();
   if ((address->Hostname(_T(TEDHOST))==FALSE) || (address->Service(TEDPORT)==FALSE))
   {

@@ -331,7 +331,7 @@ void wxDeckDialog::OnReservelistctrlidItemActivated( wxListEvent& event )
   {
     return;
   }
-  m_TEDProtocol->DeckMove(0,m_TEDProtocol->GetCurrentDeckId(),card->Id,card->UId[0]);
+  m_TEDProtocol->DeckMove(0,m_TEDProtocol->GetCurrentDeckId(),card->Id,*card->UId[0]);
   event.Skip();
 }
 
@@ -374,7 +374,7 @@ void wxDeckDialog::OnCurrentdecklistctrlidItemActivated( wxListEvent& event )
   {
     return;
   }
-  m_TEDProtocol->DeckMove(m_TEDProtocol->GetCurrentDeckId(),0,card->Id,card->UId[0]);
+  m_TEDProtocol->DeckMove(m_TEDProtocol->GetCurrentDeckId(),0,card->Id,*card->UId[0]);
   event.Skip();
 }
 
@@ -385,7 +385,9 @@ void wxDeckDialog::OnCurrentdecklistctrlidItemActivated( wxListEvent& event )
 
 void wxDeckDialog::OnDeckscomboboxidSelected( wxCommandEvent& event )
 {
+#if 0
   wxInt32 row;
+#endif
   wxInt32 *deckid;
 
   // Insert custom code here
@@ -542,7 +544,10 @@ void wxDeckDialog::ProcessDeckDescribe(wxInt32 deckid,wxInt32 carduid,wxInt32 ca
   long int longvalue;
   wxInt32 row;
   wxInt32 numcards;
+  wxInt32 *cuid;
 
+  cuid=new wxInt32;
+  *cuid=carduid;
   if (m_TEDProtocol->AlreadyHaveCardType(deckid,cardid)==FALSE)
   {
     card=new struct TEDCard;
@@ -580,7 +585,7 @@ void wxDeckDialog::ProcessDeckDescribe(wxInt32 deckid,wxInt32 carduid,wxInt32 ca
 		card->Name=text->ReadLine();
 		card->Text=text->ReadLine();
 		card->UId.Clear();
-		card->UId.Add(carduid);
+		card->UId.Add(cuid);
 		m_TEDProtocol->AddCard(deckid,cardid,card);
 		if (deckid==0)
 		{
@@ -665,8 +670,10 @@ void wxDeckDialog::ProcessDeckDescribe(wxInt32 deckid,wxInt32 carduid,wxInt32 ca
 
 void wxDeckDialog::ProcessDeckMove(struct TEDMovingCard *movingcard)
 {
+#if 0
   struct TEDDeck *srcdeck;
   struct TEDDeck *dstdeck;
+#endif
   struct TEDCard *card;
   wxInt32 row;
   wxInt32 numcards;

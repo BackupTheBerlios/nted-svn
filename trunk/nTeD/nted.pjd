@@ -26,7 +26,7 @@
 	<value name="use_two_step_construction" type="bool">FALSE</value>
 	<path name="ID000000">
 		<value name="title" type="string">Projects</value>
-		<value name="id" type="Integer">14605776</value>
+		<value name="id" type="Integer">14605792</value>
 		<value name="type" type="string">root-document</value>
 		<value name="filename" type="string"></value>
 		<value name="icon-name" type="string">project</value>
@@ -36,23 +36,23 @@
 		<value name="locked" type="Integer">0</value>
 		<path name="ID000001">
 			<value name="title" type="string">Windows</value>
-			<value name="id" type="Integer">14802840</value>
+			<value name="id" type="Integer">14819224</value>
 			<value name="type" type="string">html-document</value>
 			<value name="filename" type="string"></value>
 			<value name="icon-name" type="string">dialogsfolder</value>
 			<value name="is-transient" type="Integer">1</value>
 			<value name="owns-file" type="Integer">1</value>
-			<value name="parent" type="Integer">14605776</value>
+			<value name="parent" type="Integer">14605792</value>
 			<value name="locked" type="Integer">1</value>
 			<path name="ID000002">
 				<value name="title" type="string">Baraja</value>
-				<value name="id" type="Integer">14913640</value>
+				<value name="id" type="Integer">14712144</value>
 				<value name="type" type="string">dialog-document</value>
 				<value name="filename" type="string"></value>
 				<value name="icon-name" type="string">dialog</value>
 				<value name="is-transient" type="Integer">0</value>
 				<value name="owns-file" type="Integer">1</value>
-				<value name="parent" type="Integer">14802840</value>
+				<value name="parent" type="Integer">14819224</value>
 				<value name="locked" type="Integer">0</value>
 				<value name="created" type="string">3/4/2004</value>
 				<value name="proxy-type" type="string">wbDialogProxy</value>
@@ -107,13 +107,13 @@
 				<value name="proxy-Height" type="Integer">300</value>
 				<path name="ID000003">
 					<value name="title" type="string">wxFlexGridSizer</value>
-					<value name="id" type="Integer">14736024</value>
+					<value name="id" type="Integer">14962696</value>
 					<value name="type" type="string">dialog-control-document</value>
 					<value name="filename" type="string"></value>
 					<value name="icon-name" type="string">sizer</value>
 					<value name="is-transient" type="Integer">0</value>
 					<value name="owns-file" type="Integer">1</value>
-					<value name="parent" type="Integer">14913640</value>
+					<value name="parent" type="Integer">14712144</value>
 					<value name="locked" type="Integer">0</value>
 					<value name="proxy-type" type="string">wbFlexGridSizerProxy</value>
 					<value name="proxy-GrowableColumns" type="string">0</value>
@@ -135,13 +135,13 @@
 					<value name="proxy-wxADJUST_MINSIZE" type="bool">FALSE</value>
 					<path name="ID000004">
 						<value name="title" type="string">wxFlexGridSizer</value>
-						<value name="id" type="Integer">14767384</value>
+						<value name="id" type="Integer">14896872</value>
 						<value name="type" type="string">dialog-control-document</value>
 						<value name="filename" type="string"></value>
 						<value name="icon-name" type="string">sizer</value>
 						<value name="is-transient" type="Integer">0</value>
 						<value name="owns-file" type="Integer">1</value>
-						<value name="parent" type="Integer">14736024</value>
+						<value name="parent" type="Integer">14962696</value>
 						<value name="locked" type="Integer">0</value>
 						<value name="proxy-type" type="string">wbFlexGridSizerProxy</value>
 						<value name="proxy-GrowableColumns" type="string">0,2</value>
@@ -163,13 +163,13 @@
 						<value name="proxy-wxADJUST_MINSIZE" type="bool">FALSE</value>
 						<path name="ID000005">
 							<value name="title" type="string">wxFlexGridSizer</value>
-							<value name="id" type="Integer">14626520</value>
+							<value name="id" type="Integer">14767424</value>
 							<value name="type" type="string">dialog-control-document</value>
 							<value name="filename" type="string"></value>
 							<value name="icon-name" type="string">sizer</value>
 							<value name="is-transient" type="Integer">0</value>
 							<value name="owns-file" type="Integer">1</value>
-							<value name="parent" type="Integer">14767384</value>
+							<value name="parent" type="Integer">14896872</value>
 							<value name="locked" type="Integer">0</value>
 							<value name="proxy-type" type="string">wbFlexGridSizerProxy</value>
 							<value name="proxy-GrowableColumns" type="string">0</value>
@@ -191,13 +191,13 @@
 							<value name="proxy-wxADJUST_MINSIZE" type="bool">FALSE</value>
 							<path name="ID000006">
 								<value name="title" type="string">wxListCtrl: ReserveListCtrlID</value>
-								<value name="id" type="Integer">14893672</value>
+								<value name="id" type="Integer">14754224</value>
 								<value name="type" type="string">dialog-control-document</value>
 								<value name="filename" type="string"></value>
 								<value name="icon-name" type="string">dialogcontrol</value>
 								<value name="is-transient" type="Integer">0</value>
 								<value name="owns-file" type="Integer">1</value>
-								<value name="parent" type="Integer">14626520</value>
+								<value name="parent" type="Integer">14767424</value>
 								<value name="locked" type="Integer">0</value>
 								<value name="proxy-type" type="string">wbListCtrlProxy</value>
 								<value name="event-handler-0" type="string">wxEVT_COMMAND_LIST_ITEM_SELECTED|OnReservelistctrlidSelected</value>
@@ -257,13 +257,13 @@
 							</path>
 							<path name="ID000007">
 								<value name="title" type="string">wxFlexGridSizer</value>
-								<value name="id" type="Integer">14625184</value>
+								<value name="id" type="Integer">14816720</value>
 								<value name="type" type="string">dialog-control-document</value>
 								<value name="filename" type="string"></value>
 								<value name="icon-name" type="string">sizer</value>
 								<value name="is-transient" type="Integer">0</value>
 								<value name="owns-file" type="Integer">1</value>
-								<value name="parent" type="Integer">14626520</value>
+								<value name="parent" type="Integer">14767424</value>
 								<value name="locked" type="Integer">0</value>
 								<value name="proxy-type" type="string">wbFlexGridSizerProxy</value>
 								<value name="proxy-GrowableColumns" type="string"></value>
@@ -285,13 +285,13 @@
 								<value name="proxy-wxADJUST_MINSIZE" type="bool">FALSE</value>
 								<path name="ID000008">
 									<value name="title" type="string">wxStaticText: wxID_STATIC</value>
-									<value name="id" type="Integer">14898408</value>
+									<value name="id" type="Integer">14624424</value>
 									<value name="type" type="string">dialog-control-document</value>
 									<value name="filename" type="string"></value>
 									<value name="icon-name" type="string">dialogcontrol</value>
 									<value name="is-transient" type="Integer">0</value>
 									<value name="owns-file" type="Integer">1</value>
-									<value name="parent" type="Integer">14625184</value>
+									<value name="parent" type="Integer">14816720</value>
 									<value name="locked" type="Integer">0</value>
 									<value name="proxy-type" type="string">wbStaticTextProxy</value>
 									<value name="proxy-Id name" type="string">wxID_STATIC</value>
@@ -333,13 +333,13 @@
 								</path>
 								<path name="ID000009">
 									<value name="title" type="string">wxStaticText: ReserveNumCardsStaticTextID</value>
-									<value name="id" type="Integer">14934144</value>
+									<value name="id" type="Integer">14769480</value>
 									<value name="type" type="string">dialog-control-document</value>
 									<value name="filename" type="string"></value>
 									<value name="icon-name" type="string">dialogcontrol</value>
 									<value name="is-transient" type="Integer">0</value>
 									<value name="owns-file" type="Integer">1</value>
-									<value name="parent" type="Integer">14625184</value>
+									<value name="parent" type="Integer">14816720</value>
 									<value name="locked" type="Integer">0</value>
 									<value name="proxy-type" type="string">wbStaticTextProxy</value>
 									<value name="proxy-Id name" type="string">ReserveNumCardsStaticTextID</value>
@@ -381,13 +381,13 @@
 								</path>
 								<path name="ID00000a">
 									<value name="title" type="string">Spacer</value>
-									<value name="id" type="Integer">14933808</value>
+									<value name="id" type="Integer">14769000</value>
 									<value name="type" type="string">dialog-control-document</value>
 									<value name="filename" type="string"></value>
 									<value name="icon-name" type="string">dialogcontrol</value>
 									<value name="is-transient" type="Integer">0</value>
 									<value name="owns-file" type="Integer">1</value>
-									<value name="parent" type="Integer">14625184</value>
+									<value name="parent" type="Integer">14816720</value>
 									<value name="locked" type="Integer">0</value>
 									<value name="proxy-type" type="string">wbSpacerProxy</value>
 									<value name="proxy-Width" type="Integer">5</value>
@@ -407,13 +407,13 @@
 						</path>
 						<path name="ID00000b">
 							<value name="title" type="string">wxFlexGridSizer</value>
-							<value name="id" type="Integer">14625968</value>
+							<value name="id" type="Integer">14767184</value>
 							<value name="type" type="string">dialog-control-document</value>
 							<value name="filename" type="string"></value>
 							<value name="icon-name" type="string">sizer</value>
 							<value name="is-transient" type="Integer">0</value>
 							<value name="owns-file" type="Integer">1</value>
-							<value name="parent" type="Integer">14767384</value>
+							<value name="parent" type="Integer">14896872</value>
 							<value name="locked" type="Integer">0</value>
 							<value name="proxy-type" type="string">wbFlexGridSizerProxy</value>
 							<value name="proxy-GrowableColumns" type="string">0</value>
@@ -435,13 +435,13 @@
 							<value name="proxy-wxADJUST_MINSIZE" type="bool">FALSE</value>
 							<path name="ID00000c">
 								<value name="title" type="string">Spacer</value>
-								<value name="id" type="Integer">14795528</value>
+								<value name="id" type="Integer">14916448</value>
 								<value name="type" type="string">dialog-control-document</value>
 								<value name="filename" type="string"></value>
 								<value name="icon-name" type="string">dialogcontrol</value>
 								<value name="is-transient" type="Integer">0</value>
 								<value name="owns-file" type="Integer">1</value>
-								<value name="parent" type="Integer">14625968</value>
+								<value name="parent" type="Integer">14767184</value>
 								<value name="locked" type="Integer">0</value>
 								<value name="proxy-type" type="string">wbSpacerProxy</value>
 								<value name="proxy-Width" type="Integer">5</value>
@@ -459,13 +459,13 @@
 							</path>
 							<path name="ID00000d">
 								<value name="title" type="string">wxFlexGridSizer</value>
-								<value name="id" type="Integer">14908280</value>
+								<value name="id" type="Integer">14735160</value>
 								<value name="type" type="string">dialog-control-document</value>
 								<value name="filename" type="string"></value>
 								<value name="icon-name" type="string">sizer</value>
 								<value name="is-transient" type="Integer">0</value>
 								<value name="owns-file" type="Integer">1</value>
-								<value name="parent" type="Integer">14625968</value>
+								<value name="parent" type="Integer">14767184</value>
 								<value name="locked" type="Integer">0</value>
 								<value name="proxy-type" type="string">wbFlexGridSizerProxy</value>
 								<value name="proxy-GrowableColumns" type="string"></value>
@@ -487,13 +487,13 @@
 								<value name="proxy-wxADJUST_MINSIZE" type="bool">FALSE</value>
 								<path name="ID00000e">
 									<value name="title" type="string">wxStaticBitmap: CardStaticBitmapID</value>
-									<value name="id" type="Integer">14752104</value>
+									<value name="id" type="Integer">14752912</value>
 									<value name="type" type="string">dialog-control-document</value>
 									<value name="filename" type="string"></value>
 									<value name="icon-name" type="string">dialogcontrol</value>
 									<value name="is-transient" type="Integer">0</value>
 									<value name="owns-file" type="Integer">1</value>
-									<value name="parent" type="Integer">14908280</value>
+									<value name="parent" type="Integer">14735160</value>
 									<value name="locked" type="Integer">0</value>
 									<value name="proxy-type" type="string">wbStaticBitmapProxy</value>
 									<value name="proxy-Id name" type="string">CardStaticBitmapID</value>
@@ -531,13 +531,13 @@
 								</path>
 								<path name="ID00000f">
 									<value name="title" type="string">wxFlexGridSizer</value>
-									<value name="id" type="Integer">14635744</value>
+									<value name="id" type="Integer">14867784</value>
 									<value name="type" type="string">dialog-control-document</value>
 									<value name="filename" type="string"></value>
 									<value name="icon-name" type="string">sizer</value>
 									<value name="is-transient" type="Integer">0</value>
 									<value name="owns-file" type="Integer">1</value>
-									<value name="parent" type="Integer">14908280</value>
+									<value name="parent" type="Integer">14735160</value>
 									<value name="locked" type="Integer">0</value>
 									<value name="proxy-type" type="string">wbFlexGridSizerProxy</value>
 									<value name="proxy-GrowableColumns" type="string"></value>
@@ -559,13 +559,13 @@
 									<value name="proxy-wxADJUST_MINSIZE" type="bool">FALSE</value>
 									<path name="ID000010">
 										<value name="title" type="string">wxStaticText: wxID_STATIC</value>
-										<value name="id" type="Integer">14719992</value>
+										<value name="id" type="Integer">14783240</value>
 										<value name="type" type="string">dialog-control-document</value>
 										<value name="filename" type="string"></value>
 										<value name="icon-name" type="string">dialogcontrol</value>
 										<value name="is-transient" type="Integer">0</value>
 										<value name="owns-file" type="Integer">1</value>
-										<value name="parent" type="Integer">14635744</value>
+										<value name="parent" type="Integer">14867784</value>
 										<value name="locked" type="Integer">0</value>
 										<value name="proxy-type" type="string">wbStaticTextProxy</value>
 										<value name="proxy-Id name" type="string">wxID_STATIC</value>
@@ -607,13 +607,13 @@
 									</path>
 									<path name="ID000011">
 										<value name="title" type="string">wxStaticText: GoldStaticTextID</value>
-										<value name="id" type="Integer">14927128</value>
+										<value name="id" type="Integer">14902360</value>
 										<value name="type" type="string">dialog-control-document</value>
 										<value name="filename" type="string"></value>
 										<value name="icon-name" type="string">dialogcontrol</value>
 										<value name="is-transient" type="Integer">0</value>
 										<value name="owns-file" type="Integer">1</value>
-										<value name="parent" type="Integer">14635744</value>
+										<value name="parent" type="Integer">14867784</value>
 										<value name="locked" type="Integer">0</value>
 										<value name="proxy-type" type="string">wbStaticTextProxy</value>
 										<value name="proxy-Id name" type="string">GoldStaticTextID</value>
@@ -655,13 +655,13 @@
 									</path>
 									<path name="ID000012">
 										<value name="title" type="string">Spacer</value>
-										<value name="id" type="Integer">14774000</value>
+										<value name="id" type="Integer">14780208</value>
 										<value name="type" type="string">dialog-control-document</value>
 										<value name="filename" type="string"></value>
 										<value name="icon-name" type="string">dialogcontrol</value>
 										<value name="is-transient" type="Integer">0</value>
 										<value name="owns-file" type="Integer">1</value>
-										<value name="parent" type="Integer">14635744</value>
+										<value name="parent" type="Integer">14867784</value>
 										<value name="locked" type="Integer">0</value>
 										<value name="proxy-type" type="string">wbSpacerProxy</value>
 										<value name="proxy-Width" type="Integer">5</value>
@@ -680,13 +680,13 @@
 								</path>
 								<path name="ID000013">
 									<value name="title" type="string">wxFlexGridSizer</value>
-									<value name="id" type="Integer">14940168</value>
+									<value name="id" type="Integer">14775776</value>
 									<value name="type" type="string">dialog-control-document</value>
 									<value name="filename" type="string"></value>
 									<value name="icon-name" type="string">sizer</value>
 									<value name="is-transient" type="Integer">0</value>
 									<value name="owns-file" type="Integer">1</value>
-									<value name="parent" type="Integer">14908280</value>
+									<value name="parent" type="Integer">14735160</value>
 									<value name="locked" type="Integer">0</value>
 									<value name="proxy-type" type="string">wbFlexGridSizerProxy</value>
 									<value name="proxy-GrowableColumns" type="string"></value>
@@ -708,13 +708,13 @@
 									<value name="proxy-wxADJUST_MINSIZE" type="bool">FALSE</value>
 									<path name="ID000014">
 										<value name="title" type="string">wxButton: ComprarSobreButtonID</value>
-										<value name="id" type="Integer">14937992</value>
+										<value name="id" type="Integer">14944160</value>
 										<value name="type" type="string">dialog-control-document</value>
 										<value name="filename" type="string"></value>
 										<value name="icon-name" type="string">dialogcontrol</value>
 										<value name="is-transient" type="Integer">0</value>
 										<value name="owns-file" type="Integer">1</value>
-										<value name="parent" type="Integer">14940168</value>
+										<value name="parent" type="Integer">14775776</value>
 										<value name="locked" type="Integer">0</value>
 										<value name="proxy-type" type="string">wbButtonProxy</value>
 										<value name="event-handler-0" type="string">wxEVT_COMMAND_BUTTON_CLICKED|OnComprarsobrebuttonidClick</value>
@@ -755,13 +755,13 @@
 									</path>
 									<path name="ID000015">
 										<value name="title" type="string">wxButton: CrearBarajaButtonID</value>
-										<value name="id" type="Integer">14789024</value>
+										<value name="id" type="Integer">14791200</value>
 										<value name="type" type="string">dialog-control-document</value>
 										<value name="filename" type="string"></value>
 										<value name="icon-name" type="string">dialogcontrol</value>
 										<value name="is-transient" type="Integer">0</value>
 										<value name="owns-file" type="Integer">1</value>
-										<value name="parent" type="Integer">14940168</value>
+										<value name="parent" type="Integer">14775776</value>
 										<value name="locked" type="Integer">0</value>
 										<value name="proxy-type" type="string">wbButtonProxy</value>
 										<value name="event-handler-0" type="string">wxEVT_COMMAND_BUTTON_CLICKED|OnCrearbarajabuttonidClick</value>
@@ -802,13 +802,13 @@
 									</path>
 									<path name="ID000016">
 										<value name="title" type="string">wxButton: RenombrarBarajaButtonID</value>
-										<value name="id" type="Integer">14747688</value>
+										<value name="id" type="Integer">14829952</value>
 										<value name="type" type="string">dialog-control-document</value>
 										<value name="filename" type="string"></value>
 										<value name="icon-name" type="string">dialogcontrol</value>
 										<value name="is-transient" type="Integer">0</value>
 										<value name="owns-file" type="Integer">1</value>
-										<value name="parent" type="Integer">14940168</value>
+										<value name="parent" type="Integer">14775776</value>
 										<value name="locked" type="Integer">0</value>
 										<value name="proxy-type" type="string">wbButtonProxy</value>
 										<value name="event-handler-0" type="string">wxEVT_COMMAND_BUTTON_CLICKED|OnRenombrarbarajabuttonidClick</value>
@@ -849,13 +849,13 @@
 									</path>
 									<path name="ID000017">
 										<value name="title" type="string">wxButton: BorrarBarajaButtonID</value>
-										<value name="id" type="Integer">14825320</value>
+										<value name="id" type="Integer">14827448</value>
 										<value name="type" type="string">dialog-control-document</value>
 										<value name="filename" type="string"></value>
 										<value name="icon-name" type="string">dialogcontrol</value>
 										<value name="is-transient" type="Integer">0</value>
 										<value name="owns-file" type="Integer">1</value>
-										<value name="parent" type="Integer">14940168</value>
+										<value name="parent" type="Integer">14775776</value>
 										<value name="locked" type="Integer">0</value>
 										<value name="proxy-type" type="string">wbButtonProxy</value>
 										<value name="event-handler-0" type="string">wxEVT_COMMAND_BUTTON_CLICKED|OnBorrarbarajabuttonidClick</value>
@@ -896,13 +896,13 @@
 									</path>
 									<path name="ID000018">
 										<value name="title" type="string">wxButton: ActivarBarajaButtonID</value>
-										<value name="id" type="Integer">14758304</value>
+										<value name="id" type="Integer">14725128</value>
 										<value name="type" type="string">dialog-control-document</value>
 										<value name="filename" type="string"></value>
 										<value name="icon-name" type="string">dialogcontrol</value>
 										<value name="is-transient" type="Integer">0</value>
 										<value name="owns-file" type="Integer">1</value>
-										<value name="parent" type="Integer">14940168</value>
+										<value name="parent" type="Integer">14775776</value>
 										<value name="locked" type="Integer">0</value>
 										<value name="proxy-type" type="string">wbButtonProxy</value>
 										<value name="event-handler-0" type="string">wxEVT_COMMAND_BUTTON_CLICKED|OnActivarbarajabuttonidClick</value>
@@ -946,13 +946,13 @@
 						</path>
 						<path name="ID000019">
 							<value name="title" type="string">wxFlexGridSizer</value>
-							<value name="id" type="Integer">14908040</value>
+							<value name="id" type="Integer">14734920</value>
 							<value name="type" type="string">dialog-control-document</value>
 							<value name="filename" type="string"></value>
 							<value name="icon-name" type="string">sizer</value>
 							<value name="is-transient" type="Integer">0</value>
 							<value name="owns-file" type="Integer">1</value>
-							<value name="parent" type="Integer">14767384</value>
+							<value name="parent" type="Integer">14896872</value>
 							<value name="locked" type="Integer">0</value>
 							<value name="proxy-type" type="string">wbFlexGridSizerProxy</value>
 							<value name="proxy-GrowableColumns" type="string">0</value>
@@ -974,13 +974,13 @@
 							<value name="proxy-wxADJUST_MINSIZE" type="bool">FALSE</value>
 							<path name="ID00001a">
 								<value name="title" type="string">wxComboBox: DecksComboBoxID</value>
-								<value name="id" type="Integer">14737416</value>
+								<value name="id" type="Integer">14797216</value>
 								<value name="type" type="string">dialog-control-document</value>
 								<value name="filename" type="string"></value>
 								<value name="icon-name" type="string">dialogcontrol</value>
 								<value name="is-transient" type="Integer">0</value>
 								<value name="owns-file" type="Integer">1</value>
-								<value name="parent" type="Integer">14908040</value>
+								<value name="parent" type="Integer">14734920</value>
 								<value name="locked" type="Integer">0</value>
 								<value name="proxy-type" type="string">wbComboBoxProxy</value>
 								<value name="event-handler-0" type="string">wxEVT_COMMAND_COMBOBOX_SELECTED|OnDeckscomboboxidSelected</value>
@@ -1022,13 +1022,13 @@
 							</path>
 							<path name="ID00001b">
 								<value name="title" type="string">wxListCtrl: CurrentDeckListCtrlID</value>
-								<value name="id" type="Integer">14839152</value>
+								<value name="id" type="Integer">14841800</value>
 								<value name="type" type="string">dialog-control-document</value>
 								<value name="filename" type="string"></value>
 								<value name="icon-name" type="string">dialogcontrol</value>
 								<value name="is-transient" type="Integer">0</value>
 								<value name="owns-file" type="Integer">1</value>
-								<value name="parent" type="Integer">14908040</value>
+								<value name="parent" type="Integer">14734920</value>
 								<value name="locked" type="Integer">0</value>
 								<value name="proxy-type" type="string">wbListCtrlProxy</value>
 								<value name="event-handler-0" type="string">wxEVT_COMMAND_LIST_ITEM_SELECTED|OnCurrentdecklistctrlidSelected</value>
@@ -1088,13 +1088,13 @@
 							</path>
 							<path name="ID00001c">
 								<value name="title" type="string">wxFlexGridSizer</value>
-								<value name="id" type="Integer">14855856</value>
+								<value name="id" type="Integer">14858512</value>
 								<value name="type" type="string">dialog-control-document</value>
 								<value name="filename" type="string"></value>
 								<value name="icon-name" type="string">sizer</value>
 								<value name="is-transient" type="Integer">0</value>
 								<value name="owns-file" type="Integer">1</value>
-								<value name="parent" type="Integer">14908040</value>
+								<value name="parent" type="Integer">14734920</value>
 								<value name="locked" type="Integer">0</value>
 								<value name="proxy-type" type="string">wbFlexGridSizerProxy</value>
 								<value name="proxy-GrowableColumns" type="string"></value>
@@ -1116,13 +1116,13 @@
 								<value name="proxy-wxADJUST_MINSIZE" type="bool">FALSE</value>
 								<path name="ID00001d">
 									<value name="title" type="string">wxStaticText: wxID_STATIC</value>
-									<value name="id" type="Integer">14956704</value>
+									<value name="id" type="Integer">14955272</value>
 									<value name="type" type="string">dialog-control-document</value>
 									<value name="filename" type="string"></value>
 									<value name="icon-name" type="string">dialogcontrol</value>
 									<value name="is-transient" type="Integer">0</value>
 									<value name="owns-file" type="Integer">1</value>
-									<value name="parent" type="Integer">14855856</value>
+									<value name="parent" type="Integer">14858512</value>
 									<value name="locked" type="Integer">0</value>
 									<value name="proxy-type" type="string">wbStaticTextProxy</value>
 									<value name="proxy-Id name" type="string">wxID_STATIC</value>
@@ -1164,13 +1164,13 @@
 								</path>
 								<path name="ID00001e">
 									<value name="title" type="string">wxStaticText: CurrentNumCardsStaticTextID</value>
-									<value name="id" type="Integer">21276968</value>
+									<value name="id" type="Integer">21275560</value>
 									<value name="type" type="string">dialog-control-document</value>
 									<value name="filename" type="string"></value>
 									<value name="icon-name" type="string">dialogcontrol</value>
 									<value name="is-transient" type="Integer">0</value>
 									<value name="owns-file" type="Integer">1</value>
-									<value name="parent" type="Integer">14855856</value>
+									<value name="parent" type="Integer">14858512</value>
 									<value name="locked" type="Integer">0</value>
 									<value name="proxy-type" type="string">wbStaticTextProxy</value>
 									<value name="proxy-Id name" type="string">CurrentNumCardsStaticTextID</value>
@@ -1212,13 +1212,13 @@
 								</path>
 								<path name="ID00001f">
 									<value name="title" type="string">Spacer</value>
-									<value name="id" type="Integer">21288960</value>
+									<value name="id" type="Integer">21287472</value>
 									<value name="type" type="string">dialog-control-document</value>
 									<value name="filename" type="string"></value>
 									<value name="icon-name" type="string">dialogcontrol</value>
 									<value name="is-transient" type="Integer">0</value>
 									<value name="owns-file" type="Integer">1</value>
-									<value name="parent" type="Integer">14855856</value>
+									<value name="parent" type="Integer">14858512</value>
 									<value name="locked" type="Integer">0</value>
 									<value name="proxy-type" type="string">wbSpacerProxy</value>
 									<value name="proxy-Width" type="Integer">5</value>
@@ -1241,13 +1241,13 @@
 			</path>
 			<path name="ID000020">
 				<value name="title" type="string">Duelo</value>
-				<value name="id" type="Integer">14884424</value>
+				<value name="id" type="Integer">14884544</value>
 				<value name="type" type="string">dialog-document</value>
 				<value name="filename" type="string"></value>
 				<value name="icon-name" type="string">dialog</value>
 				<value name="is-transient" type="Integer">0</value>
 				<value name="owns-file" type="Integer">1</value>
-				<value name="parent" type="Integer">14802840</value>
+				<value name="parent" type="Integer">14819224</value>
 				<value name="locked" type="Integer">0</value>
 				<value name="created" type="string">19/4/2004</value>
 				<value name="proxy-type" type="string">wbDialogProxy</value>
@@ -1302,13 +1302,13 @@
 				<value name="proxy-Height" type="Integer">300</value>
 				<path name="ID000021">
 					<value name="title" type="string">wxFlexGridSizer</value>
-					<value name="id" type="Integer">21302312</value>
+					<value name="id" type="Integer">21300800</value>
 					<value name="type" type="string">dialog-control-document</value>
 					<value name="filename" type="string"></value>
 					<value name="icon-name" type="string">sizer</value>
 					<value name="is-transient" type="Integer">0</value>
 					<value name="owns-file" type="Integer">1</value>
-					<value name="parent" type="Integer">14884424</value>
+					<value name="parent" type="Integer">14884544</value>
 					<value name="locked" type="Integer">0</value>
 					<value name="proxy-type" type="string">wbFlexGridSizerProxy</value>
 					<value name="proxy-GrowableColumns" type="string">0</value>
@@ -1330,13 +1330,13 @@
 					<value name="proxy-wxADJUST_MINSIZE" type="bool">FALSE</value>
 					<path name="ID000022">
 						<value name="title" type="string">wxFlexGridSizer</value>
-						<value name="id" type="Integer">21309744</value>
+						<value name="id" type="Integer">21308232</value>
 						<value name="type" type="string">dialog-control-document</value>
 						<value name="filename" type="string"></value>
 						<value name="icon-name" type="string">sizer</value>
 						<value name="is-transient" type="Integer">0</value>
 						<value name="owns-file" type="Integer">1</value>
-						<value name="parent" type="Integer">21302312</value>
+						<value name="parent" type="Integer">21300800</value>
 						<value name="locked" type="Integer">0</value>
 						<value name="proxy-type" type="string">wbFlexGridSizerProxy</value>
 						<value name="proxy-GrowableColumns" type="string">2</value>
@@ -1358,13 +1358,13 @@
 						<value name="proxy-wxADJUST_MINSIZE" type="bool">FALSE</value>
 						<path name="ID000023">
 							<value name="title" type="string">wxFlexGridSizer</value>
-							<value name="id" type="Integer">21317048</value>
+							<value name="id" type="Integer">21315544</value>
 							<value name="type" type="string">dialog-control-document</value>
 							<value name="filename" type="string"></value>
 							<value name="icon-name" type="string">sizer</value>
 							<value name="is-transient" type="Integer">0</value>
 							<value name="owns-file" type="Integer">1</value>
-							<value name="parent" type="Integer">21309744</value>
+							<value name="parent" type="Integer">21308232</value>
 							<value name="locked" type="Integer">0</value>
 							<value name="proxy-type" type="string">wbFlexGridSizerProxy</value>
 							<value name="proxy-GrowableColumns" type="string">0</value>
@@ -1386,13 +1386,13 @@
 							<value name="proxy-wxADJUST_MINSIZE" type="bool">FALSE</value>
 							<path name="ID000024">
 								<value name="title" type="string">wxFlexGridSizer</value>
-								<value name="id" type="Integer">21324584</value>
+								<value name="id" type="Integer">21323080</value>
 								<value name="type" type="string">dialog-control-document</value>
 								<value name="filename" type="string"></value>
 								<value name="icon-name" type="string">sizer</value>
 								<value name="is-transient" type="Integer">0</value>
 								<value name="owns-file" type="Integer">1</value>
-								<value name="parent" type="Integer">21317048</value>
+								<value name="parent" type="Integer">21315544</value>
 								<value name="locked" type="Integer">0</value>
 								<value name="proxy-type" type="string">wbFlexGridSizerProxy</value>
 								<value name="proxy-GrowableColumns" type="string"></value>
@@ -1414,13 +1414,13 @@
 								<value name="proxy-wxADJUST_MINSIZE" type="bool">FALSE</value>
 								<path name="ID000025">
 									<value name="title" type="string">wxStaticText: wxID_STATIC</value>
-									<value name="id" type="Integer">21332936</value>
+									<value name="id" type="Integer">21331464</value>
 									<value name="type" type="string">dialog-control-document</value>
 									<value name="filename" type="string"></value>
 									<value name="icon-name" type="string">dialogcontrol</value>
 									<value name="is-transient" type="Integer">0</value>
 									<value name="owns-file" type="Integer">1</value>
-									<value name="parent" type="Integer">21324584</value>
+									<value name="parent" type="Integer">21323080</value>
 									<value name="locked" type="Integer">0</value>
 									<value name="proxy-type" type="string">wbStaticTextProxy</value>
 									<value name="proxy-Id name" type="string">wxID_STATIC</value>
@@ -1462,13 +1462,13 @@
 								</path>
 								<path name="ID000026">
 									<value name="title" type="string">wxStaticText: OpponentStaticTextID</value>
-									<value name="id" type="Integer">21345816</value>
+									<value name="id" type="Integer">21344328</value>
 									<value name="type" type="string">dialog-control-document</value>
 									<value name="filename" type="string"></value>
 									<value name="icon-name" type="string">dialogcontrol</value>
 									<value name="is-transient" type="Integer">0</value>
 									<value name="owns-file" type="Integer">1</value>
-									<value name="parent" type="Integer">21324584</value>
+									<value name="parent" type="Integer">21323080</value>
 									<value name="locked" type="Integer">0</value>
 									<value name="proxy-type" type="string">wbStaticTextProxy</value>
 									<value name="proxy-Id name" type="string">OpponentStaticTextID</value>
@@ -1510,13 +1510,13 @@
 								</path>
 								<path name="ID000027">
 									<value name="title" type="string">wxStaticText: wxID_STATIC</value>
-									<value name="id" type="Integer">21358464</value>
+									<value name="id" type="Integer">21357048</value>
 									<value name="type" type="string">dialog-control-document</value>
 									<value name="filename" type="string"></value>
 									<value name="icon-name" type="string">dialogcontrol</value>
 									<value name="is-transient" type="Integer">0</value>
 									<value name="owns-file" type="Integer">1</value>
-									<value name="parent" type="Integer">21324584</value>
+									<value name="parent" type="Integer">21323080</value>
 									<value name="locked" type="Integer">0</value>
 									<value name="proxy-type" type="string">wbStaticTextProxy</value>
 									<value name="proxy-Id name" type="string">wxID_STATIC</value>
@@ -1558,13 +1558,13 @@
 								</path>
 								<path name="ID000028">
 									<value name="title" type="string">wxStaticText: OpponentLFStaticTextID</value>
-									<value name="id" type="Integer">21371256</value>
+									<value name="id" type="Integer">21369840</value>
 									<value name="type" type="string">dialog-control-document</value>
 									<value name="filename" type="string"></value>
 									<value name="icon-name" type="string">dialogcontrol</value>
 									<value name="is-transient" type="Integer">0</value>
 									<value name="owns-file" type="Integer">1</value>
-									<value name="parent" type="Integer">21324584</value>
+									<value name="parent" type="Integer">21323080</value>
 									<value name="locked" type="Integer">0</value>
 									<value name="proxy-type" type="string">wbStaticTextProxy</value>
 									<value name="proxy-Id name" type="string">OpponentLFStaticTextID</value>
@@ -1606,17 +1606,17 @@
 								</path>
 							</path>
 							<path name="ID000029">
-								<value name="title" type="string">wxStaticBitmap: CardStaticBitmapID</value>
-								<value name="id" type="Integer">21383832</value>
+								<value name="title" type="string">wxStaticBitmap: BigCardStaticBitmapID</value>
+								<value name="id" type="Integer">21382424</value>
 								<value name="type" type="string">dialog-control-document</value>
 								<value name="filename" type="string"></value>
 								<value name="icon-name" type="string">dialogcontrol</value>
 								<value name="is-transient" type="Integer">0</value>
 								<value name="owns-file" type="Integer">1</value>
-								<value name="parent" type="Integer">21317048</value>
+								<value name="parent" type="Integer">21315544</value>
 								<value name="locked" type="Integer">0</value>
 								<value name="proxy-type" type="string">wbStaticBitmapProxy</value>
-								<value name="proxy-Id name" type="string">CardStaticBitmapID</value>
+								<value name="proxy-Id name" type="string">BigCardStaticBitmapID</value>
 								<value name="proxy-Id value" type="Integer">10014</value>
 								<value name="proxy-Class" type="string">wxStaticBitmap</value>
 								<value name="proxy-Member variable name" type="string">CardStaticBitmap</value>
@@ -1651,13 +1651,13 @@
 							</path>
 							<path name="ID00002a">
 								<value name="title" type="string">wxFlexGridSizer</value>
-								<value name="id" type="Integer">21394016</value>
+								<value name="id" type="Integer">21392608</value>
 								<value name="type" type="string">dialog-control-document</value>
 								<value name="filename" type="string"></value>
 								<value name="icon-name" type="string">sizer</value>
 								<value name="is-transient" type="Integer">0</value>
 								<value name="owns-file" type="Integer">1</value>
-								<value name="parent" type="Integer">21317048</value>
+								<value name="parent" type="Integer">21315544</value>
 								<value name="locked" type="Integer">0</value>
 								<value name="proxy-type" type="string">wbFlexGridSizerProxy</value>
 								<value name="proxy-GrowableColumns" type="string">0</value>
@@ -1678,17 +1678,17 @@
 								<value name="proxy-wxSHAPED" type="bool">FALSE</value>
 								<value name="proxy-wxADJUST_MINSIZE" type="bool">FALSE</value>
 								<path name="ID00002b">
-									<value name="title" type="string">wxTextCtrl: MensajesTextCtrlID</value>
-									<value name="id" type="Integer">21401736</value>
+									<value name="title" type="string">wxTextCtrl: CombatMensajesTextCtrl</value>
+									<value name="id" type="Integer">21400368</value>
 									<value name="type" type="string">dialog-control-document</value>
 									<value name="filename" type="string"></value>
 									<value name="icon-name" type="string">dialogcontrol</value>
 									<value name="is-transient" type="Integer">0</value>
 									<value name="owns-file" type="Integer">1</value>
-									<value name="parent" type="Integer">21394016</value>
+									<value name="parent" type="Integer">21392608</value>
 									<value name="locked" type="Integer">0</value>
 									<value name="proxy-type" type="string">wbTextCtrlProxy</value>
-									<value name="proxy-Id name" type="string">MensajesTextCtrlID</value>
+									<value name="proxy-Id name" type="string">CombatMensajesTextCtrl</value>
 									<value name="proxy-Id value" type="Integer">10017</value>
 									<value name="proxy-Class" type="string">wxTextCtrl</value>
 									<value name="proxy-Member variable name" type="string">MensajesTextCtrl</value>
@@ -1741,18 +1741,18 @@
 									<value name="proxy-wxADJUST_MINSIZE" type="bool">FALSE</value>
 								</path>
 								<path name="ID00002c">
-									<value name="title" type="string">wxTextCtrl: MensajeTextCtrlID</value>
-									<value name="id" type="Integer">21420024</value>
+									<value name="title" type="string">wxTextCtrl: CombatMensajeTextCtrlID</value>
+									<value name="id" type="Integer">21418712</value>
 									<value name="type" type="string">dialog-control-document</value>
 									<value name="filename" type="string"></value>
 									<value name="icon-name" type="string">dialogcontrol</value>
 									<value name="is-transient" type="Integer">0</value>
 									<value name="owns-file" type="Integer">1</value>
-									<value name="parent" type="Integer">21394016</value>
+									<value name="parent" type="Integer">21392608</value>
 									<value name="locked" type="Integer">0</value>
 									<value name="proxy-type" type="string">wbTextCtrlProxy</value>
-									<value name="event-handler-0" type="string">wxEVT_COMMAND_TEXT_ENTER|OnMensajetextctrlidEnter</value>
-									<value name="proxy-Id name" type="string">MensajeTextCtrlID</value>
+									<value name="event-handler-0" type="string">wxEVT_COMMAND_TEXT_ENTER|OnCombatmensajetextctrlidEnter</value>
+									<value name="proxy-Id name" type="string">CombatMensajeTextCtrlID</value>
 									<value name="proxy-Id value" type="Integer">10018</value>
 									<value name="proxy-Class" type="string">wxTextCtrl</value>
 									<value name="proxy-Member variable name" type="string">MensajeTextCtrl</value>
@@ -1807,13 +1807,13 @@
 							</path>
 							<path name="ID00002d">
 								<value name="title" type="string">wxFlexGridSizer</value>
-								<value name="id" type="Integer">21437840</value>
+								<value name="id" type="Integer">21436488</value>
 								<value name="type" type="string">dialog-control-document</value>
 								<value name="filename" type="string"></value>
 								<value name="icon-name" type="string">sizer</value>
 								<value name="is-transient" type="Integer">0</value>
 								<value name="owns-file" type="Integer">1</value>
-								<value name="parent" type="Integer">21317048</value>
+								<value name="parent" type="Integer">21315544</value>
 								<value name="locked" type="Integer">0</value>
 								<value name="proxy-type" type="string">wbFlexGridSizerProxy</value>
 								<value name="proxy-GrowableColumns" type="string"></value>
@@ -1835,13 +1835,13 @@
 								<value name="proxy-wxADJUST_MINSIZE" type="bool">FALSE</value>
 								<path name="ID00002e">
 									<value name="title" type="string">wxFlexGridSizer</value>
-									<value name="id" type="Integer">21443352</value>
+									<value name="id" type="Integer">21441992</value>
 									<value name="type" type="string">dialog-control-document</value>
 									<value name="filename" type="string"></value>
 									<value name="icon-name" type="string">sizer</value>
 									<value name="is-transient" type="Integer">0</value>
 									<value name="owns-file" type="Integer">1</value>
-									<value name="parent" type="Integer">21437840</value>
+									<value name="parent" type="Integer">21436488</value>
 									<value name="locked" type="Integer">0</value>
 									<value name="proxy-type" type="string">wbFlexGridSizerProxy</value>
 									<value name="proxy-GrowableColumns" type="string"></value>
@@ -1863,13 +1863,13 @@
 									<value name="proxy-wxADJUST_MINSIZE" type="bool">FALSE</value>
 									<path name="ID00002f">
 										<value name="title" type="string">wxStaticText: wxID_STATIC</value>
-										<value name="id" type="Integer">21450592</value>
+										<value name="id" type="Integer">21449224</value>
 										<value name="type" type="string">dialog-control-document</value>
 										<value name="filename" type="string"></value>
 										<value name="icon-name" type="string">dialogcontrol</value>
 										<value name="is-transient" type="Integer">0</value>
 										<value name="owns-file" type="Integer">1</value>
-										<value name="parent" type="Integer">21443352</value>
+										<value name="parent" type="Integer">21441992</value>
 										<value name="locked" type="Integer">0</value>
 										<value name="proxy-type" type="string">wbStaticTextProxy</value>
 										<value name="proxy-Id name" type="string">wxID_STATIC</value>
@@ -1911,13 +1911,13 @@
 									</path>
 									<path name="ID000030">
 										<value name="title" type="string">wxStaticText: PlayerStaticTextID</value>
-										<value name="id" type="Integer">21463416</value>
+										<value name="id" type="Integer">21462048</value>
 										<value name="type" type="string">dialog-control-document</value>
 										<value name="filename" type="string"></value>
 										<value name="icon-name" type="string">dialogcontrol</value>
 										<value name="is-transient" type="Integer">0</value>
 										<value name="owns-file" type="Integer">1</value>
-										<value name="parent" type="Integer">21443352</value>
+										<value name="parent" type="Integer">21441992</value>
 										<value name="locked" type="Integer">0</value>
 										<value name="proxy-type" type="string">wbStaticTextProxy</value>
 										<value name="proxy-Id name" type="string">PlayerStaticTextID</value>
@@ -1959,13 +1959,13 @@
 									</path>
 									<path name="ID000031">
 										<value name="title" type="string">wxStaticText: wxID_STATIC</value>
-										<value name="id" type="Integer">21476136</value>
+										<value name="id" type="Integer">21474736</value>
 										<value name="type" type="string">dialog-control-document</value>
 										<value name="filename" type="string"></value>
 										<value name="icon-name" type="string">dialogcontrol</value>
 										<value name="is-transient" type="Integer">0</value>
 										<value name="owns-file" type="Integer">1</value>
-										<value name="parent" type="Integer">21443352</value>
+										<value name="parent" type="Integer">21441992</value>
 										<value name="locked" type="Integer">0</value>
 										<value name="proxy-type" type="string">wbStaticTextProxy</value>
 										<value name="proxy-Id name" type="string">wxID_STATIC</value>
@@ -2007,13 +2007,13 @@
 									</path>
 									<path name="ID000032">
 										<value name="title" type="string">wxStaticText: PlayerLFStaticTextID</value>
-										<value name="id" type="Integer">21488928</value>
+										<value name="id" type="Integer">21487520</value>
 										<value name="type" type="string">dialog-control-document</value>
 										<value name="filename" type="string"></value>
 										<value name="icon-name" type="string">dialogcontrol</value>
 										<value name="is-transient" type="Integer">0</value>
 										<value name="owns-file" type="Integer">1</value>
-										<value name="parent" type="Integer">21443352</value>
+										<value name="parent" type="Integer">21441992</value>
 										<value name="locked" type="Integer">0</value>
 										<value name="proxy-type" type="string">wbStaticTextProxy</value>
 										<value name="proxy-Id name" type="string">PlayerLFStaticTextID</value>
@@ -2056,13 +2056,13 @@
 								</path>
 								<path name="ID000033">
 									<value name="title" type="string">wxButton: PasarButtonID</value>
-									<value name="id" type="Integer">21501504</value>
+									<value name="id" type="Integer">21500120</value>
 									<value name="type" type="string">dialog-control-document</value>
 									<value name="filename" type="string"></value>
 									<value name="icon-name" type="string">dialogcontrol</value>
 									<value name="is-transient" type="Integer">0</value>
 									<value name="owns-file" type="Integer">1</value>
-									<value name="parent" type="Integer">21437840</value>
+									<value name="parent" type="Integer">21436488</value>
 									<value name="locked" type="Integer">0</value>
 									<value name="proxy-type" type="string">wbButtonProxy</value>
 									<value name="event-handler-0" type="string">wxEVT_COMMAND_BUTTON_CLICKED|OnPasarbuttonidClick</value>
@@ -2105,13 +2105,13 @@
 						</path>
 						<path name="ID000034">
 							<value name="title" type="string">wxFlexGridSizer</value>
-							<value name="id" type="Integer">21315792</value>
+							<value name="id" type="Integer">21314376</value>
 							<value name="type" type="string">dialog-control-document</value>
 							<value name="filename" type="string"></value>
 							<value name="icon-name" type="string">sizer</value>
 							<value name="is-transient" type="Integer">0</value>
 							<value name="owns-file" type="Integer">1</value>
-							<value name="parent" type="Integer">21309744</value>
+							<value name="parent" type="Integer">21308232</value>
 							<value name="locked" type="Integer">0</value>
 							<value name="proxy-type" type="string">wbFlexGridSizerProxy</value>
 							<value name="proxy-GrowableColumns" type="string">0</value>
@@ -2134,13 +2134,13 @@
 						</path>
 						<path name="ID000035">
 							<value name="title" type="string">wxFlexGridSizer</value>
-							<value name="id" type="Integer">21516176</value>
+							<value name="id" type="Integer">21514848</value>
 							<value name="type" type="string">dialog-control-document</value>
 							<value name="filename" type="string"></value>
 							<value name="icon-name" type="string">sizer</value>
 							<value name="is-transient" type="Integer">0</value>
 							<value name="owns-file" type="Integer">1</value>
-							<value name="parent" type="Integer">21309744</value>
+							<value name="parent" type="Integer">21308232</value>
 							<value name="locked" type="Integer">0</value>
 							<value name="proxy-type" type="string">wbFlexGridSizerProxy</value>
 							<value name="proxy-GrowableColumns" type="string">0</value>
@@ -2162,13 +2162,13 @@
 							<value name="proxy-wxADJUST_MINSIZE" type="bool">FALSE</value>
 							<path name="ID000036">
 								<value name="title" type="string">wxFlexGridSizer</value>
-								<value name="id" type="Integer">21521816</value>
+								<value name="id" type="Integer">21520488</value>
 								<value name="type" type="string">dialog-control-document</value>
 								<value name="filename" type="string"></value>
 								<value name="icon-name" type="string">sizer</value>
 								<value name="is-transient" type="Integer">0</value>
 								<value name="owns-file" type="Integer">1</value>
-								<value name="parent" type="Integer">21516176</value>
+								<value name="parent" type="Integer">21514848</value>
 								<value name="locked" type="Integer">0</value>
 								<value name="proxy-type" type="string">wbFlexGridSizerProxy</value>
 								<value name="proxy-GrowableColumns" type="string">1</value>
@@ -2190,13 +2190,13 @@
 								<value name="proxy-wxADJUST_MINSIZE" type="bool">FALSE</value>
 								<path name="ID000037">
 									<value name="title" type="string">wxFlexGridSizer</value>
-									<value name="id" type="Integer">21528680</value>
+									<value name="id" type="Integer">21527240</value>
 									<value name="type" type="string">dialog-control-document</value>
 									<value name="filename" type="string"></value>
 									<value name="icon-name" type="string">sizer</value>
 									<value name="is-transient" type="Integer">0</value>
 									<value name="owns-file" type="Integer">1</value>
-									<value name="parent" type="Integer">21521816</value>
+									<value name="parent" type="Integer">21520488</value>
 									<value name="locked" type="Integer">0</value>
 									<value name="proxy-type" type="string">wbFlexGridSizerProxy</value>
 									<value name="proxy-GrowableColumns" type="string">0</value>
@@ -2218,13 +2218,13 @@
 									<value name="proxy-wxADJUST_MINSIZE" type="bool">FALSE</value>
 									<path name="ID000038">
 										<value name="title" type="string">wxStaticBitmap: OppDeckCardStaticBitmapID</value>
-										<value name="id" type="Integer">21537088</value>
+										<value name="id" type="Integer">21535656</value>
 										<value name="type" type="string">dialog-control-document</value>
 										<value name="filename" type="string"></value>
 										<value name="icon-name" type="string">dialogcontrol</value>
 										<value name="is-transient" type="Integer">0</value>
 										<value name="owns-file" type="Integer">1</value>
-										<value name="parent" type="Integer">21528680</value>
+										<value name="parent" type="Integer">21527240</value>
 										<value name="locked" type="Integer">0</value>
 										<value name="proxy-type" type="string">wbStaticBitmapProxy</value>
 										<value name="proxy-Id name" type="string">OppDeckCardStaticBitmapID</value>
@@ -2262,13 +2262,13 @@
 									</path>
 									<path name="ID000039">
 										<value name="title" type="string">wxStaticBitmap: OppGraveCardStaticBitmapID</value>
-										<value name="id" type="Integer">21548400</value>
+										<value name="id" type="Integer">21546880</value>
 										<value name="type" type="string">dialog-control-document</value>
 										<value name="filename" type="string"></value>
 										<value name="icon-name" type="string">dialogcontrol</value>
 										<value name="is-transient" type="Integer">0</value>
 										<value name="owns-file" type="Integer">1</value>
-										<value name="parent" type="Integer">21528680</value>
+										<value name="parent" type="Integer">21527240</value>
 										<value name="locked" type="Integer">0</value>
 										<value name="proxy-type" type="string">wbStaticBitmapProxy</value>
 										<value name="proxy-Id name" type="string">OppGraveCardStaticBitmapID</value>
@@ -2307,13 +2307,13 @@
 								</path>
 								<path name="ID00003a">
 									<value name="title" type="string">wxFlexGridSizer</value>
-									<value name="id" type="Integer">21559400</value>
+									<value name="id" type="Integer">21557880</value>
 									<value name="type" type="string">dialog-control-document</value>
 									<value name="filename" type="string"></value>
 									<value name="icon-name" type="string">sizer</value>
 									<value name="is-transient" type="Integer">0</value>
 									<value name="owns-file" type="Integer">1</value>
-									<value name="parent" type="Integer">21521816</value>
+									<value name="parent" type="Integer">21520488</value>
 									<value name="locked" type="Integer">0</value>
 									<value name="proxy-type" type="string">wbFlexGridSizerProxy</value>
 									<value name="proxy-GrowableColumns" type="string">0</value>
@@ -2335,13 +2335,13 @@
 									<value name="proxy-wxADJUST_MINSIZE" type="bool">FALSE</value>
 									<path name="ID00003b">
 										<value name="title" type="string">wxFlexGridSizer</value>
-										<value name="id" type="Integer">21564976</value>
+										<value name="id" type="Integer">21563456</value>
 										<value name="type" type="string">dialog-control-document</value>
 										<value name="filename" type="string"></value>
 										<value name="icon-name" type="string">sizer</value>
 										<value name="is-transient" type="Integer">0</value>
 										<value name="owns-file" type="Integer">1</value>
-										<value name="parent" type="Integer">21559400</value>
+										<value name="parent" type="Integer">21557880</value>
 										<value name="locked" type="Integer">0</value>
 										<value name="proxy-type" type="string">wbFlexGridSizerProxy</value>
 										<value name="proxy-GrowableColumns" type="string"></value>
@@ -2364,13 +2364,13 @@
 									</path>
 									<path name="ID00003c">
 										<value name="title" type="string">wxFlexGridSizer</value>
-										<value name="id" type="Integer">21570576</value>
+										<value name="id" type="Integer">21569056</value>
 										<value name="type" type="string">dialog-control-document</value>
 										<value name="filename" type="string"></value>
 										<value name="icon-name" type="string">sizer</value>
 										<value name="is-transient" type="Integer">0</value>
 										<value name="owns-file" type="Integer">1</value>
-										<value name="parent" type="Integer">21559400</value>
+										<value name="parent" type="Integer">21557880</value>
 										<value name="locked" type="Integer">0</value>
 										<value name="proxy-type" type="string">wbFlexGridSizerProxy</value>
 										<value name="proxy-GrowableColumns" type="string"></value>
@@ -2394,13 +2394,13 @@
 								</path>
 								<path name="ID00003d">
 									<value name="title" type="string">wxFlexGridSizer</value>
-									<value name="id" type="Integer">21576448</value>
+									<value name="id" type="Integer">21574936</value>
 									<value name="type" type="string">dialog-control-document</value>
 									<value name="filename" type="string"></value>
 									<value name="icon-name" type="string">sizer</value>
 									<value name="is-transient" type="Integer">0</value>
 									<value name="owns-file" type="Integer">1</value>
-									<value name="parent" type="Integer">21521816</value>
+									<value name="parent" type="Integer">21520488</value>
 									<value name="locked" type="Integer">0</value>
 									<value name="proxy-type" type="string">wbFlexGridSizerProxy</value>
 									<value name="proxy-GrowableColumns" type="string">0</value>
@@ -2422,13 +2422,13 @@
 									<value name="proxy-wxADJUST_MINSIZE" type="bool">FALSE</value>
 									<path name="ID00003e">
 										<value name="title" type="string">wxStaticBitmap: OppDeckCard2StaticBitmapID</value>
-										<value name="id" type="Integer">21583168</value>
+										<value name="id" type="Integer">21581600</value>
 										<value name="type" type="string">dialog-control-document</value>
 										<value name="filename" type="string"></value>
 										<value name="icon-name" type="string">dialogcontrol</value>
 										<value name="is-transient" type="Integer">0</value>
 										<value name="owns-file" type="Integer">1</value>
-										<value name="parent" type="Integer">21576448</value>
+										<value name="parent" type="Integer">21574936</value>
 										<value name="locked" type="Integer">0</value>
 										<value name="proxy-type" type="string">wbStaticBitmapProxy</value>
 										<value name="proxy-Id name" type="string">OppDeckCard2StaticBitmapID</value>
@@ -2466,13 +2466,13 @@
 									</path>
 									<path name="ID00003f">
 										<value name="title" type="string">wxStaticBitmap: OppGraveCard2StaticBitmapID</value>
-										<value name="id" type="Integer">21594528</value>
+										<value name="id" type="Integer">21592872</value>
 										<value name="type" type="string">dialog-control-document</value>
 										<value name="filename" type="string"></value>
 										<value name="icon-name" type="string">dialogcontrol</value>
 										<value name="is-transient" type="Integer">0</value>
 										<value name="owns-file" type="Integer">1</value>
-										<value name="parent" type="Integer">21576448</value>
+										<value name="parent" type="Integer">21574936</value>
 										<value name="locked" type="Integer">0</value>
 										<value name="proxy-type" type="string">wbStaticBitmapProxy</value>
 										<value name="proxy-Id name" type="string">OppGraveCard2StaticBitmapID</value>
@@ -2512,13 +2512,13 @@
 							</path>
 							<path name="ID000040">
 								<value name="title" type="string">wxFlexGridSizer</value>
-								<value name="id" type="Integer">21400008</value>
+								<value name="id" type="Integer">21398640</value>
 								<value name="type" type="string">dialog-control-document</value>
 								<value name="filename" type="string"></value>
 								<value name="icon-name" type="string">sizer</value>
 								<value name="is-transient" type="Integer">0</value>
 								<value name="owns-file" type="Integer">1</value>
-								<value name="parent" type="Integer">21516176</value>
+								<value name="parent" type="Integer">21514848</value>
 								<value name="locked" type="Integer">0</value>
 								<value name="proxy-type" type="string">wbFlexGridSizerProxy</value>
 								<value name="proxy-GrowableColumns" type="string">1</value>
@@ -2540,13 +2540,13 @@
 								<value name="proxy-wxADJUST_MINSIZE" type="bool">FALSE</value>
 								<path name="ID000041">
 									<value name="title" type="string">wxFlexGridSizer</value>
-									<value name="id" type="Integer">21610264</value>
+									<value name="id" type="Integer">21608640</value>
 									<value name="type" type="string">dialog-control-document</value>
 									<value name="filename" type="string"></value>
 									<value name="icon-name" type="string">sizer</value>
 									<value name="is-transient" type="Integer">0</value>
 									<value name="owns-file" type="Integer">1</value>
-									<value name="parent" type="Integer">21400008</value>
+									<value name="parent" type="Integer">21398640</value>
 									<value name="locked" type="Integer">0</value>
 									<value name="proxy-type" type="string">wbFlexGridSizerProxy</value>
 									<value name="proxy-GrowableColumns" type="string">0</value>
@@ -2568,13 +2568,13 @@
 									<value name="proxy-wxADJUST_MINSIZE" type="bool">FALSE</value>
 									<path name="ID000042">
 										<value name="title" type="string">wxStaticBitmap: PlayerDeckCard2StaticBitmapID</value>
-										<value name="id" type="Integer">21617576</value>
+										<value name="id" type="Integer">21615904</value>
 										<value name="type" type="string">dialog-control-document</value>
 										<value name="filename" type="string"></value>
 										<value name="icon-name" type="string">dialogcontrol</value>
 										<value name="is-transient" type="Integer">0</value>
 										<value name="owns-file" type="Integer">1</value>
-										<value name="parent" type="Integer">21610264</value>
+										<value name="parent" type="Integer">21608640</value>
 										<value name="locked" type="Integer">0</value>
 										<value name="proxy-type" type="string">wbStaticBitmapProxy</value>
 										<value name="proxy-Id name" type="string">PlayerDeckCard2StaticBitmapID</value>
@@ -2612,13 +2612,13 @@
 									</path>
 									<path name="ID000043">
 										<value name="title" type="string">wxStaticBitmap: PlayerGraveCard2StaticBitmapID</value>
-										<value name="id" type="Integer">21628896</value>
+										<value name="id" type="Integer">21627192</value>
 										<value name="type" type="string">dialog-control-document</value>
 										<value name="filename" type="string"></value>
 										<value name="icon-name" type="string">dialogcontrol</value>
 										<value name="is-transient" type="Integer">0</value>
 										<value name="owns-file" type="Integer">1</value>
-										<value name="parent" type="Integer">21610264</value>
+										<value name="parent" type="Integer">21608640</value>
 										<value name="locked" type="Integer">0</value>
 										<value name="proxy-type" type="string">wbStaticBitmapProxy</value>
 										<value name="proxy-Id name" type="string">PlayerGraveCard2StaticBitmapID</value>
@@ -2657,13 +2657,13 @@
 								</path>
 								<path name="ID000044">
 									<value name="title" type="string">wxFlexGridSizer</value>
-									<value name="id" type="Integer">21639856</value>
+									<value name="id" type="Integer">21638168</value>
 									<value name="type" type="string">dialog-control-document</value>
 									<value name="filename" type="string"></value>
 									<value name="icon-name" type="string">sizer</value>
 									<value name="is-transient" type="Integer">0</value>
 									<value name="owns-file" type="Integer">1</value>
-									<value name="parent" type="Integer">21400008</value>
+									<value name="parent" type="Integer">21398640</value>
 									<value name="locked" type="Integer">0</value>
 									<value name="proxy-type" type="string">wbFlexGridSizerProxy</value>
 									<value name="proxy-GrowableColumns" type="string">0</value>
@@ -2685,13 +2685,13 @@
 									<value name="proxy-wxADJUST_MINSIZE" type="bool">FALSE</value>
 									<path name="ID000045">
 										<value name="title" type="string">wxFlexGridSizer</value>
-										<value name="id" type="Integer">21645472</value>
+										<value name="id" type="Integer">21643752</value>
 										<value name="type" type="string">dialog-control-document</value>
 										<value name="filename" type="string"></value>
 										<value name="icon-name" type="string">sizer</value>
 										<value name="is-transient" type="Integer">0</value>
 										<value name="owns-file" type="Integer">1</value>
-										<value name="parent" type="Integer">21639856</value>
+										<value name="parent" type="Integer">21638168</value>
 										<value name="locked" type="Integer">0</value>
 										<value name="proxy-type" type="string">wbFlexGridSizerProxy</value>
 										<value name="proxy-GrowableColumns" type="string"></value>
@@ -2714,13 +2714,13 @@
 									</path>
 									<path name="ID000046">
 										<value name="title" type="string">wxFlexGridSizer</value>
-										<value name="id" type="Integer">21651032</value>
+										<value name="id" type="Integer">21649352</value>
 										<value name="type" type="string">dialog-control-document</value>
 										<value name="filename" type="string"></value>
 										<value name="icon-name" type="string">sizer</value>
 										<value name="is-transient" type="Integer">0</value>
 										<value name="owns-file" type="Integer">1</value>
-										<value name="parent" type="Integer">21639856</value>
+										<value name="parent" type="Integer">21638168</value>
 										<value name="locked" type="Integer">0</value>
 										<value name="proxy-type" type="string">wbFlexGridSizerProxy</value>
 										<value name="proxy-GrowableColumns" type="string"></value>
@@ -2744,13 +2744,13 @@
 								</path>
 								<path name="ID000047">
 									<value name="title" type="string">wxFlexGridSizer</value>
-									<value name="id" type="Integer">21656904</value>
+									<value name="id" type="Integer">21655232</value>
 									<value name="type" type="string">dialog-control-document</value>
 									<value name="filename" type="string"></value>
 									<value name="icon-name" type="string">sizer</value>
 									<value name="is-transient" type="Integer">0</value>
 									<value name="owns-file" type="Integer">1</value>
-									<value name="parent" type="Integer">21400008</value>
+									<value name="parent" type="Integer">21398640</value>
 									<value name="locked" type="Integer">0</value>
 									<value name="proxy-type" type="string">wbFlexGridSizerProxy</value>
 									<value name="proxy-GrowableColumns" type="string">0</value>
@@ -2772,13 +2772,13 @@
 									<value name="proxy-wxADJUST_MINSIZE" type="bool">FALSE</value>
 									<path name="ID000048">
 										<value name="title" type="string">wxStaticBitmap: PlayerDeckCardStaticBitmapID</value>
-										<value name="id" type="Integer">21663584</value>
+										<value name="id" type="Integer">21661896</value>
 										<value name="type" type="string">dialog-control-document</value>
 										<value name="filename" type="string"></value>
 										<value name="icon-name" type="string">dialogcontrol</value>
 										<value name="is-transient" type="Integer">0</value>
 										<value name="owns-file" type="Integer">1</value>
-										<value name="parent" type="Integer">21656904</value>
+										<value name="parent" type="Integer">21655232</value>
 										<value name="locked" type="Integer">0</value>
 										<value name="proxy-type" type="string">wbStaticBitmapProxy</value>
 										<value name="proxy-Id name" type="string">PlayerDeckCardStaticBitmapID</value>
@@ -2816,13 +2816,13 @@
 									</path>
 									<path name="ID000049">
 										<value name="title" type="string">wxStaticBitmap: PlayerGraveCardStaticBitmapID</value>
-										<value name="id" type="Integer">21674960</value>
+										<value name="id" type="Integer">21673160</value>
 										<value name="type" type="string">dialog-control-document</value>
 										<value name="filename" type="string"></value>
 										<value name="icon-name" type="string">dialogcontrol</value>
 										<value name="is-transient" type="Integer">0</value>
 										<value name="owns-file" type="Integer">1</value>
-										<value name="parent" type="Integer">21656904</value>
+										<value name="parent" type="Integer">21655232</value>
 										<value name="locked" type="Integer">0</value>
 										<value name="proxy-type" type="string">wbStaticBitmapProxy</value>
 										<value name="proxy-Id name" type="string">PlayerGraveCardStaticBitmapID</value>
@@ -2867,13 +2867,13 @@
 		</path>
 		<path name="ID00004a">
 			<value name="title" type="string">Images</value>
-			<value name="id" type="Integer">14765976</value>
+			<value name="id" type="Integer">21684120</value>
 			<value name="type" type="string">html-document</value>
 			<value name="filename" type="string"></value>
 			<value name="icon-name" type="string">bitmapsfolder</value>
 			<value name="is-transient" type="Integer">1</value>
 			<value name="owns-file" type="Integer">1</value>
-			<value name="parent" type="Integer">14605776</value>
+			<value name="parent" type="Integer">14605792</value>
 			<value name="locked" type="Integer">1</value>
 		</path>
 	</path>

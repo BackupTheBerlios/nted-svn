@@ -3,7 +3,6 @@
 
 #include <wx/wx.h>
 #include <wx/image.h>
-#include "wx/xrc/xmlres.h"          // XRC XML resouces
 #include <wx/fs_inet.h>
 #include "mainframe.h"
 

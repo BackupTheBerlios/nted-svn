@@ -314,13 +314,15 @@ bool TEDProtocol::ChatEnter(wxInt32 roomindex)
   wxString rcvmsg;
   wxStringTokenizer rcvtok;
   wxString tok;
+#if 0
   long int longvalue;
   struct TEDChatRoom *room;
+#endif
 
   m_tryroom=roomindex;
   sndmsg=_T("CE ")+wxString::Format("%d",roomindex)+_T("\n");
   TCPConn->SendMessage(sndmsg);
-/*
+#if 0
   rcvmsg=TCPConn->WaitMessage();
   ::wxSafeShowMessage(_("Titanes"),rcvmsg);
   rcvtok=wxStringTokenizer(rcvmsg);
@@ -336,7 +338,7 @@ bool TEDProtocol::ChatEnter(wxInt32 roomindex)
   else if (tok==_T("NO"))
   {
   }
-*/
+#endif
   // ON THIS MOMENT WE RETURN FALSE BECAUSE WE NEED TO DECIDE
   // IF WE ARE GOING TO CHECK IF WE HAVE ENTERED THE CHANNEL HERE
   // OR IF WE ARE GOING TO CHECK IT WITH ALL OTHER MESSAGES
@@ -529,19 +531,27 @@ void TEDProtocol::AddCard(wxInt32 deckid,wxInt32 cardid,struct TEDCard *card)
 
 void TEDProtocol::AddCardUID(wxInt32 deckid,wxInt32 cardid,wxInt32 carduid)
 {
-  User.Decks[deckid]->Cards[cardid]->UId.Add(carduid);
+  wxInt32 *uid;
+
+  uid=new wxInt32;
+  *uid=carduid;
+  User.Decks[deckid]->Cards[cardid]->UId.Add(uid);
 }
 
 void TEDProtocol::RemoveCardUID(wxInt32 deckid,wxInt32 cardid,wxInt32 carduid)
 {
   wxInt32 index;
 
-  index=User.Decks[deckid]->Cards[cardid]->UId.Index(carduid);
+  wxInt32 *uid;
+
+  uid=new wxInt32;
+  *uid=carduid;
+  index=User.Decks[deckid]->Cards[cardid]->UId.Index(uid);
   if (index==wxNOT_FOUND)
   {
     return;
   }
-  User.Decks[deckid]->Cards[cardid]->UId.Remove(carduid);
+  User.Decks[deckid]->Cards[cardid]->UId.Remove(uid);
   if (User.Decks[deckid]->Cards[cardid]->UId.IsEmpty()==TRUE)
   {
     User.Decks[deckid]->Cards.erase(cardid);
@@ -662,8 +672,11 @@ struct TEDRenamingDeck *TEDProtocol::GetRenamingDeck()
 void TEDProtocol::DeckActive(wxInt32 deckid)
 {
   wxString sndmsg;
+  wxInt32 *did;
 
-  m_decksactivating.Add(deckid);
+  did=new wxInt32;
+  *did=deckid;
+  m_decksactivating.Add(did);
   sndmsg=_T("EA ")+wxString::Format("%d",deckid)+_T("\n");
   TCPConn->SendMessage(sndmsg);
 }
@@ -671,13 +684,16 @@ void TEDProtocol::DeckActive(wxInt32 deckid)
 wxInt32 TEDProtocol::GetActivatingDeck()
 {
   wxInt32 deckid;
+  wxInt32 *did;
 
   if (m_decksactivating.IsEmpty()==TRUE)
   {
     return -1;
   }
-  deckid=m_decksactivating[0];
+  did=m_decksactivating[0];
   m_decksactivating.RemoveAt(0);
+  deckid=*did;
+  delete did;
   return deckid;
 }
 

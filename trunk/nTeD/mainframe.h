@@ -30,6 +30,7 @@
 #include "chatdialog.h"
 #include "deckdialog.h"
 #include "infodialog.h"
+#include "dueldialog.h"
 #include "tedprotocol.h"
 #include "tcpconnection.h"
 
@@ -160,6 +161,7 @@ public:
     wxLoginDialog *m_LoginWnd;
     wxChatDialog *m_ChatWnd;
     wxDeckDialog *m_DeckWnd;
+    wxDuelDialog *m_DuelWnd;
     wxFlexGridSizer *m_mainsizer;
     TEDProtocol *m_TEDProtocol;
     wxInfoDialog *m_InfoWnd;

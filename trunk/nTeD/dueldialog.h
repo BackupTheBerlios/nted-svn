@@ -3,7 +3,7 @@
 // Purpose:     
 // Author:      Kintups
 // Modified by: 
-// Created:     05/19/04 12:53:41
+// Created:     05/21/04 15:47:03
 // RCS-ID:      
 // Copyright:   
 // Licence:     
@@ -22,6 +22,8 @@
 
 ////@begin includes
 ////@end includes
+
+#include "tedprotocol.h"
 
 /*!
  * Forward declarations
@@ -44,9 +46,9 @@ class wxFlexGridSizer;
 #define SYMBOL_WXDUELDIALOG_POSITION wxDefaultPosition
 #define OpponentStaticTextID 10015
 #define OpponentLFStaticTextID 10016
-#define CardStaticBitmapID 10014
-#define MensajesTextCtrlID 10017
-#define MensajeTextCtrlID 10018
+#define BigCardStaticBitmapID 10014
+#define CombatMensajesTextCtrl 10017
+#define CombatMensajeTextCtrlID 10018
 #define PlayerStaticTextID 10019
 #define PlayerLFStaticTextID 10020
 #define PasarButtonID 10021
@@ -80,18 +82,18 @@ class wxDuelDialog: public wxPanel
 public:
     /// Constructors
     wxDuelDialog( );
-    wxDuelDialog( wxWindow* parent, wxWindowID id = SYMBOL_WXDUELDIALOG_IDNAME, const wxString& caption = SYMBOL_WXDUELDIALOG_TITLE, const wxPoint& pos = SYMBOL_WXDUELDIALOG_POSITION, const wxSize& size = SYMBOL_WXDUELDIALOG_SIZE, long style = SYMBOL_WXDUELDIALOG_STYLE );
+    wxDuelDialog( wxWindow* parent, wxWindowID id = SYMBOL_WXDUELDIALOG_IDNAME, const wxPoint& pos = SYMBOL_WXDUELDIALOG_POSITION, const wxSize& size = SYMBOL_WXDUELDIALOG_SIZE, long style = SYMBOL_WXDUELDIALOG_STYLE );
 
     /// Creation
-    bool Create( wxWindow* parent, wxWindowID id = SYMBOL_WXDUELDIALOG_IDNAME, const wxString& caption = SYMBOL_WXDUELDIALOG_TITLE, const wxPoint& pos = SYMBOL_WXDUELDIALOG_POSITION, const wxSize& size = SYMBOL_WXDUELDIALOG_SIZE, long style = SYMBOL_WXDUELDIALOG_STYLE );
+    bool Create( wxWindow* parent, wxWindowID id = SYMBOL_WXDUELDIALOG_IDNAME, const wxPoint& pos = SYMBOL_WXDUELDIALOG_POSITION, const wxSize& size = SYMBOL_WXDUELDIALOG_SIZE, long style = SYMBOL_WXDUELDIALOG_STYLE );
 
     /// Creates the controls and sizers
     void CreateControls();
 
 ////@begin wxDuelDialog event handler declarations
 
-    /// wxEVT_COMMAND_TEXT_ENTER event handler for MensajeTextCtrlID
-    void OnMensajetextctrlidEnter( wxCommandEvent& event );
+    /// wxEVT_COMMAND_TEXT_ENTER event handler for CombatMensajeTextCtrlID
+    void OnCombatmensajetextctrlidEnter( wxCommandEvent& event );
 
     /// wxEVT_COMMAND_BUTTON_CLICKED event handler for PasarButtonID
     void OnPasarbuttonidClick( wxCommandEvent& event );
@@ -101,11 +103,6 @@ public:
 ////@begin wxDuelDialog member function declarations
 
 
-    /// Retrieves bitmap resources
-    wxBitmap GetBitmapResource( const wxString& name );
-
-    /// Retrieves icon resources
-    wxIcon GetIconResource( const wxString& name );
 ////@end wxDuelDialog member function declarations
 
     /// Should we show tooltips?
@@ -135,6 +132,7 @@ public:
     wxStaticBitmap* PlayerGraveCard2StaticBitmap;
     wxStaticBitmap* PlayerDeckCardStaticBitmap;
     wxStaticBitmap* PlayerGraveCardStaticBitmap;
+    TEDProtocol *m_TEDProtocol;
 ////@end wxDuelDialog member variables
 };
 

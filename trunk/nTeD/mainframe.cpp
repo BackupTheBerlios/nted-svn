@@ -106,6 +106,8 @@ bool wxMainFrame::Create( wxWindow* parent, wxWindowID id, const wxString& capti
     m_DeckWnd->Hide();
     m_InfoWnd=new wxInfoDialog(this);
     m_InfoWnd->Hide();
+    m_DuelWnd=new wxDuelDialog(this);
+    m_DuelWnd->Hide();
     m_ActiveWnd=m_LoginWnd;
     m_mainsizer=(wxFlexGridSizer*)GetSizer();
     m_mainsizer->Add(m_ActiveWnd, 1, wxALIGN_LEFT|wxEXPAND|wxALL);
@@ -115,6 +117,7 @@ bool wxMainFrame::Create( wxWindow* parent, wxWindowID id, const wxString& capti
     m_LoginWnd->m_TEDProtocol=m_TEDProtocol;
     m_ChatWnd->m_TEDProtocol=m_TEDProtocol;
     m_DeckWnd->m_TEDProtocol=m_TEDProtocol;
+    m_DuelWnd->m_TEDProtocol=m_TEDProtocol;
     return TRUE;
 }
 
@@ -277,7 +280,13 @@ void wxMainFrame::OnSize( wxSizeEvent& event )
 void wxMainFrame::UpdateToolbar(int id)
 {
   m_ActiveWnd->Hide();
+#if wxCHECK_VERSION(2, 5, 0)
+  // "DETACH" HAS BEEN INTRODUCED AT WX 2.5
   m_mainsizer->Detach(m_ActiveWnd);
+#else
+  // ALTHOUGH AT VERSION WX 2.4 "REMOVE" WORKS THE SAME WAY
+  m_mainsizer->Remove(m_ActiveWnd);
+#endif
   switch (id)
   {
     case ConectarTool:
@@ -311,16 +320,16 @@ void wxMainFrame::UpdateToolbar(int id)
   m_mainsizer->Add(m_ActiveWnd, 1, wxALIGN_LEFT|wxEXPAND|wxALL);
   m_ActiveWnd->Show();
   Layout();
-//    MainToolBar->FindById(ConectarTool)->Toggle(FALSE);
-/*
-    MainToolBar->FindById(ChatTool)->Toggle(FALSE);
-    MainToolBar->FindById(BarajasTool)->Toggle(FALSE);
-    MainToolBar->FindById(InfoTool)->Toggle(FALSE);
-    MainToolBar->FindById(PrefTool)->Toggle(FALSE);
-*/
-//    MainToolBar->FindById(SalirTool)->Toggle(FALSE);
-//    MainToolBar->FindById(id)->Toggle(TRUE);
-    return;
+#if 0
+  MainToolBar->FindById(ConectarTool)->Toggle(FALSE);
+  MainToolBar->FindById(ChatTool)->Toggle(FALSE);
+  MainToolBar->FindById(BarajasTool)->Toggle(FALSE);
+  MainToolBar->FindById(InfoTool)->Toggle(FALSE);
+  MainToolBar->FindById(PrefTool)->Toggle(FALSE);
+  MainToolBar->FindById(SalirTool)->Toggle(FALSE);
+  MainToolBar->FindById(id)->Toggle(TRUE);
+#endif
+  return;
 }
 
 /*!
@@ -367,11 +376,11 @@ void wxMainFrame::ProcessMessage(wxString msg)
   {
     ProcessDeckEdit(msg);
   }
+  // MESSAGE CODES WE CAN RECEIVE IN CHAT MODE
   else if (tok==_T("GS"))
   {
     ProcessGameStart(msg);
   }
-  // MESSAGE CODES WE CAN RECEIVE IN CHAT MODE
   else if (tok==_T("CX"))
   {
     ProcessChatExit(msg);
@@ -636,16 +645,17 @@ void wxMainFrame::ProcessDuelChallenged(wxString msg)
 {
   wxStringTokenizer msgtok;
   wxString tok;
+  wxInt32 userid;
+  long int longvalue;
 
   msgtok=wxStringTokenizer(msg);
   tok=msgtok.GetNextToken();
   tok=msgtok.GetNextToken();
-
+  // DH <user_id>
+  tok.ToLong(&longvalue);
+  userid=longvalue;
+  m_ChatWnd->ProcessDuelChallenged(userid);
   m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
-/*
-			} else if (Msg[0].Equals("DH")) {
-				DuelReceived (Msg);
-*/
 }
 
 void wxMainFrame::ProcessDuelCancelled(wxString msg)

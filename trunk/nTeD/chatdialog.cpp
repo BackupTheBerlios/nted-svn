@@ -49,6 +49,10 @@ BEGIN_EVENT_TABLE( wxChatDialog, wxPanel )
 
 ////@end wxChatDialog event table entries
   EVT_LIST_ITEM_SELECTED(CanalesListCtrlID, wxChatDialog::OnChatRoomSelected)
+  EVT_TEXT_ENTER( MensajeTextCtrlID, wxChatDialog::OnMensajetextctrlidEnter )
+  EVT_LIST_ITEM_SELECTED( UsuariosListCtrlID, wxChatDialog::OnUsuarioslistctrlidSelected )
+  EVT_LIST_ITEM_ACTIVATED( UsuariosListCtrlID, wxChatDialog::OnUsuarioslistctrlidItemActivated )
+  EVT_LIST_ITEM_RIGHT_CLICK( UsuariosListCtrlID, wxChatDialog::OnUsuarioslistctrlidRightClick )
 
 END_EVENT_TABLE()
 
@@ -196,6 +200,17 @@ bool wxChatDialog::ShowToolTips()
 }
 
 /*!
+ * wxEVT_COMMAND_TEXT_ENTER event handler for MensajeTextCtrlID
+ */
+
+void wxChatDialog::OnMensajetextctrlidEnter( wxCommandEvent& event )
+{
+    // Insert custom code here
+    OnEnviarbuttonClick(event);
+    event.Skip();
+}
+
+/*!
  * wxEVT_COMMAND_BUTTON_CLICKED event handler for EnviarButton
  */
 
@@ -305,4 +320,120 @@ void wxChatDialog::OnChatRoomSelected( wxListEvent& event )
 //  ::wxSafeShowMessage(_("Titanes XXX"),((struct TEDChatRoom *)event.GetItem().GetData())->RoomName);
   event.Skip();
 }
+
+void wxChatDialog::ProcessDuelChallenged(wxInt32 userid)
+{
+#if 0
+  wxInt32 row;
+#endif
+  struct TEDChatter *chatter;
+#if 0
+  wxInt32 accepted;
+#endif
+  wxFont original;
+  wxFont challenge;
+
+  chatter=m_TEDProtocol->GetUser(userid);
+  if (chatter==NULL)
+  {
+    return;
+  }
+#if 0
+  row=UsuariosListCtrl->FindItem(-1,(long int)chatter);
+  // MAYBE WE SHOULD DO SOMETHING IF THE CHALLENGER HAS ALREADY EXITED
+#endif
+  // MAYBE WE SHOULD NOT DISPLAY A MESSAGEBOX ASKING TO ACCEPT OR DECLINE
+  // MAYBE A BETTER SOLUTION IS JUST TO WRITE IT AS A CHAT MESSAGE AND
+  // IF THE PLAYER SELECT THE CHALLENGER FROM THE LIST THEN WE CONSIDER
+  // THE USER HAS ACCEPTED THE CHALLENGE BUT THEN WE NEED A WAY TO BE ABLE
+  // TO CANCEL IT ACTIVELY (NOT WAITING UNTIL IT GETS CANCELLED BY TIMEOUT)
+  original=MensajesTextCtrl->GetFont();
+  challenge=original;
+  challenge.SetStyle(wxITALIC);
+  challenge.SetWeight(wxBOLD);
+  MensajesTextCtrl->SetFont(challenge);
+  MensajesTextCtrl->AppendText(chatter->Name+wxString::Format(" le ha desafiado [baraja: %d, rango: %d",chatter->DeckValue,chatter->Rank));
+#if 0
+  accepted=::wxMessageBox(chatter->Name+_(" le ha desafiado [baraja: ")+chatter->DeckValue+_(", rango: ")+chatter->Rank+_("]\n"),_("Titanes"),wxYES_NO,this);
+  if (accepted==wxYES)
+  {
+  }
+  else
+  {
+  }
+#endif
+/*
+			} else if (Msg[0].Equals("DH")) {
+			Chatter c = ((Chatter)User.Chatters[Msg[1]]);
+			String Tx = c.Name + " le desafia [baraja: " + c.DeckValue + ", rango:" + c.Rank + "]\n";
+			rtbChat.AppendText (Tx);
+			rtbChat.Select (rtbChat.Text.Length - Tx.Length, Tx.Length);
+			rtbChat.SelectionFont = new Font("Verdana",8,FontStyle.Bold);
+			rtbChat.SelectionColor = Color.Gray;
+			
+			int li = -1;
+			for (int i = 0; i < lstChatters.Items.Count; i++) {
+				if (lstChatters.Items[i].SubItems[0].Text.Equals(c.Name)) li = i;
+			}
+			if (li >= 0) lstChatters.Items[li].ImageIndex = 1;
+*/
+}
+
+/*!
+ * wxEVT_COMMAND_LIST_ITEM_SELECTED event handler for UsuariosListCtrlID
+ */
+
+void wxChatDialog::OnUsuarioslistctrlidSelected( wxListEvent& event )
+{
+/*
+  wxBitmap clean;
+  struct TEDCard *card;
+
+  // Insert custom code here
+  card=((struct TEDCard *)event.GetItem().GetData());
+  if (card==NULL)
+  {
+    return;
+  }
+  LoadSmallCardBitmap(card,&clean);
+  CardStaticBitmap->SetBitmap(clean);
+*/
+  event.Skip();
+}
+
+
+/*!
+ * wxEVT_COMMAND_LIST_ITEM_ACTIVATED event handler for UsuariosListCtrlID
+ */
+
+void wxChatDialog::OnUsuarioslistctrlidItemActivated( wxListEvent& event )
+{
+/*
+  struct TEDCard *card;
+
+  // Insert custom code here
+  if (m_TEDProtocol->GetCurrentDeckId()<=0)
+  {
+    return;
+  }
+  card=((struct TEDCard *)event.GetItem().GetData());
+  if (card==NULL)
+  {
+    return;
+  }
+  m_TEDProtocol->DeckMove(0,m_TEDProtocol->GetCurrentDeckId(),card->Id,card->UId[0]);
+*/
+  event.Skip();
+}
+
+/*!
+ * wxEVT_COMMAND_LIST_ITEM_RIGHT_CLICK event handler for UsuariosListCtrlID
+ */
+
+void wxChatDialog::OnUsuarioslistctrlidRightClick( wxListEvent& event )
+{
+    // Insert custom code here
+    event.Skip();
+}
+
 

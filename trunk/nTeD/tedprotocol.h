@@ -46,7 +46,7 @@ struct TEDMovingCard
 
 WX_DEFINE_ARRAY(struct TEDMovingCard *,TEDMovingCardArray);
 
-WX_DEFINE_ARRAY(wxInt32,TEDCardIdArray);
+WX_DEFINE_ARRAY(wxInt32 *,TEDCardIdArray);
 
 struct TEDRenamingDeck
 {
@@ -56,7 +56,7 @@ struct TEDRenamingDeck
 
 WX_DEFINE_ARRAY(struct TEDRenamingDeck *,TEDRenamingDeckArray);
 
-WX_DEFINE_ARRAY(wxInt32,TEDActivatingDeckArray);
+WX_DEFINE_ARRAY(wxInt32 *,TEDActivatingDeckArray);
 
 struct TEDCard
 {
