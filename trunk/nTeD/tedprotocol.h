@@ -144,6 +144,9 @@ class TEDProtocol
     void DeckMove(wxInt32 srcdeckid,wxInt32 dstdeckid,wxInt32 cardid,wxInt32 carduid);
     struct TEDMovingCard *GetMovingCard();
     struct TEDDeck *GetDeck(wxInt32 deckid);
+    void DeckNew(wxString deckname);
+    wxString GetNewDeck();
+    void DeckClear(wxint32 deckid);
 	private:
 	  TCPConnection *TCPConn;
 	  struct TEDUser User;
@@ -157,6 +160,7 @@ class TEDProtocol
     bool m_gettingcardlist;
     wxInt32 m_currentdeck;
     TEDMovingCardArray m_cardsmoving;
+    wxArrayString m_newdecks;
 /*
 	  wxSocketClient *Conn;
 	  wxTextInputStream *Input;

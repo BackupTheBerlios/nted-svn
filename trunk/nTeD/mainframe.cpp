@@ -789,16 +789,34 @@ void wxMainFrame::ProcessDeckNew(wxString msg)
 {
   wxStringTokenizer msgtok;
   wxString tok;
+  wxInt32 deckid;
+  wxString deckname;
+  long int longvalue;
 
+  deckname=m_TEDProtocol->GetNewDeck();
   msgtok=wxStringTokenizer(msg);
   tok=msgtok.GetNextToken();
   tok=msgtok.GetNextToken();
-
+  // EN OK <id_baraj> | EN NO
+  if (tok==_T("OK"))
+  {
+    tok=msgtok.GetNextToken();
+    tok.ToLong(&longvalue);
+    deckid=longvalue;
+    m_DeckWnd->ProcessDeckNew(deckname,deckid);
+  }
+  else if (tok==_T("NO"))
+  {
+    // WE NEED TO DO SOMETHING BETTER WITH THIS
+    tok=msgtok.GetNextToken();
+    ::wxSafeShowMessage(_("Titanes"),_("No puedes tener más barajas."));
+  }
+  else
+  {
+    ::wxSafeShowMessage(_("Titanes"),_T("El servidor ha respondido con un comando desconocido.\nEM ")+
+      tok+_T(" ")+msgtok.GetString());
+  }
   m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
-/*
-  // THIS COMMAND IS NOT IMPLEMENTED IN THE ALPHA VERSION
-  // BUT IT WORKS FINE ON THE SERVER SIDE
-*/
 }
 
 void wxMainFrame::ProcessDeckMove(wxString msg)

@@ -127,6 +127,7 @@ public:
     void LoadReserveDeck();
     void ProcessDeckDescribe(wxInt32 deckid,wxInt32 carduid,wxInt32 cardid);
     void ProcessDeckMove(struct TEDMovingCard *movingcard);
+    void ProcessDeckNew(wxString deckname,wxInt32 deckid);
 
 ////@begin wxDeckDialog member function declarations
 

@@ -25,6 +25,7 @@ TEDProtocol::TEDProtocol()
   m_recoverroom=0;
   m_gettingdecklist=FALSE;
   m_currentdeck=-1;
+  m_newdecks.Clear();
 }
 
 void TEDProtocol::Connect()
@@ -595,4 +596,35 @@ struct TEDDeck *TEDProtocol::GetDeck(wxInt32 deckid)
   }
   return itdeck->second;
 }
+
+void TEDProtocol::DeckNew(wxString deckname)
+{
+  wxString sndmsg;
+
+  m_newdecks.Add(deckname);
+  sndmsg=_T("EN ")+deckname+_T("\n");
+  TCPConn->SendMessage(sndmsg);
+}
+
+wxString TEDProtocol::GetNewDeck()
+{
+  wxString deckname;
+
+  if (m_newdecks.IsEmpty()==TRUE)
+  {
+    return wxEmptyString;
+  }
+  deckname=m_newdecks[0];
+  m_newdecks.RemoveAt(0);
+  return deckname;
+}
+
+void TEDProtocol::DeckClear(wxInt32 deckid)
+{
+  wxString sndmsg;
+
+  sndmsg=_T("EK ")+wxString::Format("%d",deckid)+_T("\n");
+  TCPConn->SendMessage(sndmsg);
+}
+
 

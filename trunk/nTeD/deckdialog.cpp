@@ -336,6 +336,71 @@ void wxDeckDialog::OnDeckscomboboxidSelected( wxCommandEvent& event )
   event.Skip();
 }
 
+int wxCALLBACK wxListCompareFunction2(long item1,long item2,long sortData)
+{
+  return 0;//((struct TEDChatter *)item1)->Name.Cmp(((struct TEDChatter *)item2)->Name);
+}
+
+/*!
+ * wxEVT_COMMAND_BUTTON_CLICKED event handler for ComprarSobreButtonID
+ */
+
+void wxDeckDialog::OnComprarsobrebuttonidClick( wxCommandEvent& event )
+{
+  event.Skip();
+}
+
+/*!
+ * wxEVT_COMMAND_BUTTON_CLICKED event handler for CrearBarajaButtonID
+ */
+
+void wxDeckDialog::OnCrearbarajabuttonidClick( wxCommandEvent& event )
+{
+  wxString deckname;
+
+  // Insert custom code here
+  deckname=::wxGetTextFromUser(_("Nombre de la baraja: "),_("Titanes"),wxEmptyString,this);
+  if (deckname!=wxEmptyString)
+  {
+    // WE COULD TRY TO CHECK IF USER HAS ENTERED A STUPID NAME LIKE SPACES,
+    // TABS OR ANY GROUP OF BLANK CHARACTER BUT TAKING INTO ACCOUNT THAT
+    // THE SERVER WILL RETURN AN ILLEGAL MESSAGE AND CLOSE THE CONNECTION
+    // THE USER WILL NOT DO SUCH A STUPID THING AGAIN
+    m_TEDProtocol->DeckNew(deckname);
+  }
+  event.Skip();
+}
+
+/*!
+ * wxEVT_COMMAND_BUTTON_CLICKED event handler for RenombrarBarajaButtonID
+ */
+
+void wxDeckDialog::OnRenombrarbarajabuttonidClick( wxCommandEvent& event )
+{
+    // Insert custom code here
+    event.Skip();
+}
+
+/*!
+ * wxEVT_COMMAND_BUTTON_CLICKED event handler for BorrarBarajaButtonID
+ */
+
+void wxDeckDialog::OnBorrarbarajabuttonidClick( wxCommandEvent& event )
+{
+    // Insert custom code here
+    event.Skip();
+}
+
+/*!
+ * wxEVT_COMMAND_BUTTON_CLICKED event handler for ActivarBarajaButtonID
+ */
+
+void wxDeckDialog::OnActivarbarajabuttonidClick( wxCommandEvent& event )
+{
+    // Insert custom code here
+    event.Skip();
+}
+
 void wxDeckDialog::ClearDecks()
 {
   ReserveListCtrl->DeleteAllItems();
@@ -481,60 +546,15 @@ void wxDeckDialog::ProcessDeckMove(struct TEDMovingCard *movingcard)
   }
 }
 
-int wxCALLBACK wxListCompareFunction2(long item1,long item2,long sortData)
+void wxDeckDialog::ProcessDeckNew(wxString deckname,wxInt32 deckid)
 {
-  return 0;//((struct TEDChatter *)item1)->Name.Cmp(((struct TEDChatter *)item2)->Name);
+/*
+  wxString cadena=deckname;
+
+  cadena=deckname;
+::wxSafeShowMessage(_("Titanes 1"),_("stepA"));
+::wxSafeShowMessage(_("Titanes 2"),cadena+wxString::Format(" %d",deckid));
+*/
+  ProcessDeckList(deckid,deckname);
 }
-
-
-/*!
- * wxEVT_COMMAND_BUTTON_CLICKED event handler for ComprarSobreButtonID
- */
-
-void wxDeckDialog::OnComprarsobrebuttonidClick( wxCommandEvent& event )
-{
-    // Insert custom code here
-    event.Skip();
-}
-
-/*!
- * wxEVT_COMMAND_BUTTON_CLICKED event handler for CrearBarajaButtonID
- */
-
-void wxDeckDialog::OnCrearbarajabuttonidClick( wxCommandEvent& event )
-{
-    // Insert custom code here
-    event.Skip();
-}
-
-/*!
- * wxEVT_COMMAND_BUTTON_CLICKED event handler for RenombrarBarajaButtonID
- */
-
-void wxDeckDialog::OnRenombrarbarajabuttonidClick( wxCommandEvent& event )
-{
-    // Insert custom code here
-    event.Skip();
-}
-
-/*!
- * wxEVT_COMMAND_BUTTON_CLICKED event handler for BorrarBarajaButtonID
- */
-
-void wxDeckDialog::OnBorrarbarajabuttonidClick( wxCommandEvent& event )
-{
-    // Insert custom code here
-    event.Skip();
-}
-
-/*!
- * wxEVT_COMMAND_BUTTON_CLICKED event handler for ActivarBarajaButtonID
- */
-
-void wxDeckDialog::OnActivarbarajabuttonidClick( wxCommandEvent& event )
-{
-    // Insert custom code here
-    event.Skip();
-}
-
 
