@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<resource xmlns="http://www.wxwindows.org/wxxrc">
+    <object class="wxDialog" name="ChatDialog">
+        <style>wxCAPTION|wxRESIZE_BORDER|wxSYSTEM_MENU</style>
+        <exstyle>wxWS_EX_BLOCK_EVENTS</exstyle>
+        <size>400,300</size>
+        <title>Chat</title>
+        <centered>1</centered>
+        <object class="wxFlexGridSizer">
+            <cols>1</cols>
+            <rows>1</rows>
+            <vgap>0</vgap>
+            <hgap>0</hgap>
+            <growablecols>0</growablecols>
+            <growablerows>0</growablerows>
+            <object class="sizeritem">
+                <flag>wxGROW|wxGROW|wxALL</flag>
+                <border>7</border>
+                <option>1</option>
+                <object class="wxFlexGridSizer">
+                    <cols>2</cols>
+                    <rows>1</rows>
+                    <vgap>0</vgap>
+                    <hgap>5</hgap>
+                    <growablecols>0</growablecols>
+                    <growablerows>0</growablerows>
+                    <object class="sizeritem">
+                        <flag>wxGROW|wxGROW|wxALL</flag>
+                        <border>0</border>
+                        <option>1</option>
+                        <object class="wxFlexGridSizer">
+                            <cols>1</cols>
+                            <rows>2</rows>
+                            <vgap>5</vgap>
+                            <hgap>0</hgap>
+                            <growablecols>0</growablecols>
+                            <growablerows>0</growablerows>
+                            <object class="sizeritem">
+                                <flag>wxGROW|wxGROW|wxALL</flag>
+                                <border>0</border>
+                                <option>1</option>
+                                <object class="wxTextCtrl" name="ID_TEXTCTRL">
+                                    <size>-1,-1</size>
+                                    <style>wxTE_MULTILINE</style>
+                                    <value></value>
+                                </object>
+                            </object>
+                            <object class="sizeritem">
+                                <flag>wxGROW|wxALIGN_CENTER_VERTICAL|wxALL</flag>
+                                <border>0</border>
+                                <option>1</option>
+                                <object class="wxFlexGridSizer">
+                                    <cols>2</cols>
+                                    <rows>1</rows>
+                                    <vgap>0</vgap>
+                                    <hgap>5</hgap>
+                                    <growablecols>0</growablecols>
+                                    <growablerows>0</growablerows>
+                                    <object class="sizeritem">
+                                        <flag>wxGROW|wxALIGN_CENTER_VERTICAL|wxALL</flag>
+                                        <border>0</border>
+                                        <option>1</option>
+                                        <object class="wxTextCtrl" name="ID_TEXTCTRL1">
+                                            <size>-1,-1</size>
+                                            <style></style>
+                                            <value></value>
+                                        </object>
+                                    </object>
+                                    <object class="sizeritem">
+                                        <flag>wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL|wxALL</flag>
+                                        <border>0</border>
+                                        <option>1</option>
+                                        <object class="wxButton" name="EnviarButton">
+                                            <size>-1,-1</size>
+                                            <style></style>
+                                            <label>Enviar</label>
+                                            <default>1</default>
+                                        </object>
+                                    </object>
+                                </object>
+                            </object>
+                        </object>
+                    </object>
+                    <object class="sizeritem">
+                        <flag>wxALIGN_CENTER_HORIZONTAL|wxGROW|wxALL</flag>
+                        <border>0</border>
+                        <option>1</option>
+                        <object class="wxBoxSizer">
+                            <orient>wxVERTICAL</orient>
+                            <object class="sizeritem">
+                                <flag>wxALIGN_RIGHT|wxALL</flag>
+                                <border>0</border>
+                                <option>1</option>
+                                <object class="wxListCtrl" name="ID_LISTCTRL">
+                                    <size>100,100</size>
+                                    <style>wxLC_LIST </style>
+                                </object>
+                            </object>
+                            <object class="spacer">
+                                <flag>wxALIGN_CENTER_HORIZONTAL|wxALL</flag>
+                                <border>0</border>
+                                <size>5,5</size>
+                            </object>
+                            <object class="sizeritem">
+                                <flag>wxALIGN_RIGHT|wxALL</flag>
+                                <border>0</border>
+                                <object class="wxListCtrl" name="ID_LISTCTRL1">
+                                    <size>100,100</size>
+                                    <style></style>
+                                </object>
+                            </object>
+                        </object>
+                    </object>
+                </object>
+            </object>
+        </object>
+    </object>
+</resource>
