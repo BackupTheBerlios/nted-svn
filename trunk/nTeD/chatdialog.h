@@ -30,6 +30,7 @@
  */
 
 ////@begin forward declarations
+class wxListCtrl;
 ////@end forward declarations
 
 /*!
@@ -38,16 +39,16 @@
 
 ////@begin control identifiers
 #define ChatDialog 10000
-#define SYMBOL_WXCHATDIALOG_STYLE wxCLOSE_BOX
+#define SYMBOL_WXCHATDIALOG_STYLE 0
 #define SYMBOL_WXCHATDIALOG_TITLE _("Chat")
 #define SYMBOL_WXCHATDIALOG_IDNAME ChatDialog
-#define SYMBOL_WXCHATDIALOG_SIZE wxSize(580, 350)
+#define SYMBOL_WXCHATDIALOG_SIZE wxSize(626, 348)
 #define SYMBOL_WXCHATDIALOG_POSITION wxDefaultPosition
-#define ID_TEXTCTRL 10001
-#define ID_TEXTCTRL1 10002
-#define EnviarButton 10003
-#define ID_LISTCTRL 10004
-#define ID_LISTCTRL1 10005
+#define MensajesTextCtrlID 10001
+#define MensajeTextCtrlID 10002
+#define EnviarButtonID 10003
+#define UsuariosListCtrlID 10004
+#define CanalesListCtrlID 10005
 ////@end control identifiers
 
 /*!
@@ -80,6 +81,9 @@ public:
 
 ////@begin wxChatDialog event handler declarations
 
+    /// wxEVT_COMMAND_BUTTON_CLICKED event handler for EnviarButtonID
+    void OnEnviarbuttonClick( wxCommandEvent& event );
+
 ////@end wxChatDialog event handler declarations
 
 ////@begin wxChatDialog member function declarations
@@ -90,6 +94,11 @@ public:
     static bool ShowToolTips();
 
 ////@begin wxChatDialog member variables
+    wxTextCtrl* MensajesTextCtrl;
+    wxTextCtrl* MensajeTextCtrl;
+    wxButton* EnviarButton;
+    wxListCtrl* UsuariosListCtrl;
+    wxListCtrl* CanalesListCtrl;
 ////@end wxChatDialog member variables
 };
 
