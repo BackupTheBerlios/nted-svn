@@ -3,10 +3,9 @@
 // Purpose:     String symbols
 // Author:      Kintups
 // Modified by: 
-// Created:     02/27/04 09:45:05
+// Created:     04/16/04 11:16:35
 // RCS-ID:      
 // Copyright:   
 // Licence:     
 /////////////////////////////////////////////////////////////////////////////
 
-#define CONECTAR _("Conectar")
