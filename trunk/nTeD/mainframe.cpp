@@ -110,7 +110,6 @@ bool wxMainFrame::Create( wxWindow* parent, wxWindowID id, const wxString& capti
     m_TEDProtocol=new TEDProtocol();
     m_LoginWnd->m_TEDProtocol=m_TEDProtocol;
     m_ChatWnd->m_TEDProtocol=m_TEDProtocol;
-
     return TRUE;
 }
 
@@ -342,6 +341,10 @@ void wxMainFrame::ProcessMessage(wxString msg)
     ProcessGameStart(msg);
   }
   // MESSAGE CODES WE CAN RECEIVE IN CHAT MODE
+  else if (tok==_T("CX"))
+  {
+    ProcessChatExit(msg);
+  }
   else if (tok==_T("CM"))
   {
     ProcessChatMessage(msg);
@@ -440,12 +443,6 @@ void wxMainFrame::ProcessMessage(wxString msg)
   {
     ProcessUnknownMessage(msg);
   }
-/*
-			// ESTE NO PUEDE OCURRIR NUNCA
-      } else if (Msg[0].Equals("CX")) {
-				ChatExit ();
-			}
-*/
 }
 
 void wxMainFrame::ProcessChatEnter(wxString msg)
@@ -457,15 +454,75 @@ void wxMainFrame::ProcessChatEnter(wxString msg)
   tok=msgtok.GetNextToken();
   tok=msgtok.GetNextToken();
 
-  m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
-
+  if (tok==_T("OK"))
+  {
+    m_TEDProtocol->SetUserChatRoomID(m_TEDProtocol->GetTryRoomID());
+    m_TEDProtocol->SetTryRoomID(0);
+    m_TEDProtocol->SetChatting(TRUE);
 /*
-			if (Msg[0].Equals("CE")) {
-				if (Msg[1].Equals("NO") && Msg[2].Equals("1")) {
-				} else if (Msg[1].Equals("OK")) {
-					ChatEnter (TryRoom);
-				}
+			btnChatExit.Enabled = true;
+			cbxSalas.Enabled = false;
+		  txtChat.Focus();
 */
+  }
+  else if (tok==_T("NO"))
+  {
+    tok=msgtok.GetNextToken();
+    if (tok==_T("1"))
+    {
+      ::wxSafeShowMessage(_("Titanes"),_T("La sala está llena."));
+    }
+    else if (tok==_T("2"))
+    {
+      ::wxSafeShowMessage(_("Titanes"),_T("La sala es incorrecta."));
+    }
+    else
+    {
+      ::wxSafeShowMessage(_("Titanes"),_T("El servidor ha respondido con un comando desconocido.\nEC NO ")+
+        tok+_T(" ")+msgtok.GetString());
+    }
+    m_TEDProtocol->SetTryRoomID(0);
+    m_TEDProtocol->SetUserChatRoomID(0);
+  }
+  else
+  {
+    ::wxSafeShowMessage(_("Titanes"),_T("El servidor ha respondido con un comando desconocido.EC \n")+
+      tok+msgtok.GetString());
+  }
+//  m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
+}
+
+void wxMainFrame::ProcessChatExit(wxString msg)
+{
+  wxStringTokenizer msgtok;
+  wxString tok;
+
+  msgtok=wxStringTokenizer(msg);
+  tok=msgtok.GetNextToken();
+  tok=msgtok.GetNextToken();
+
+  if (tok==_T("OK"))
+  {
+    m_TEDProtocol->SetUserChatRoomID(0);
+    m_TEDProtocol->SetTryRoomID(0);
+    m_TEDProtocol->SetChatting(FALSE);
+    m_ChatWnd->UsuariosListCtrl->DeleteAllItems();
+/*
+			btnChatExit.Enabled = false;
+			cbxSalas.Enabled = true;
+			cbxSalas.Text = "";
+			rtbChat.Text = "";
+			User.Chatters.Clear();
+*/
+  }
+  else
+  {
+    ::wxSafeShowMessage(_("Titanes"),_T("El servidor ha respondido con un comando desconocido.\nCX ")+
+      tok+_T(" ")+msgtok.GetString());
+    m_TEDProtocol->SetTryRoomID(0);
+    m_TEDProtocol->SetUserChatRoomID(0);
+  }
+//  m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
 }
 
 void wxMainFrame::ProcessDeckEdit(wxString msg)

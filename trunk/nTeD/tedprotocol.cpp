@@ -20,6 +20,8 @@ TEDProtocol::TEDProtocol()
 {
   TCPConn=new TCPConnection();
   m_logged=FALSE;
+  m_chatting=FALSE;
+  m_tryroom=0;
 }
 
 void TEDProtocol::Connect()
@@ -241,6 +243,16 @@ bool TEDProtocol::IsLogged()
   return m_logged;
 }
 
+bool TEDProtocol::IsChatting()
+{
+  return m_chatting;
+}
+
+void TEDProtocol::SetChatting(bool chatting)
+{
+  m_chatting=chatting;
+}
+
 wxInt32 TEDProtocol::GetNumChatRooms()
 {
   if ((IsConnected()==TRUE) && (IsLogged()==TRUE))
@@ -281,6 +293,7 @@ bool TEDProtocol::ChatEnter(wxInt32 roomindex)
   // VERIFICAMOS QUE NUESTRA VERSION DEL CLIENTE ES VALIDA
   sndmsg=_T("CE ")+wxString::Format("%d",roomindex)+_T("\n");
   TCPConn->SendMessage(sndmsg);
+/*
   rcvmsg=TCPConn->WaitMessage();
   ::wxSafeShowMessage(_("Titanes"),rcvmsg);
   rcvtok=wxStringTokenizer(rcvmsg);
@@ -296,6 +309,45 @@ bool TEDProtocol::ChatEnter(wxInt32 roomindex)
   else if (tok==_T("NO"))
   {
   }
+*/
+  // ON THIS MOMENT WE RETURN FALSE BECAUSE WE NEED TO DECIDE
+  // IF WE ARE GOING TO CHECK IF WE HAVE ENTERED THE CHANNEL HERE
+  // OR IF WE ARE GOING TO CHECK IT WITH ALL OTHER MESSAGES
+  // 10-05-2004
+  // ON THIS MOMENT EVERYTHING IS GOING TO BE PROCCESSED AT THE PROCESSMESSAGE
+  // FUNCTION. THE ONE AND ONLY EXCEPTION TO THIS RULE IS LOGIN.
+  // WE SHOULD CHANGE THE RETURN TYPE TO VOID
   return FALSE;
 }
+
+bool TEDProtocol::ChatExit()
+{
+  wxString sndmsg;
+
+  // VERIFICAMOS QUE NUESTRA VERSION DEL CLIENTE ES VALIDA
+  sndmsg=_T("CX\n");
+  TCPConn->SendMessage(sndmsg);
+  return FALSE;
+}
+
+wxInt32 TEDProtocol::GetUserChatRoomID()
+{
+  return User.Room;
+}
+
+wxInt32 TEDProtocol::GetTryRoomID()
+{
+  return m_tryroom;
+}
+
+void TEDProtocol::SetUserChatRoomID(wxInt32 roomid)
+{
+  User.Room=roomid;
+}
+
+void TEDProtocol::SetTryRoomID(wxInt32 roomid)
+{
+  m_tryroom=roomid;
+}
+
 

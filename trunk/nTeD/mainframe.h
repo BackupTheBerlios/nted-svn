@@ -28,6 +28,7 @@
 
 #include "logindialog.h"
 #include "chatdialog.h"
+#include "deckdialog.h"
 #include "infodialog.h"
 #include "tedprotocol.h"
 #include "tcpconnection.h"
@@ -121,6 +122,7 @@ public:
     void ProcessChatEnter(wxString msg);
     void ProcessDeckEdit(wxString msg);
     void ProcessGameStart(wxString msg);
+    void ProcessChatExit(wxString msg);
     void ProcessChatMessage(wxString msg);
     void ProcessDuelChallenged(wxString msg);
     void ProcessDuelCancelled(wxString msg);
@@ -157,6 +159,7 @@ public:
     wxPanel *m_ActiveWnd;
     wxLoginDialog *m_LoginWnd;
     wxChatDialog *m_ChatWnd;
+    wxDeckDialog *m_DeckWnd;
     wxFlexGridSizer *m_mainsizer;
     TEDProtocol *m_TEDProtocol;
     wxInfoDialog *m_InfoWnd;

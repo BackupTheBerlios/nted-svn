@@ -89,10 +89,10 @@ bool wxChatDialog::Create( wxWindow* parent, wxWindowID id, const wxPoint& pos, 
     Centre();
 ////@end wxChatDialog creation
     UsuariosListCtrl->SetSizeHints(200,100);
-/*
     UsuariosListCtrl->InsertColumn(0,_("Nombre"));
     UsuariosListCtrl->InsertColumn(1,_("Valor"));
     UsuariosListCtrl->InsertColumn(2,_("Ranking"));
+/*
     UsuariosListCtrl->InsertItem(0,_T("0,0"));
     UsuariosListCtrl->SetItem(0,1,_T("0,1"));
     UsuariosListCtrl->SetItem(0,2,_T("0,2"));
@@ -102,9 +102,11 @@ bool wxChatDialog::Create( wxWindow* parent, wxWindowID id, const wxPoint& pos, 
     UsuariosListCtrl->InsertItem(2,_T("2,0"));
     UsuariosListCtrl->SetItem(2,1,_T("2,1"));
     UsuariosListCtrl->SetItem(2,2,_T("2,2"));
-    UsuariosListCtrl->SetColumnWidth(0,wxLIST_AUTOSIZE);
-    UsuariosListCtrl->SetColumnWidth(1,wxLIST_AUTOSIZE);
-    UsuariosListCtrl->SetColumnWidth(2,wxLIST_AUTOSIZE);
+*/
+    UsuariosListCtrl->SetColumnWidth(0,100);
+    UsuariosListCtrl->SetColumnWidth(1,40);
+    UsuariosListCtrl->SetColumnWidth(2,55);
+/*
     UsuariosListCtrl->InsertItem(3,_T("Nombre largo"));
     UsuariosListCtrl->SetItem(3,1,_T("3,1"));
     UsuariosListCtrl->SetItem(3,2,_T("3,2"));
@@ -227,7 +229,19 @@ void wxChatDialog::SetChannelNames()
 
 void wxChatDialog::OnChatRoomSelected( wxListEvent& event )
 {
-  m_TEDProtocol->ChatEnter(((struct TEDChatRoom *)event.GetItem().GetData())->RoomId);
+  if (m_TEDProtocol->IsChatting()==FALSE)
+  {
+    m_TEDProtocol->SetTryRoomID(((struct TEDChatRoom *)event.GetItem().GetData())->RoomId);
+    m_TEDProtocol->ChatEnter(m_TEDProtocol->GetTryRoomID());
+  }
+  // WE NEED TO ADD SUPPORT FOR CHANGING THE OUR CURRENT CHANNEL
+  // WITHOUT SENDING THE COMMAND BY HAND
+  else
+  {
+    m_TEDProtocol->ChatExit();
+    m_TEDProtocol->SetTryRoomID(((struct TEDChatRoom *)event.GetItem().GetData())->RoomId);
+    m_TEDProtocol->ChatEnter(m_TEDProtocol->GetTryRoomID());
+  }
 //  ::wxSafeShowMessage(_("Titanes"),event.GetItem().GetText());
 //  ::wxSafeShowMessage(_("Titanes XXX"),((struct TEDChatRoom *)event.GetItem().GetData())->RoomName);
   event.Skip();
