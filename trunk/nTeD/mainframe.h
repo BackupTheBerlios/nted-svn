@@ -3,7 +3,7 @@
 // Purpose:     
 // Author:      Kintups
 // Modified by: 
-// Created:     02/23/04 15:40:11
+// Created:     04/14/04 16:36:40
 // RCS-ID:      
 // Copyright:   
 // Licence:     
@@ -12,7 +12,7 @@
 #ifndef _MAINFRAME_H_
 #define _MAINFRAME_H_
 
-#ifdef __GNUG__
+#if defined(__GNUG__) && !defined(__APPLE__)
 #pragma interface "mainframe.cpp"
 #endif
 
@@ -22,7 +22,13 @@
 
 ////@begin includes
 #include "mainframe_symbols.h"
+#include "wx/frame.h"
+#include "wx/toolbar.h"
 ////@end includes
+
+#include "logindialog.h"
+#include "chatdialog.h"
+
 
 /*!
  * Forward declarations
@@ -37,12 +43,18 @@
 
 ////@begin control identifiers
 #define MainFrame 10000
-#define MainToolBar 10001
+#define SYMBOL_WXMAINFRAME_STYLE wxCAPTION|wxRESIZE_BORDER|wxSYSTEM_MENU|wxMINIMIZE_BOX|wxMAXIMIZE_BOX|wxCLOSE_BOX
+#define SYMBOL_WXMAINFRAME_TITLE _("Titanes: el Destierro")
+#define SYMBOL_WXMAINFRAME_IDNAME MainFrame
+#define SYMBOL_WXMAINFRAME_SIZE wxSize(400, 300)
+#define SYMBOL_WXMAINFRAME_POSITION wxDefaultPosition
+#define MainToolBarID 10001
 #define ConectarTool 10002
 #define ChatTool 10003
 #define BarajasTool 10004
 #define InfoTool 10005
 #define PrefTool 10006
+#define SalirTool 10007
 ////@end control identifiers
 
 /*!
@@ -54,37 +66,60 @@
 #endif
 
 /*!
- * MainFrame class declaration
+ * wxMainFrame class declaration
  */
 
-class MainFrame: public wxFrame
+class wxMainFrame: public wxFrame
 {    
-    DECLARE_CLASS( MainFrame )
+    DECLARE_CLASS( wxMainFrame )
     DECLARE_EVENT_TABLE()
 
 public:
     /// Constructors
-    MainFrame( );
-    MainFrame( wxWindow* parent, wxWindowID id = -1, const wxString& caption = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxCAPTION|wxRESIZE_BORDER|wxSYSTEM_MENU );
+    wxMainFrame( );
+    wxMainFrame( wxWindow* parent, wxWindowID id = SYMBOL_WXMAINFRAME_IDNAME, const wxString& caption = SYMBOL_WXMAINFRAME_TITLE, const wxPoint& pos = SYMBOL_WXMAINFRAME_POSITION, const wxSize& size = SYMBOL_WXMAINFRAME_SIZE, long style = SYMBOL_WXMAINFRAME_STYLE );
 
-    bool Create( wxWindow* parent, wxWindowID id = -1, const wxString& caption = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxCAPTION|wxRESIZE_BORDER|wxSYSTEM_MENU );
+    bool Create( wxWindow* parent, wxWindowID id = SYMBOL_WXMAINFRAME_IDNAME, const wxString& caption = SYMBOL_WXMAINFRAME_TITLE, const wxPoint& pos = SYMBOL_WXMAINFRAME_POSITION, const wxSize& size = SYMBOL_WXMAINFRAME_SIZE, long style = SYMBOL_WXMAINFRAME_STYLE );
 
     /// Creates the controls and sizers
     void CreateControls();
 
-////@begin MainFrame event handler declarations
+////@begin wxMainFrame event handler declarations
 
-////@end MainFrame event handler declarations
+    /// wxEVT_SIZE event handler for MainFrame
+    void OnSize( wxSizeEvent& event );
 
-////@begin MainFrame member function declarations
+    /// wxEVT_COMMAND_MENU_SELECTED event handler for ConectarTool
+    void OnConectartoolClick( wxCommandEvent& event );
 
-////@end MainFrame member function declarations
+    /// wxEVT_COMMAND_MENU_SELECTED event handler for ChatTool
+    void OnChattoolClick( wxCommandEvent& event );
+
+    /// wxEVT_COMMAND_MENU_SELECTED event handler for BarajasTool
+    void OnBarajastoolClick( wxCommandEvent& event );
+
+    /// wxEVT_COMMAND_MENU_SELECTED event handler for InfoTool
+    void OnInfotoolClick( wxCommandEvent& event );
+
+    /// wxEVT_COMMAND_MENU_SELECTED event handler for PrefTool
+    void OnPreftoolClick( wxCommandEvent& event );
+
+////@end wxMainFrame event handler declarations
+
+////@begin wxMainFrame member function declarations
+
+////@end wxMainFrame member function declarations
 
     /// Should we show tooltips?
     static bool ShowToolTips();
 
-////@begin MainFrame member variables
-////@end MainFrame member variables
+////@begin wxMainFrame member variables
+    wxToolBar* MainToolBar;
+    wxPanel *m_ActiveWnd;
+    wxLoginDialog *m_LoginWnd;
+    wxChatDialog *m_ChatWnd;
+    wxFlexGridSizer *m_mainsizer;
+////@end wxMainFrame member variables
 };
 
 #endif
