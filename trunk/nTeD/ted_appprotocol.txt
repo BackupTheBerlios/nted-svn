@@ -278,7 +278,7 @@ sv: EN OK <id_baraj> | EN NO
 cl: EM <id_baraja> <uid_carta>
     Significa "dEck Move". Pone la carta indicada en la baraja indicada.
     (0 es la reserva).
-cl: EM OK | EM NO <motivo>
+sv: EM OK | EM NO <motivo>
     Devuelve NO si la carta no se puedo mover porque:
       1: ya hay el max. de cartas permitidas de ese tipo en la baraja de destino
       2: la baraja de destino no existe (en este caso, se desconecta al cliente)
