@@ -96,6 +96,21 @@ public:
     /// wxEVT_COMMAND_LIST_ITEM_ACTIVATED event handler for ReserveListCtrlID
     void OnReservelistctrlidItemActivated( wxListEvent& event );
 
+    /// wxEVT_COMMAND_BUTTON_CLICKED event handler for ComprarSobreButtonID
+    void OnComprarsobrebuttonidClick( wxCommandEvent& event );
+
+    /// wxEVT_COMMAND_BUTTON_CLICKED event handler for CrearBarajaButtonID
+    void OnCrearbarajabuttonidClick( wxCommandEvent& event );
+
+    /// wxEVT_COMMAND_BUTTON_CLICKED event handler for RenombrarBarajaButtonID
+    void OnRenombrarbarajabuttonidClick( wxCommandEvent& event );
+
+    /// wxEVT_COMMAND_BUTTON_CLICKED event handler for BorrarBarajaButtonID
+    void OnBorrarbarajabuttonidClick( wxCommandEvent& event );
+
+    /// wxEVT_COMMAND_BUTTON_CLICKED event handler for ActivarBarajaButtonID
+    void OnActivarbarajabuttonidClick( wxCommandEvent& event );
+
     /// wxEVT_COMMAND_COMBOBOX_SELECTED event handler for DecksComboBoxID
     void OnDeckscomboboxidSelected( wxCommandEvent& event );
 

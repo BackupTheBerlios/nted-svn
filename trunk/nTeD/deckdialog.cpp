@@ -48,6 +48,16 @@ BEGIN_EVENT_TABLE( wxDeckDialog, wxPanel )
     EVT_LIST_ITEM_SELECTED( ReserveListCtrlID, wxDeckDialog::OnReservelistctrlidSelected )
     EVT_LIST_ITEM_ACTIVATED( ReserveListCtrlID, wxDeckDialog::OnReservelistctrlidItemActivated )
 
+    EVT_BUTTON( ComprarSobreButtonID, wxDeckDialog::OnComprarsobrebuttonidClick )
+
+    EVT_BUTTON( CrearBarajaButtonID, wxDeckDialog::OnCrearbarajabuttonidClick )
+
+    EVT_BUTTON( RenombrarBarajaButtonID, wxDeckDialog::OnRenombrarbarajabuttonidClick )
+
+    EVT_BUTTON( BorrarBarajaButtonID, wxDeckDialog::OnBorrarbarajabuttonidClick )
+
+    EVT_BUTTON( ActivarBarajaButtonID, wxDeckDialog::OnActivarbarajabuttonidClick )
+
     EVT_COMBOBOX( DecksComboBoxID, wxDeckDialog::OnDeckscomboboxidSelected )
 
     EVT_LIST_ITEM_SELECTED( CurrentDeckListCtrlID, wxDeckDialog::OnCurrentdecklistctrlidSelected )
@@ -214,10 +224,8 @@ void wxDeckDialog::CreateControls()
     item16->AddGrowableCol(0);
     item3->Add(item16, 1, wxGROW|wxGROW|wxALL, 0);
 
-    wxString item17Strings[] = {
-        _("Pejelagarto barquero")
-    };
-    wxComboBox* item17 = new wxComboBox( item1, DecksComboBoxID, _T(""), wxDefaultPosition, wxDefaultSize, 1, item17Strings, wxCB_READONLY|wxCB_SORT );
+    wxString* item17Strings = NULL;
+    wxComboBox* item17 = new wxComboBox( item1, DecksComboBoxID, _T(""), wxDefaultPosition, wxDefaultSize, 0, item17Strings, wxCB_READONLY|wxCB_SORT );
     DecksComboBox = item17;
     item16->Add(item17, 0, wxGROW|wxALIGN_TOP|wxALL, 0);
 
@@ -476,6 +484,57 @@ void wxDeckDialog::ProcessDeckMove(struct TEDMovingCard *movingcard)
 int wxCALLBACK wxListCompareFunction2(long item1,long item2,long sortData)
 {
   return 0;//((struct TEDChatter *)item1)->Name.Cmp(((struct TEDChatter *)item2)->Name);
+}
+
+
+/*!
+ * wxEVT_COMMAND_BUTTON_CLICKED event handler for ComprarSobreButtonID
+ */
+
+void wxDeckDialog::OnComprarsobrebuttonidClick( wxCommandEvent& event )
+{
+    // Insert custom code here
+    event.Skip();
+}
+
+/*!
+ * wxEVT_COMMAND_BUTTON_CLICKED event handler for CrearBarajaButtonID
+ */
+
+void wxDeckDialog::OnCrearbarajabuttonidClick( wxCommandEvent& event )
+{
+    // Insert custom code here
+    event.Skip();
+}
+
+/*!
+ * wxEVT_COMMAND_BUTTON_CLICKED event handler for RenombrarBarajaButtonID
+ */
+
+void wxDeckDialog::OnRenombrarbarajabuttonidClick( wxCommandEvent& event )
+{
+    // Insert custom code here
+    event.Skip();
+}
+
+/*!
+ * wxEVT_COMMAND_BUTTON_CLICKED event handler for BorrarBarajaButtonID
+ */
+
+void wxDeckDialog::OnBorrarbarajabuttonidClick( wxCommandEvent& event )
+{
+    // Insert custom code here
+    event.Skip();
+}
+
+/*!
+ * wxEVT_COMMAND_BUTTON_CLICKED event handler for ActivarBarajaButtonID
+ */
+
+void wxDeckDialog::OnActivarbarajabuttonidClick( wxCommandEvent& event )
+{
+    // Insert custom code here
+    event.Skip();
 }
 
 
