@@ -1,0 +1,10 @@
+21
+3
+0
+0
+18
+4
+PPPP
+I
+Espejo espia
+Mientras el Espejo espia esta en juego, tu oponente juega con su mano al descubierto.

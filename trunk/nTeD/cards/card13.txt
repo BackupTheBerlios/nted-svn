@@ -1,0 +1,10 @@
+13
+4
+0
+0
+10
+4
+PP
+C
+Onda de calor
+Hace 2 puntos de daño a tu oponente.

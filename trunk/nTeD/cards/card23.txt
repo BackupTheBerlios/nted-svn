@@ -1,0 +1,10 @@
+23
+2
+0
+4
+13
+4
+PPP
+I
+Serafin
+El Serafin no se gira al atacar.

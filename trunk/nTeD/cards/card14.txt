@@ -1,0 +1,10 @@
+14
+2
+2
+2
+12
+4
+PPP
+C
+Angel
+Cuando entra en juego, te suma un punto de vida.

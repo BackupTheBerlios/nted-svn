@@ -1,0 +1,10 @@
+15
+2
+4
+3
+6
+4
+PPPP
+C
+Mago del Caos
+Cuando entra en juego, te hace dos puntos de daño.
