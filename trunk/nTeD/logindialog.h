@@ -3,7 +3,7 @@
 // Purpose:     
 // Author:      Kintups
 // Modified by: 
-// Created:     02/24/04 15:29:08
+// Created:     04/07/04 14:06:17
 // RCS-ID:      
 // Copyright:   
 // Licence:     
@@ -12,7 +12,7 @@
 #ifndef _LOGINDIALOG_H_
 #define _LOGINDIALOG_H_
 
-#ifdef __GNUG__
+#if defined(__GNUG__) && !defined(__APPLE__)
 #pragma interface "logindialog.cpp"
 #endif
 
@@ -23,6 +23,8 @@
 ////@begin includes
 #include "logindialog_symbols.h"
 ////@end includes
+
+#include <wx/msgdlg.h>
 
 /*!
  * Forward declarations
@@ -36,12 +38,17 @@
  */
 
 ////@begin control identifiers
-#define LoginDialog 10000
-#define UsuarioStatic 10004
-#define UsuarioTextCtrl 10001
-#define ContrasenaStatic 10005
-#define ContrasenaTextCtrl 10002
-#define ConectarButton 10003
+#define LoginDialogID 10000
+#define SYMBOL_WXLOGINDIALOG_STYLE wxCLOSE_BOX
+#define SYMBOL_WXLOGINDIALOG_TITLE _("Login")
+#define SYMBOL_WXLOGINDIALOG_IDNAME LoginDialogID
+#define SYMBOL_WXLOGINDIALOG_SIZE wxSize(250, 180)
+#define SYMBOL_WXLOGINDIALOG_POSITION wxDefaultPosition
+#define UsuarioStaticID 10004
+#define UsuarioTextCtrlID 10001
+#define ContrasenaStaticID 10005
+#define ContrasenaTextCtrlID 10002
+#define ConectarButtonID 10003
 ////@end control identifiers
 
 /*!
@@ -53,38 +60,47 @@
 #endif
 
 /*!
- * LoginDialog class declaration
+ * wxLoginDialog class declaration
  */
 
-class LoginDialog: public wxDialog
+class wxLoginDialog: public wxPanel
 {    
-    DECLARE_CLASS( LoginDialog )
+    DECLARE_CLASS( wxLoginDialog )
     DECLARE_EVENT_TABLE()
 
 public:
     /// Constructors
-    LoginDialog( );
-    LoginDialog( wxWindow* parent, wxWindowID id = -1, const wxString& caption = _("Dialog"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxCAPTION|wxRESIZE_BORDER|wxSYSTEM_MENU );
+    wxLoginDialog( );
+    wxLoginDialog( wxWindow* parent, wxWindowID id = SYMBOL_WXLOGINDIALOG_IDNAME, const wxPoint& pos = SYMBOL_WXLOGINDIALOG_POSITION, const wxSize& size = SYMBOL_WXLOGINDIALOG_SIZE, long style = SYMBOL_WXLOGINDIALOG_STYLE );
+//    wxLoginDialog( wxNotebook* parent,  wxWindowID id = SYMBOL_WXLOGINDIALOG_IDNAME, const wxPoint& pos = SYMBOL_WXLOGINDIALOG_POSITION, const wxSize& size = SYMBOL_WXLOGINDIALOG_SIZE, long style = wxSUNKEN_BORDER|wxTAB_TRAVERSAL );
 
     /// Creation
-    bool Create( wxWindow* parent, wxWindowID id = -1, const wxString& caption = _("Dialog"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxCAPTION|wxRESIZE_BORDER|wxSYSTEM_MENU );
+    bool Create( wxWindow* parent, wxWindowID id = SYMBOL_WXLOGINDIALOG_IDNAME, const wxPoint& pos = SYMBOL_WXLOGINDIALOG_POSITION, const wxSize& size = SYMBOL_WXLOGINDIALOG_SIZE, long style = SYMBOL_WXLOGINDIALOG_STYLE );
 
     /// Creates the controls and sizers
     void CreateControls();
 
-////@begin LoginDialog event handler declarations
+////@begin wxLoginDialog event handler declarations
 
-////@end LoginDialog event handler declarations
+    /// wxEVT_COMMAND_BUTTON_CLICKED event handler for ConectarButtonID
+    void OnConectarbuttonClick( wxCommandEvent& event );
 
-////@begin LoginDialog member function declarations
+////@end wxLoginDialog event handler declarations
 
-////@end LoginDialog member function declarations
+////@begin wxLoginDialog member function declarations
+
+////@end wxLoginDialog member function declarations
 
     /// Should we show tooltips?
     static bool ShowToolTips();
 
-////@begin LoginDialog member variables
-////@end LoginDialog member variables
+////@begin wxLoginDialog member variables
+    wxStaticText* UsuarioStatic;
+    wxTextCtrl* UsuarioTextCtrl;
+    wxStaticText* ContrasenaStatic;
+    wxTextCtrl* ContrasenaTextCtrl;
+    wxButton* ConectarButton;
+////@end wxLoginDialog member variables
 };
 
 #endif
