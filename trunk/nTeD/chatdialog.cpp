@@ -121,7 +121,7 @@ void wxChatDialog::CreateControls()
     item3->Add(item4, 1, wxGROW|wxGROW|wxALL|wxADJUST_MINSIZE, 0);
 
     wxTextCtrl* item5 = new wxTextCtrl;
-    item5->Create( item1, MensajesTextCtrlID, _T(""), wxDefaultPosition, wxSize(400, 300), wxTE_MULTILINE );
+    item5->Create( item1, MensajesTextCtrlID, _T(""), wxDefaultPosition, wxSize(340, 300), wxTE_MULTILINE );
     MensajesTextCtrl = item5;
     item4->Add(item5, 1, wxGROW|wxGROW|wxALL, 0);
 
