@@ -287,7 +287,9 @@ bool wxDeckDialog::ShowToolTips()
 
 void wxDeckDialog::OnLeftDown(wxMouseEvent& event)
 {
-  ::wxSafeShowMessage(_("Titanes"),wxString::Format("X=%d//Y=%d",event.GetX(),event.GetY()));
+  // FINALLY WE HAVE BEEN ABLE TO GET MOUSE EVENT FOR WXSTATICBITMAP
+  // NOW WE NEED TO DO SOMETHING USEFULL WITH IT
+//  ::wxSafeShowMessage(_("Titanes"),wxString::Format("X=%d//Y=%d",event.GetX(),event.GetY()));
 }
 
 /*!
@@ -297,13 +299,7 @@ void wxDeckDialog::OnLeftDown(wxMouseEvent& event)
 void wxDeckDialog::OnReservelistctrlidSelected( wxListEvent& event )
 {
   wxBitmap clean;
-  wxImage cardbkg;
-  wxImage img;
-  wxBitmap costimg;
-  wxString filename;
-  wxMemoryDC memdc;
   struct TEDCard *card;
-  wxInt32 cardid;
 
   // Insert custom code here
   card=((struct TEDCard *)event.GetItem().GetData());
@@ -311,31 +307,7 @@ void wxDeckDialog::OnReservelistctrlidSelected( wxListEvent& event )
   {
     return;
   }
-  cardid=card->Id;
-  clean.Create(90,120);
-  memdc.SelectObject(clean);
-  cardbkg.LoadFile(_T("imgs/sframe1.gif"),wxBITMAP_TYPE_GIF);
-  filename=_T("imgs/img")+wxString::Format("%d",cardid)+_T(".gif");
-  img.LoadFile(filename,wxBITMAP_TYPE_GIF);
-  img.Rescale(78,53);
-  memdc.DrawBitmap(wxBitmap(cardbkg),0,0);
-  memdc.DrawBitmap(wxBitmap(img),6,22);
-  memdc.SetTextForeground(wxColour(*wxWHITE));
-  memdc.SetFont(wxFont(7,wxSWISS,wxNORMAL,wxLIGHT));
-//  memdc.SetFont(wxFont(7,wxMODERN,wxNORMAL,wxLIGHT));
-  memdc.SetClippingRegion(3,1,58,16);
-  memdc.DrawText(card->Name,3,3);
-  memdc.DestroyClippingRegion();
-  memdc.SetFont(wxFont(6,wxSWISS,wxNORMAL,wxLIGHT));
-  memdc.SetClippingRegion(64,1,24,16);
-  memdc.DrawText(card->Cost,64,3);
-  memdc.DestroyClippingRegion();
-  memdc.SetFont(wxFont(6,wxSWISS,wxNORMAL,wxLIGHT));
-  memdc.SetClippingRegion(17,105,72,16);
-  if ((card->Attack!=0) || (card->Defense!=0))
-  {
-    memdc.DrawText(wxString::Format("%d/%d",card->Attack,card->Defense),17,105);
-  }
+  LoadSmallCardBitmap(card,&clean);
   CardStaticBitmap->SetBitmap(clean);
   event.Skip();
 }
@@ -370,8 +342,18 @@ void wxDeckDialog::OnReservelistctrlidItemActivated( wxListEvent& event )
 
 void wxDeckDialog::OnCurrentdecklistctrlidSelected( wxListEvent& event )
 {
-    // Insert custom code here
-    event.Skip();
+  wxBitmap clean;
+  struct TEDCard *card;
+
+  // Insert custom code here
+  card=((struct TEDCard *)event.GetItem().GetData());
+  if (card==NULL)
+  {
+    return;
+  }
+  LoadSmallCardBitmap(card,&clean);
+  CardStaticBitmap->SetBitmap(clean);
+  event.Skip();
 }
 
 /*!
@@ -805,5 +787,90 @@ void wxDeckDialog::ProcessDeckGet(wxInt32 gold)
 {
   m_TEDProtocol->SetUserGold(gold);
   GoldStaticText->SetLabel(wxString::Format("%d",gold));
+}
+
+void wxDeckDialog::LoadSmallCardBitmap(struct TEDCard *card,wxBitmap *cardbitmap,bool frombig)
+{
+  wxImage cardbkg;
+  wxImage img;
+  wxBitmap costimg;
+  wxString filename;
+  wxMemoryDC memdc;
+  wxInt32 cardid;
+  wxInt32 width;
+  wxInt32 height;
+
+  if (frombig==FALSE)
+  {
+    cardid=card->Id;
+    cardbitmap->Create(90,120);
+    memdc.SelectObject(*cardbitmap);
+    cardbkg.LoadFile(_T("imgs/sframe1.gif"),wxBITMAP_TYPE_GIF);
+    img.LoadFile(_T("imgs/img")+wxString::Format("%d",cardid)+_T(".gif"),wxBITMAP_TYPE_GIF);
+    img.Rescale(78,53);
+    memdc.DrawBitmap(wxBitmap(cardbkg),0,0);
+    memdc.DrawBitmap(wxBitmap(img),6,22);
+    memdc.SetTextForeground(wxColour(*wxWHITE));
+    memdc.SetFont(wxFont(6,wxSWISS,wxNORMAL,wxLIGHT));
+//    memdc.SetFont(wxFont(8,wxMODERN,wxNORMAL,wxLIGHT));
+    memdc.GetTextExtent(card->Cost,&width,&height);
+    memdc.SetClippingRegion(3,3,90-10-width,height);
+    memdc.DrawText(card->Name,3,3);
+    memdc.DestroyClippingRegion();
+    memdc.SetClippingRegion(90-3-width,3,width,height);
+    memdc.DrawText(card->Cost,90-3-width,3);
+    memdc.DestroyClippingRegion();
+    if ((card->Attack!=0) || (card->Defense!=0))
+    {
+      memdc.GetTextExtent(wxString::Format("%d / %d",card->Attack,card->Defense),&width,&height);
+      memdc.SetClippingRegion(90-3-width,120-3-height,width,height);
+      memdc.DrawText(wxString::Format("%d / %d",card->Attack,card->Defense),90-3-width,120-3-height);
+      memdc.DestroyClippingRegion();
+    }
+  }
+  else
+  {
+    LoadBigCardBitmap(card,cardbitmap);
+    cardbkg=cardbitmap->ConvertToImage();
+    cardbkg.Rescale(90,120);
+    *cardbitmap=wxBitmap(cardbkg);
+  }
+}
+
+void wxDeckDialog::LoadBigCardBitmap(struct TEDCard *card,wxBitmap *cardbitmap)
+{
+  wxImage cardbkg;
+  wxImage img;
+  wxBitmap costimg;
+  wxString textline;
+  wxMemoryDC memdc;
+  wxInt32 cardid;
+  wxInt32 width;
+  wxInt32 height;
+
+  cardid=card->Id;
+  cardbitmap->Create(169,225);
+  memdc.SelectObject(*cardbitmap);
+  cardbkg.LoadFile(_T("imgs/bframe1.gif"),wxBITMAP_TYPE_GIF);
+  img.LoadFile(_T("imgs/img")+wxString::Format("%d",cardid)+_T(".gif"),wxBITMAP_TYPE_GIF);
+  memdc.DrawBitmap(wxBitmap(cardbkg),0,0);
+  memdc.DrawBitmap(wxBitmap(img),11,41);
+  memdc.SetTextForeground(wxColour(*wxWHITE));
+  memdc.SetFont(wxFont(10,wxSWISS,wxNORMAL,wxLIGHT));
+//  memdc.SetFont(wxFont(8,wxMODERN,wxNORMAL,wxLIGHT));
+  memdc.GetTextExtent(card->Cost,&width,&height);
+  memdc.SetClippingRegion(6,6,169-18-width,height);
+  memdc.DrawText(card->Name,6,6);
+  memdc.DestroyClippingRegion();
+  memdc.SetClippingRegion(169-6-width,6,width,height);
+  memdc.DrawText(card->Cost,169-6-width,6);
+  memdc.DestroyClippingRegion();
+  if ((card->Attack!=0) || (card->Defense!=0))
+  {
+    memdc.GetTextExtent(wxString::Format("%d / %d",card->Attack,card->Defense),&width,&height);
+    memdc.SetClippingRegion(169-6-width,225-6-height,width,height);
+    memdc.DrawText(wxString::Format("%d / %d",card->Attack,card->Defense),169-6-width,225-6-height);
+    memdc.DestroyClippingRegion();
+  }
 }
 

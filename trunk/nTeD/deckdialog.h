@@ -137,7 +137,8 @@ public:
     void ProcessDeckActive();
     void ProcessDeckGet(wxInt32 gold);
     void OnLeftDown(wxMouseEvent& event);
-
+    void LoadSmallCardBitmap(struct TEDCard *card,wxBitmap *cardbitmap,bool frombig=FALSE);
+    void LoadBigCardBitmap(struct TEDCard *card,wxBitmap *cardbitmap);
 ////@begin wxDeckDialog member function declarations
 
 ////@end wxDeckDialog member function declarations
