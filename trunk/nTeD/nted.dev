@@ -1,7 +1,7 @@
 [Project]
 FileName=nted.dev
 Name=nted
-UnitCount=18
+UnitCount=19
 Type=1
 Ver=1
 ObjFiles=
@@ -20,7 +20,7 @@ ObjectOutput=
 OverrideOutput=0
 OverrideOutputName=
 HostApplication=
-Folders=Headers,Sources
+Folders=Headers,Resources,Sources
 CommandLine=
 UseCustomMakefile=0
 CustomMakefile=
@@ -223,6 +223,15 @@ CompileCpp=1
 Folder=Sources
 Compile=1
 Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit19]
+FileName=ted_appprotocol.txt
+Folder=Resources
+Compile=0
+Link=0
 Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
