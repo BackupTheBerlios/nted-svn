@@ -387,8 +387,20 @@ void wxDeckDialog::OnRenombrarbarajabuttonidClick( wxCommandEvent& event )
 
 void wxDeckDialog::OnBorrarbarajabuttonidClick( wxCommandEvent& event )
 {
-    // Insert custom code here
-    event.Skip();
+  wxInt32 *deckid;
+
+  // Insert custom code here
+  deckid=(wxInt32 *)DecksComboBox->GetClientData(DecksComboBox->GetSelection());
+  if (deckid==NULL)
+  {
+    return;
+  }
+  else if (*deckid==m_TEDProtocol->GetActiveDeckID())
+  {
+    return;
+  }
+  m_TEDProtocol->DeckClear(*deckid);
+  event.Skip();
 }
 
 /*!
@@ -556,5 +568,25 @@ void wxDeckDialog::ProcessDeckNew(wxString deckname,wxInt32 deckid)
 ::wxSafeShowMessage(_("Titanes 2"),cadena+wxString::Format(" %d",deckid));
 */
   ProcessDeckList(deckid,deckname);
+}
+
+void wxDeckDialog::ProcessDeckClear()
+{
+  wxInt32 row;
+  wxInt32 *deckid;
+
+  // Insert custom code here
+  ReserveListCtrl->DeleteAllItems();
+  CurrentDeckListCtrl->DeleteAllItems();
+  row=DecksComboBox->GetSelection();
+  deckid=(wxInt32 *)DecksComboBox->GetClientData(row);
+  DecksComboBox->Delete(row);
+  if (deckid!=NULL)
+  {
+    m_TEDProtocol->ClearDeck(*deckid);
+  }
+  m_TEDProtocol->SetCurrentDeckId(-1);
+  m_TEDProtocol->ClearDeck(0);
+  LoadReserveDeck();
 }
 

@@ -146,7 +146,7 @@ class TEDProtocol
     struct TEDDeck *GetDeck(wxInt32 deckid);
     void DeckNew(wxString deckname);
     wxString GetNewDeck();
-    void DeckClear(wxint32 deckid);
+    void DeckClear(wxInt32 deckid);
 	private:
 	  TCPConnection *TCPConn;
 	  struct TEDUser User;

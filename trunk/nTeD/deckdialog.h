@@ -128,6 +128,7 @@ public:
     void ProcessDeckDescribe(wxInt32 deckid,wxInt32 carduid,wxInt32 cardid);
     void ProcessDeckMove(struct TEDMovingCard *movingcard);
     void ProcessDeckNew(wxString deckname,wxInt32 deckid);
+    void ProcessDeckClear();
 
 ////@begin wxDeckDialog member function declarations
 

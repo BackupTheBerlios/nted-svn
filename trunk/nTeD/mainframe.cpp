@@ -902,12 +902,17 @@ void wxMainFrame::ProcessDeckClear(wxString msg)
   msgtok=wxStringTokenizer(msg);
   tok=msgtok.GetNextToken();
   tok=msgtok.GetNextToken();
-
+  // EK OK | IM
+  if (tok==_T("OK"))
+  {
+    m_DeckWnd->ProcessDeckClear();
+  }
+  else
+  {
+    ::wxSafeShowMessage(_("Titanes"),_T("El servidor ha respondido con un comando desconocido.\nEK ")+
+      tok+_T(" ")+msgtok.GetString());
+  }
   m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
-/*
-  // THIS COMMAND IS NOT IMPLEMENTED IN THE ALPHA VERSION
-  // BUT IT WORKS FINE ON THE SERVER SIDE
-*/
 }
 
 void wxMainFrame::ProcessDeckRename(wxString msg)
