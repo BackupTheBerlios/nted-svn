@@ -196,7 +196,6 @@ void wxMainFrame::OnChattoolClick( wxCommandEvent& event )
     m_TEDProtocol->DeckExit();
   }
   roomid=m_TEDProtocol->GetRecoverRoomID();
-  ::wxSafeShowMessage(_("Titanes2"),wxString::Format("%d",roomid));
   if (roomid!=0)
   {
     m_TEDProtocol->SetRecoverRoomID(0);
@@ -216,7 +215,6 @@ void wxMainFrame::OnBarajastoolClick( wxCommandEvent& event )
     if (m_TEDProtocol->IsChatting()==TRUE)
     {
       m_TEDProtocol->SetRecoverRoomID(m_TEDProtocol->GetUserChatRoomID());
-  ::wxSafeShowMessage(_("Titanes1"),wxString::Format("%d",m_TEDProtocol->GetRecoverRoomID()));
       m_TEDProtocol->ChatExit();
     }
     m_TEDProtocol->DeckEdit();
@@ -807,15 +805,74 @@ void wxMainFrame::ProcessDeckMove(wxString msg)
 {
   wxStringTokenizer msgtok;
   wxString tok;
+  struct TEDMovingCard *movingcard;
 
+  movingcard=m_TEDProtocol->GetMovingCard();
   msgtok=wxStringTokenizer(msg);
   tok=msgtok.GetNextToken();
   tok=msgtok.GetNextToken();
-
+  // EM OK | EM NO <motivo>
+  if (tok==_T("OK"))
+  {
+    m_DeckWnd->ProcessDeckMove(movingcard);
+  }
+  else if (tok==_T("NO"))
+  {
+    // WE NEED TO DO SOMETHING BETTER WITH THIS
+    tok=msgtok.GetNextToken();
+    ::wxSafeShowMessage(_("Titanes"),_("La carta no cabe en la baraja destino"));
+  }
+  else
+  {
+    ::wxSafeShowMessage(_("Titanes"),_T("El servidor ha respondido con un comando desconocido.\nEM ")+
+      tok+_T(" ")+msgtok.GetString());
+  }
   m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
 /*
 			} else if (Msg[0].Equals("EM")) {
-				DeckMove (Msg);
+			} else {
+				ListView lstFrom = (MovingDeck == 1)?lstDeckB:lstDeckA;
+				ListView lstTo = (MovingDeck == 1)?lstDeckA:lstDeckB;
+				clsDeck deckFrom = Decks[NumBaraja(MovingDeck == 1?cbxDeckB.Text:cbxDeckA.Text)];
+				clsDeck deckTo = Decks[NumBaraja(MovingDeck == 1?cbxDeckA.Text:cbxDeckB.Text)];
+				
+				clsEditCard c = (clsEditCard) deckFrom.Cards[MovingId];
+				c.UIDs.Remove(this.MovingUID);
+				int nu = 0;
+				for (int i = 0; i < lstFrom.Items.Count; i++) {
+					if (lstFrom.Items[i].SubItems[6].Text.Equals ("" + MovingId)) nu = i;
+				}
+				if (c.UIDs.Count == 0) {
+					// Era la ultima
+					deckFrom.Cards.Remove(c.Id);
+					lstFrom.Items.RemoveAt(nu);
+				} else {
+					lstFrom.Items[nu].SubItems[1].Text = "" + c.UIDs.Count;
+				}
+				if (deckTo.Cards[this.MovingId] == null) {
+					// Añadimos (es la primera)
+					clsEditCard aux = new clsEditCard();
+					aux.Attack = c.Attack; aux.Cost = c.Cost;
+					aux.Defense = c.Defense; aux.Freq = c.Freq;
+					aux.Gold = c.Gold; aux.Id = c.Id;
+					aux.Max = c.Max; aux.Name = c.Name;
+					aux.Text = c.Text; aux.Type = c.Type;
+					aux.UIDs = new ArrayList();
+					aux.UIDs.Add (this.MovingUID);
+					deckTo.Cards.Add(this.MovingId, aux);
+					lstTo.Items.Add (HazFila(aux));
+				} else {
+					// Ya existe esa carta, añadimos el UID
+					((clsEditCard)deckTo.Cards[MovingId]).UIDs.Add (MovingUID);
+					for (int i = 0; i < lstTo.Items.Count; i++) {
+						if (lstTo.Items[i].SubItems[6].Text.Equals ("" + MovingId)) {
+							lstTo.Items[i].SubItems[1].Text = "" + ((clsEditCard)deckTo.Cards[MovingId]).UIDs.Count;
+						}
+					}
+				}
+				User.Editing = 2;
+				UpdateDeckInfo ();
+			}
 */
 }
 

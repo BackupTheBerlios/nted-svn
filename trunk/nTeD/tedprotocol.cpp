@@ -525,6 +525,22 @@ void TEDProtocol::AddCardUID(wxInt32 deckid,wxInt32 cardid,wxInt32 carduid)
   User.Decks[deckid]->Cards[cardid]->UId.Add(carduid);
 }
 
+void TEDProtocol::RemoveCardUID(wxInt32 deckid,wxInt32 cardid,wxInt32 carduid)
+{
+  wxInt32 index;
+
+  index=User.Decks[deckid]->Cards[cardid]->UId.Index(carduid);
+  if (index==wxNOT_FOUND)
+  {
+    return;
+  }
+  User.Decks[deckid]->Cards[cardid]->UId.Remove(carduid);
+  if (User.Decks[deckid]->Cards[cardid]->UId.IsEmpty()==TRUE)
+  {
+    User.Decks[deckid]->Cards.erase(cardid);
+  }
+}
+
 struct TEDCard *TEDProtocol::GetCard(wxInt32 deckid,wxInt32 cardid)
 {
   return User.Decks[deckid]->Cards[cardid];
@@ -538,5 +554,45 @@ void TEDProtocol::SetCurrentDeckId(wxInt32 deckid)
 wxInt32 TEDProtocol::GetCurrentDeckId()
 {
   return m_currentdeck;
+}
+
+void TEDProtocol::DeckMove(wxInt32 srcdeckid,wxInt32 dstdeckid,wxInt32 cardid,wxInt32 carduid)
+{
+  wxString sndmsg;
+  struct TEDMovingCard *movingcard;
+
+  movingcard=new struct TEDMovingCard;
+  movingcard->srcdeckid=srcdeckid;
+  movingcard->dstdeckid=dstdeckid;
+  movingcard->cardid=cardid;
+  movingcard->carduid=carduid;
+  m_cardsmoving.Add(movingcard);
+  sndmsg=_T("EM ")+wxString::Format("%d %d",dstdeckid,carduid)+_T("\n");
+  TCPConn->SendMessage(sndmsg);
+}
+
+struct TEDMovingCard *TEDProtocol::GetMovingCard()
+{
+  struct TEDMovingCard *movingcard;
+  
+  if (m_cardsmoving.IsEmpty()==TRUE)
+  {
+    return NULL;
+  }
+  movingcard=m_cardsmoving[0];
+  m_cardsmoving.RemoveAt(0);
+  return movingcard;
+}
+
+struct TEDDeck *TEDProtocol::GetDeck(wxInt32 deckid)
+{
+  TEDDeckHash::iterator itdeck;
+
+  itdeck=User.Decks.find(deckid);
+  if (itdeck==User.Decks.end())
+  {
+    return NULL;
+  }
+  return itdeck->second;
 }
 

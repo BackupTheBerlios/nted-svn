@@ -123,9 +123,9 @@ bool wxDeckDialog::Create( wxWindow* parent, wxWindowID id, const wxString& capt
     CurrentDeckListCtrl->InsertColumn(2,_("A/D"));
     CurrentDeckListCtrl->InsertColumn(3,_("Poder"));
     CurrentDeckListCtrl->SetColumnWidth(0,114);
-    CurrentDeckListCtrl->SetColumnWidth(1,40);
-    CurrentDeckListCtrl->SetColumnWidth(2,40);
-    CurrentDeckListCtrl->SetColumnWidth(3,50);
+    CurrentDeckListCtrl->SetColumnWidth(1,38);
+    CurrentDeckListCtrl->SetColumnWidth(2,38);
+    CurrentDeckListCtrl->SetColumnWidth(3,48);
     fgsleft->Layout();
     fgsright->Layout();
     Layout();
@@ -256,12 +256,16 @@ void wxDeckDialog::OnReservelistctrlidItemActivated( wxListEvent& event )
   struct TEDCard *card;
 
   // Insert custom code here
+  if (m_TEDProtocol->GetCurrentDeckId()<=0)
+  {
+    return;
+  }
   card=((struct TEDCard *)event.GetItem().GetData());
   if (card==NULL)
   {
     return;
   }
-  ::wxSafeShowMessage(_("Titanes"),card->Name);
+  m_TEDProtocol->DeckMove(0,m_TEDProtocol->GetCurrentDeckId(),card->Id,card->UId[0]);
   event.Skip();
 }
 
@@ -282,8 +286,20 @@ void wxDeckDialog::OnCurrentdecklistctrlidSelected( wxListEvent& event )
 
 void wxDeckDialog::OnCurrentdecklistctrlidItemActivated( wxListEvent& event )
 {
-    // Insert custom code here
-    event.Skip();
+  struct TEDCard *card;
+
+  // Insert custom code here
+  if (m_TEDProtocol->GetCurrentDeckId()<=0)
+  {
+    return;
+  }
+  card=((struct TEDCard *)event.GetItem().GetData());
+  if (card==NULL)
+  {
+    return;
+  }
+  m_TEDProtocol->DeckMove(m_TEDProtocol->GetCurrentDeckId(),0,card->Id,card->UId[0]);
+  event.Skip();
 }
 
 
@@ -416,7 +432,43 @@ void wxDeckDialog::ProcessDeckDescribe(wxInt32 deckid,wxInt32 carduid,wxInt32 ca
     else
     {
       row=CurrentDeckListCtrl->FindItem(-1,card->Name);
+      CurrentDeckListCtrl->SetItem(row,1,wxString::Format("%d",card->UId.GetCount()));
+    }
+  }
+}
+
+void wxDeckDialog::ProcessDeckMove(struct TEDMovingCard *movingcard)
+{
+  struct TEDDeck *srcdeck;
+  struct TEDDeck *dstdeck;
+  struct TEDCard *card;
+  wxInt32 row;
+
+  card=m_TEDProtocol->GetCard(movingcard->srcdeckid,movingcard->cardid);
+  m_TEDProtocol->RemoveCardUID(movingcard->srcdeckid,movingcard->cardid,movingcard->carduid);
+  ProcessDeckDescribe(movingcard->dstdeckid,movingcard->carduid,movingcard->cardid);
+  if (movingcard->srcdeckid==0)
+  {
+    row=ReserveListCtrl->FindItem(-1,card->Name);
+    if (card->UId.IsEmpty()==TRUE)
+    {
+      ReserveListCtrl->DeleteItem(row);
+    }
+    else
+    {
       ReserveListCtrl->SetItem(row,1,wxString::Format("%d",card->UId.GetCount()));
+    }
+  }
+  else
+  {
+    row=CurrentDeckListCtrl->FindItem(-1,card->Name);
+    if (card->UId.IsEmpty()==TRUE)
+    {
+      CurrentDeckListCtrl->DeleteItem(row);
+    }
+    else
+    {
+      CurrentDeckListCtrl->SetItem(row,1,wxString::Format("%d",card->UId.GetCount()));
     }
   }
 }

@@ -36,6 +36,16 @@ struct TEDChatRoom
 
 WX_DEFINE_ARRAY(struct TEDChatRoom *,TEDChatRoomArray);
 
+struct TEDMovingCard
+{
+  wxInt32 srcdeckid;
+  wxInt32 dstdeckid;
+  wxInt32 cardid;
+  wxInt32 carduid;
+};
+
+WX_DEFINE_ARRAY(struct TEDMovingCard *,TEDMovingCardArray);
+
 WX_DEFINE_ARRAY(wxInt32,TEDCardIdArray);
 
 struct TEDCard
@@ -127,9 +137,13 @@ class TEDProtocol
     bool AlreadyHaveCardType(wxInt32 deckid,wxInt32 cardid);
     void AddCard(wxInt32 deckid,wxInt32 cardid,struct TEDCard *card);
     void AddCardUID(wxInt32 deckid,wxInt32 cardid,wxInt32 carduid);
+    void RemoveCardUID(wxInt32 deckid,wxInt32 cardid,wxInt32 carduid);
     struct TEDCard *GetCard(wxInt32 deckid,wxInt32 cardid);
     void SetCurrentDeckId(wxInt32 deckid);
     wxInt32 GetCurrentDeckId();
+    void DeckMove(wxInt32 srcdeckid,wxInt32 dstdeckid,wxInt32 cardid,wxInt32 carduid);
+    struct TEDMovingCard *GetMovingCard();
+    struct TEDDeck *GetDeck(wxInt32 deckid);
 	private:
 	  TCPConnection *TCPConn;
 	  struct TEDUser User;
@@ -142,6 +156,7 @@ class TEDProtocol
     bool m_gettingdecklist;
     bool m_gettingcardlist;
     wxInt32 m_currentdeck;
+    TEDMovingCardArray m_cardsmoving;
 /*
 	  wxSocketClient *Conn;
 	  wxTextInputStream *Input;
