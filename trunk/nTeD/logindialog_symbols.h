@@ -3,7 +3,7 @@
 // Purpose:     String symbols
 // Author:      Kintups
 // Modified by: 
-// Created:     04/16/04 11:16:35
+// Created:     04/23/04 20:18:08
 // RCS-ID:      
 // Copyright:   
 // Licence:     

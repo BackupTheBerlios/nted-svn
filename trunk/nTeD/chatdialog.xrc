@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <resource version="2.3.0.1" xmlns="http://www.wxwindows.org/wxxrc">
     <object class="wxPanel" name="ChatDialog">
-        <style>wxCLOSE_BOX</style>
+        <style></style>
         <exstyle>wxWS_EX_BLOCK_EVENTS</exstyle>
-        <size>580,350</size>
+        <size>566,348</size>
         <title>Chat</title>
         <centered>1</centered>
         <object class="wxFlexGridSizer">
@@ -39,8 +39,8 @@
                                 <flag>wxGROW|wxGROW|wxALL</flag>
                                 <border>0</border>
                                 <option>1</option>
-                                <object class="wxTextCtrl" name="ID_TEXTCTRL">
-                                    <size>400,300</size>
+                                <object class="wxTextCtrl" name="MensajesTextCtrlID">
+                                    <size>340,300</size>
                                     <style>wxTE_MULTILINE</style>
                                     <value></value>
                                 </object>
@@ -60,7 +60,7 @@
                                         <flag>wxGROW|wxALIGN_CENTER_VERTICAL|wxALL</flag>
                                         <border>0</border>
                                         <option>1</option>
-                                        <object class="wxTextCtrl" name="ID_TEXTCTRL1">
+                                        <object class="wxTextCtrl" name="MensajeTextCtrlID">
                                             <size>-1,-1</size>
                                             <style></style>
                                             <value></value>
@@ -70,7 +70,7 @@
                                         <flag>wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL|wxALL</flag>
                                         <border>0</border>
                                         <option>1</option>
-                                        <object class="wxButton" name="EnviarButton">
+                                        <object class="wxButton" name="EnviarButtonID">
                                             <size>-1,-1</size>
                                             <style></style>
                                             <label>Enviar</label>
@@ -91,9 +91,9 @@
                                 <flag>wxALIGN_RIGHT|wxALL</flag>
                                 <border>0</border>
                                 <option>1</option>
-                                <object class="wxListCtrl" name="ID_LISTCTRL">
-                                    <size>150,100</size>
-                                    <style>wxLC_LIST </style>
+                                <object class="wxListCtrl" name="UsuariosListCtrlID">
+                                    <size>200,100</size>
+                                    <style>wxLC_REPORT|wxLC_SINGLE_SEL|wxLC_HRULES|wxLC_VRULES</style>
                                 </object>
                             </object>
                             <object class="spacer">
@@ -104,8 +104,8 @@
                             <object class="sizeritem">
                                 <flag>wxALIGN_RIGHT|wxALL</flag>
                                 <border>0</border>
-                                <object class="wxListCtrl" name="ID_LISTCTRL1">
-                                    <size>150,100</size>
+                                <object class="wxListCtrl" name="CanalesListCtrlID">
+                                    <size>200,100</size>
                                     <style></style>
                                 </object>
                             </object>
