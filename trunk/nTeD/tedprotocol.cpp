@@ -24,6 +24,7 @@ TEDProtocol::TEDProtocol()
   m_tryroom=0;
   m_recoverroom=0;
   m_gettingdecklist=FALSE;
+  m_currentdeck=-1;
 }
 
 void TEDProtocol::Connect()
@@ -467,6 +468,11 @@ void TEDProtocol::AddDeck(wxInt32 deckid,wxString deckname)
   User.Decks[deckid]=deck;
 }
 
+void TEDProtocol::ClearDeck(wxInt32 deckid)
+{
+  User.Decks[deckid]->Cards.clear();
+}
+
 void TEDProtocol::DeckDescribe(wxInt32 deckid)
 {
   wxString sndmsg;
@@ -489,4 +495,48 @@ void TEDProtocol::SetGettingCardList(bool gettingcardlist)
   m_gettingcardlist=gettingcardlist;
 }
 
+bool TEDProtocol::AlreadyHaveCardType(wxInt32 deckid,wxInt32 cardid)
+{
+  TEDDeckHash::iterator itdeck;
+  TEDCardHash::iterator itcard;
+
+  // I'M NOT SURE ON THIS MOMENT BUT I THINK THIS WILL ALWAYS RETURN
+  // A CORRECT DECK VALUE SO WE CAN REMOVE THIS CHECK
+  itdeck=User.Decks.find(deckid);
+  if (itdeck==User.Decks.end())
+  {
+    return FALSE;
+  }
+  itcard=itdeck->second->Cards.find(cardid);
+  if (itcard==itdeck->second->Cards.end())
+  {
+    return FALSE;
+  }
+  return TRUE;
+}
+
+void TEDProtocol::AddCard(wxInt32 deckid,wxInt32 cardid,struct TEDCard *card)
+{
+  User.Decks[deckid]->Cards[cardid]=card;
+}
+
+void TEDProtocol::AddCardUID(wxInt32 deckid,wxInt32 cardid,wxInt32 carduid)
+{
+  User.Decks[deckid]->Cards[cardid]->UId.Add(carduid);
+}
+
+struct TEDCard *TEDProtocol::GetCard(wxInt32 deckid,wxInt32 cardid)
+{
+  return User.Decks[deckid]->Cards[cardid];
+}
+
+void TEDProtocol::SetCurrentDeckId(wxInt32 deckid)
+{
+  m_currentdeck=deckid;
+}
+
+wxInt32 TEDProtocol::GetCurrentDeckId()
+{
+  return m_currentdeck;
+}
 

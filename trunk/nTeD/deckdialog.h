@@ -24,6 +24,7 @@
 #include "wx/listctrl.h"
 ////@end includes
 
+#include <wx/wfstream.h>
 #include "tedprotocol.h"
 
 /*!

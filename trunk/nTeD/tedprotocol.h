@@ -120,9 +120,16 @@ class TEDProtocol
     bool IsGettingDeckList();
     void SetGettingDeckList(bool gettingdecklist);
     void AddDeck(wxInt32 deckid,wxString deckname);
+    void ClearDeck(wxInt32 deckid);
     void DeckDescribe(wxInt32 deckid);
     bool IsGettingCardList();
     void SetGettingCardList(bool gettingcardlist);
+    bool AlreadyHaveCardType(wxInt32 deckid,wxInt32 cardid);
+    void AddCard(wxInt32 deckid,wxInt32 cardid,struct TEDCard *card);
+    void AddCardUID(wxInt32 deckid,wxInt32 cardid,wxInt32 carduid);
+    struct TEDCard *GetCard(wxInt32 deckid,wxInt32 cardid);
+    void SetCurrentDeckId(wxInt32 deckid);
+    wxInt32 GetCurrentDeckId();
 	private:
 	  TCPConnection *TCPConn;
 	  struct TEDUser User;
@@ -134,6 +141,7 @@ class TEDProtocol
     bool m_editing;
     bool m_gettingdecklist;
     bool m_gettingcardlist;
+    wxInt32 m_currentdeck;
 /*
 	  wxSocketClient *Conn;
 	  wxTextInputStream *Input;

@@ -111,18 +111,18 @@ bool wxDeckDialog::Create( wxWindow* parent, wxWindowID id, const wxString& capt
     ReserveListCtrl->InsertColumn(2,_("A/D"));
     ReserveListCtrl->InsertColumn(3,_("Poder"));
     ReserveListCtrl->InsertColumn(4,_("Valor"));
-    ReserveListCtrl->SetColumnWidth(0,126);
+    ReserveListCtrl->SetColumnWidth(0,114);
     ReserveListCtrl->SetColumnWidth(1,24);
     ReserveListCtrl->SetColumnWidth(2,40);
     ReserveListCtrl->SetColumnWidth(3,50);
-    ReserveListCtrl->SetColumnWidth(4,46);
+    ReserveListCtrl->SetColumnWidth(4,41);
     CurrentDeckListCtrl->SortItems(wxListCompareFunction2,0);
     CurrentDeckListCtrl->SetSizeHints(260,100);
     CurrentDeckListCtrl->InsertColumn(0,_("Nombre"));
     CurrentDeckListCtrl->InsertColumn(1,_("#/M"));
     CurrentDeckListCtrl->InsertColumn(2,_("A/D"));
     CurrentDeckListCtrl->InsertColumn(3,_("Poder"));
-    CurrentDeckListCtrl->SetColumnWidth(0,126);
+    CurrentDeckListCtrl->SetColumnWidth(0,114);
     CurrentDeckListCtrl->SetColumnWidth(1,40);
     CurrentDeckListCtrl->SetColumnWidth(2,40);
     CurrentDeckListCtrl->SetColumnWidth(3,50);
@@ -253,8 +253,16 @@ void wxDeckDialog::OnReservelistctrlidSelected( wxListEvent& event )
 
 void wxDeckDialog::OnReservelistctrlidItemActivated( wxListEvent& event )
 {
-    // Insert custom code here
-    event.Skip();
+  struct TEDCard *card;
+
+  // Insert custom code here
+  card=((struct TEDCard *)event.GetItem().GetData());
+  if (card==NULL)
+  {
+    return;
+  }
+  ::wxSafeShowMessage(_("Titanes"),card->Name);
+  event.Skip();
 }
 
 
@@ -285,8 +293,23 @@ void wxDeckDialog::OnCurrentdecklistctrlidItemActivated( wxListEvent& event )
 
 void wxDeckDialog::OnDeckscomboboxidSelected( wxCommandEvent& event )
 {
-    // Insert custom code here
-    event.Skip();
+  wxInt32 row;
+  wxInt32 *deckid;
+
+  // Insert custom code here
+  CurrentDeckListCtrl->DeleteAllItems();
+  deckid=(wxInt32 *)DecksComboBox->GetClientData(DecksComboBox->GetSelection());
+  if (deckid!=NULL)
+  {
+    m_TEDProtocol->ClearDeck(*deckid);
+    m_TEDProtocol->SetCurrentDeckId(*deckid);
+    m_TEDProtocol->DeckDescribe(*deckid);
+  }
+  else
+  {
+    m_TEDProtocol->SetCurrentDeckId(-1);
+  }
+  event.Skip();
 }
 
 void wxDeckDialog::ClearDecks()
@@ -300,9 +323,13 @@ void wxDeckDialog::ProcessDeckList(wxInt32 deckid,wxString deckname)
 {
   wxInt32 *value;
 
+  // WE ARE NOT GOING TO LIST RESERVE DECK AS A USABLE DECK
   value=new wxInt32;
   *value=deckid;
-  DecksComboBox->Append(deckname,value);
+  if (deckid!=0)
+  {
+    DecksComboBox->Append(deckname,value);
+  }
   m_TEDProtocol->AddDeck(deckid,deckname);
 }
 
@@ -313,34 +340,85 @@ void wxDeckDialog::LoadReserveDeck()
 
 void wxDeckDialog::ProcessDeckDescribe(wxInt32 deckid,wxInt32 carduid,wxInt32 cardid)
 {
-/*
-				if (Decks[deck].Cards[id] == null) {
-					// La creamos
-					clsEditCard c = new clsEditCard();
-					StreamReader Data = ((StreamReader)new StreamReader("cards\\card" + id + ".txt"));
-					String[] CD = new String[10]; 
-					for (int i = 0; i < 10; i++) CD[i] = Data.ReadLine();
-					Data.Close();
-					// 6 = 6 2 2 6 60 8 P U Rey_de_Copas Arrolla. 
-					//    id type attack defense gold max cost freq nombre descr.
-					c.Attack = Convert.ToInt32(CD[2]);
-					c.Cost = CD[6];
-					c.Defense = Convert.ToInt32(CD[3]);
-					c.Freq = CD[7];
-					c.Gold = Convert.ToInt32(CD[4]);
-					c.Id = id;
-					c.Max = Convert.ToInt32(CD[5]);
-					c.Name = CD[8];
-					c.Text = CD[9];
-					c.Type = Convert.ToInt32(CD[1]);
-					c.UIDs = new ArrayList();
-					c.UIDs.Add (uid);
-					Decks[deck].Cards.Add (id,c);
-				} else {
-					// La añadimos
-					((clsEditCard)Decks[deck].Cards[id]).UIDs.Add(uid);
-				}
-*/
+  struct TEDCard *card;
+  wxFileInputStream *input;
+  wxTextInputStream *text;
+  wxString filename;
+  long int longvalue;
+  wxInt32 row;
+
+  if (m_TEDProtocol->AlreadyHaveCardType(deckid,cardid)==FALSE)
+  {
+    card=new struct TEDCard;
+    filename=_T("cards/card")+wxString::Format("%d",cardid)+_T(".txt");
+    input=new wxFileInputStream(filename);
+    if (input->Ok()==FALSE)
+    {
+      ::wxSafeShowMessage(_("Titanes"),_("Error abriendo el fichero ")+filename);
+      input->~wxFileInputStream();
+      free(input);
+      free(card);
+      return;
+    }
+    text=new wxTextInputStream(*input);
+		// 6 = 6  2    2      6       60   8   P    U    Rey_de_Copas Arrolla. 
+		//     id type attack defense gold max cost freq nombre       descr.
+		text->ReadLine().ToLong(&longvalue);
+		card->Id=longvalue;
+    if (card->Id!=cardid)
+    {
+      ::wxSafeShowMessage(_("Titanes"),_("El identificador de la carta no es correcto."));
+    }
+		text->ReadLine().ToLong(&longvalue);
+		card->Type=longvalue;
+		text->ReadLine().ToLong(&longvalue);
+		card->Attack=longvalue;
+		text->ReadLine().ToLong(&longvalue);
+		card->Defense=longvalue;
+		text->ReadLine().ToLong(&longvalue);
+		card->Gold=longvalue;
+		text->ReadLine().ToLong(&longvalue);
+		card->Max=longvalue;
+		card->Cost=text->ReadLine();
+		card->Freq=text->ReadLine();
+		card->Name=text->ReadLine();
+		card->Text=text->ReadLine();
+		card->UId.Clear();
+		card->UId.Add(carduid);
+		m_TEDProtocol->AddCard(deckid,cardid,card);
+		if (deckid==0)
+		{
+		  row=ReserveListCtrl->InsertItem(0,card->Name);
+		  ReserveListCtrl->SetItem(row,1,wxString::Format("%d",card->UId.GetCount()));
+		  ReserveListCtrl->SetItem(row,2,wxString::Format("%d",card->Attack)+_T("/")+wxString::Format("%d",card->Defense));
+		  ReserveListCtrl->SetItem(row,3,card->Cost);
+		  ReserveListCtrl->SetItem(row,4,wxString::Format("%d",card->Gold));
+		  ReserveListCtrl->SetItemData(row,(long int)card);
+		}
+		else if (deckid==m_TEDProtocol->GetCurrentDeckId())
+		{
+		  row=CurrentDeckListCtrl->InsertItem(0,card->Name);
+		  CurrentDeckListCtrl->SetItem(row,1,wxString::Format("%d",card->UId.GetCount()));
+		  CurrentDeckListCtrl->SetItem(row,2,wxString::Format("%d",card->Attack)+_T("/")+wxString::Format("%d",card->Defense));
+		  CurrentDeckListCtrl->SetItem(row,3,card->Cost);
+		  CurrentDeckListCtrl->SetItemData(row,(long int)card);
+		}
+  }
+  else
+  {
+    m_TEDProtocol->AddCardUID(deckid,cardid,carduid);
+    card=m_TEDProtocol->GetCard(deckid,cardid);
+    if (deckid==0)
+    {
+      row=ReserveListCtrl->FindItem(-1,card->Name);
+      ReserveListCtrl->SetItem(row,1,wxString::Format("%d",card->UId.GetCount()));
+    }
+    else
+    {
+      row=CurrentDeckListCtrl->FindItem(-1,card->Name);
+      ReserveListCtrl->SetItem(row,1,wxString::Format("%d",card->UId.GetCount()));
+    }
+  }
 }
 
 int wxCALLBACK wxListCompareFunction2(long item1,long item2,long sortData)
