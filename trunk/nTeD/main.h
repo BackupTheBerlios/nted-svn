@@ -10,6 +10,7 @@ class MainApp : public wxApp
 {
   public:
     bool OnInit(void);
+//    wxCriticalSection m_critsec;
 };
 
 DECLARE_APP(MainApp)
