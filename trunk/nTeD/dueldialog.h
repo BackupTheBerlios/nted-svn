@@ -105,6 +105,7 @@ public:
 
 ////@end wxDuelDialog member function declarations
 
+    void ProcessGameStart(wxString name,wxInt32 deckvalue,wxInt32 rank);
     /// Should we show tooltips?
     static bool ShowToolTips();
 

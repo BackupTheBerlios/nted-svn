@@ -154,6 +154,8 @@ public:
     /// Should we show tooltips?
     static bool ShowToolTips();
     void UpdateToolbar(int id);
+    void StartDuelMode();
+    void EndDuelMode();
 
 ////@begin wxMainFrame member variables
     wxToolBar* MainToolBar;

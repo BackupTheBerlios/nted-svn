@@ -75,6 +75,8 @@ struct TEDCard
 
 WX_DECLARE_HASH_MAP(wxInt32,struct TEDCard *,wxIntegerHash,wxIntegerEqual,TEDCardHash);
 
+WX_DEFINE_ARRAY(struct TEDCard *,TEDCardArray);
+
 struct TEDDeck
 {
   wxInt32 DeckId;
@@ -83,6 +85,23 @@ struct TEDDeck
 };
 
 WX_DECLARE_HASH_MAP(wxInt32,struct TEDDeck *,wxIntegerHash,wxIntegerEqual,TEDDeckHash);
+
+struct TEDPlayer
+{
+  wxString Name;
+  wxInt32 DeckValue;
+  wxInt32 Rank;
+  TEDCardArray Hand;
+  TEDCardArray Table;
+  TEDCardArray Combat;
+  TEDCardArray Graveyard;
+};
+
+struct TEDDuel
+{
+  struct TEDPlayer Local;
+  struct TEDPlayer Remote;
+};
 
 struct TEDUser
 {
@@ -165,6 +184,8 @@ class TEDProtocol
     wxInt32 GetUserGold();
     void SetUserGold(wxInt32 gold);
     wxInt32 GetDeckNumCards(wxInt32 deckid);
+    void SetOpponent(wxString name,wxInt32 deckvalue,wxInt32 rank);
+    void GameStart();
 	private:
 	  TCPConnection *TCPConn;
 	  struct TEDUser User;
@@ -181,6 +202,7 @@ class TEDProtocol
     wxArrayString m_newdecks;
     TEDRenamingDeckArray m_decksrenaming;
     TEDActivatingDeckArray m_decksactivating;
+    struct TEDDuel Duel;
 };
 
 

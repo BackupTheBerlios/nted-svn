@@ -337,3 +337,14 @@ bool wxDuelDialog::ShowToolTips()
     return TRUE;
 }
 
+void wxDuelDialog::ProcessGameStart(wxString name,wxInt32 deckvalue,wxInt32 rank)
+{
+/*
+  TEDProtocol.ChatExit();
+  TEDProtocol.SetOpponent(name,deckvalue,rank);
+  OpponentStaticText.SetLabel(name);
+  TEDProtocol.GameStart();
+*/
+}
+
+

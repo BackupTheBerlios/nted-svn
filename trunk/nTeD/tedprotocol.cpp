@@ -734,3 +734,29 @@ wxInt32 TEDProtocol::GetDeckNumCards(wxInt32 deckid)
   return numcards;
 }
 
+void TEDProtocol::SetOpponent(wxString name,wxInt32 deckvalue,wxInt32 rank)
+{
+  Duel.Local.Name=User.Name;
+  Duel.Local.DeckValue=User.DeckValue;
+  Duel.Local.Rank=User.Rank;
+  Duel.Local.Hand.Clear();
+  Duel.Local.Table.Clear();
+  Duel.Local.Combat.Clear();
+  Duel.Local.Graveyard.Clear();
+  Duel.Remote.Name=name;
+  Duel.Remote.DeckValue=deckvalue;
+  Duel.Remote.Rank=rank;
+  Duel.Remote.Hand.Clear();
+  Duel.Remote.Table.Clear();
+  Duel.Remote.Combat.Clear();
+  Duel.Remote.Graveyard.Clear();
+}
+
+void TEDProtocol:: GameStart()
+{
+  wxString sndmsg;
+
+  sndmsg=_T("GS OK\n");
+  TCPConn->SendMessage(sndmsg);
+}
+

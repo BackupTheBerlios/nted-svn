@@ -596,17 +596,25 @@ void wxMainFrame::ProcessGameStart(wxString msg)
 {
   wxStringTokenizer msgtok;
   wxString tok;
+  wxString name;
+  wxInt32 deckvalue;
+  wxInt32 rank;
+  long int longvalue;
 
   msgtok=wxStringTokenizer(msg);
   tok=msgtok.GetNextToken();
   tok=msgtok.GetNextToken();
+  // GS <user_name> <deck value> <rank>
+  name=tok;
+  tok.ToLong(&longvalue);
+  deckvalue=longvalue;
+  tok=msgtok.GetNextToken();
+  tok.ToLong(&longvalue);
+  rank=longvalue;
+  StartDuelMode();
+  m_DuelWnd->ProcessGameStart(name,deckvalue,rank);
 
   m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
-/*
-      // SE SUPONE QUE ESTE COMANDO LO RECIBIMOS EN MODO CHAT
-			} else if (Msg[0].Equals("GS")) {
-				StartDuel (Msg);
-*/
 }
 
 void wxMainFrame::ProcessChatMessage(wxString msg)
@@ -1162,5 +1170,37 @@ void wxMainFrame::ProcessUnknownMessage(wxString msg)
       m_ChatWnd->MensajesTextCtrl->AppendText(_T("NO se perdió la conexión de usuario\n"));
     }
   }
+}
+
+void wxMainFrame::StartDuelMode()
+{
+  m_ActiveWnd->Hide();
+#if wxCHECK_VERSION(2, 5, 0)
+  // "DETACH" HAS BEEN INTRODUCED AT WX 2.5
+  m_mainsizer->Detach(m_ActiveWnd);
+#else
+  // ALTHOUGH AT VERSION WX 2.4 "REMOVE" WORKS THE SAME WAY
+  m_mainsizer->Remove(m_ActiveWnd);
+#endif
+  ShowFullScreen(TRUE);
+  m_mainsizer->Add(m_DuelWnd, 1, wxALIGN_LEFT|wxEXPAND|wxALL);
+  m_DuelWnd->Show();
+  Layout();
+}
+
+void wxMainFrame::EndDuelMode()
+{
+  m_DuelWnd->Hide();
+#if wxCHECK_VERSION(2, 5, 0)
+  // "DETACH" HAS BEEN INTRODUCED AT WX 2.5
+  m_mainsizer->Detach(m_DuelWnd);
+#else
+  // ALTHOUGH AT VERSION WX 2.4 "REMOVE" WORKS THE SAME WAY
+  m_mainsizer->Remove(m_DuelWnd);
+#endif
+  ShowFullScreen(FALSE);
+  m_mainsizer->Add(m_ActiveWnd, 1, wxALIGN_LEFT|wxEXPAND|wxALL);
+  m_ActiveWnd->Show();
+  Layout();
 }
 
