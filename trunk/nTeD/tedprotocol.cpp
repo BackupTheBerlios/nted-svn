@@ -16,9 +16,9 @@
 
 #include "tedprotocol.h"
 
-TEDProtocol::TEDProtocol()
+TEDProtocol::TEDProtocol(wxEvtHandler& handler, int id = -1)
 {
-  TCPConn=new TCPConnection();
+  TCPConn=new TCPConnection(handler,id);
   m_logged=FALSE;
   m_chatting=FALSE;
   m_tryroom=0;
@@ -130,7 +130,7 @@ void TEDProtocol::Login(wxString UserName,wxString UserPass)
   }
   else if (tok==_T("NO"))
   {
-    ::wxSafeShowMessage(_("Titanes"),_("Login incorrecto."));
+    ::wxSafeShowMessage(_("Titanes"),_("Usuario o contraseña incorrectos."));
     return;
   }
   else
@@ -531,27 +531,31 @@ void TEDProtocol::AddCard(wxInt32 deckid,wxInt32 cardid,struct TEDCard *card)
 
 void TEDProtocol::AddCardUID(wxInt32 deckid,wxInt32 cardid,wxInt32 carduid)
 {
+/*
   wxInt32 *uid;
 
   uid=new wxInt32;
   *uid=carduid;
   User.Decks[deckid]->Cards[cardid]->UId.Add(uid);
+*/
+  User.Decks[deckid]->Cards[cardid]->UId.Add(carduid);
 }
 
 void TEDProtocol::RemoveCardUID(wxInt32 deckid,wxInt32 cardid,wxInt32 carduid)
 {
   wxInt32 index;
+//  wxInt32 *uid;
 
-  wxInt32 *uid;
-
-  uid=new wxInt32;
-  *uid=carduid;
-  index=User.Decks[deckid]->Cards[cardid]->UId.Index(uid);
+//  uid=new wxInt32;
+//  *uid=carduid;
+//  index=User.Decks[deckid]->Cards[cardid]->UId.Index(uid);
+  index=User.Decks[deckid]->Cards[cardid]->UId.Index(carduid);
+::wxSafeShowMessage(_("Titanes"),wxString::Format("IsEmpty %d",index));
   if (index==wxNOT_FOUND)
   {
     return;
   }
-  User.Decks[deckid]->Cards[cardid]->UId.Remove(uid);
+  User.Decks[deckid]->Cards[cardid]->UId.Remove(carduid);
   if (User.Decks[deckid]->Cards[cardid]->UId.IsEmpty()==TRUE)
   {
     User.Decks[deckid]->Cards.erase(cardid);
@@ -752,11 +756,17 @@ void TEDProtocol::SetOpponent(wxString name,wxInt32 deckvalue,wxInt32 rank)
   Duel.Remote.Graveyard.Clear();
 }
 
-void TEDProtocol:: GameStart()
+void TEDProtocol::GameStart()
 {
   wxString sndmsg;
 
   sndmsg=_T("GS OK\n");
   TCPConn->SendMessage(sndmsg);
 }
+
+void TEDProtocol::GetSocketData()
+{
+  TCPConn->GetSocketData();
+}
+
 
