@@ -29,7 +29,7 @@ void *TCPThread::Entry()
 {
   wxString msg;
   
-	::wxSafeShowMessage(_("Titanes"),_("Dentro del Thread."));
+//::wxSafeShowMessage(_("Titanes"),_("Dentro del Thread."));
   while (TestDestroy()==FALSE)
   {
     msg=m_input->ReadLine();
@@ -89,20 +89,22 @@ void TCPConnection::Connect()
   Conn->Connect(*address,FALSE);
   while (Conn->WaitOnConnect(CONNECTTIMEOUT)==FALSE)
   {
+    // ESTO HAY QUE SACARLO DE AQUI Y LLEVARLO AL INTERFAZ DE USUARIO
     if (::wxMessageBox(_("Tiempo de espera agotado al conectar al servidor.\n¿Reintentar conexión?"),_("Titanes"),wxYES_NO|wxICON_ERROR)!=wxYES)
     {
       break;
     }
   }
-  ::wxSafeShowMessage(_("Titanes"),_("Fuera del While"));
+//::wxSafeShowMessage(_("Titanes"),_("Fuera del While"));
   if (Conn->IsConnected()==TRUE)
   {
-    ::wxSafeShowMessage(_("Titanes"),_("Connectado"));
+//::wxSafeShowMessage(_("Titanes"),_("Connectado"));
     ListenThread->Run();
   }
   else
   {
-    ::wxSafeShowMessage(_("Titanes"),_("NO Conectado"));
+    // ESTO HAY QUE MODIFICARLO
+::wxSafeShowMessage(_("Titanes"),_("NO Conectado"));
   }
   return;
 }
