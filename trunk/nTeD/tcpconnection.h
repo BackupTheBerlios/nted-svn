@@ -47,13 +47,16 @@ class TCPThread:public wxThread
 class TCPConnection
 {
 	public:
-    TCPConnection();
+    TCPConnection(wxEvtHandler& handler, int id);
     void Connect();
 	  void SendMessage(wxString Msg);
+    void GetSocketData();
 	  wxString GetMessage();
 	  wxString WaitMessage();
 	  void Disconnect();
 	  bool IsConnected();
+    // socket event handler
+    void OnSocketEvent(wxSocketEvent& event);
   private:
     wxIPV4address *address;
 	  wxSocketClient *Conn;

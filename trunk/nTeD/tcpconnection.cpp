@@ -37,13 +37,19 @@ void *TCPThread::Entry()
     m_msglist->Add(msg);
     m_critsec.Leave();
   }
-	::wxSafeShowMessage(_("Titanes"),_("Fuera del Thread."));
+//	::wxSafeShowMessage(_("Titanes"),_("Fuera del Thread."));
   return NULL;
 }
 
-TCPConnection::TCPConnection()
+TCPConnection::TCPConnection(wxEvtHandler& handler, int id = -1)
 {
-  Conn=new wxSocketClient(wxSOCKET_WAITALL);
+//  Conn=new wxSocketClient(wxSOCKET_WAITALL);
+  Conn=new wxSocketClient(wxSOCKET_BLOCK);
+//  Conn=new wxSocketClient(wxSOCKET_NOWAIT);
+  // Setup the event handler and subscribe to most events
+  Conn->SetEventHandler(handler, id);
+  Conn->SetNotify(wxSOCKET_LOST_FLAG);
+  Conn->Notify(true);
   sockinstrm=new wxSocketInputStream(*Conn);
   Input=new wxTextInputStream(*sockinstrm);
 //  Input=new wxTextInputStream(*(new wxSocketInputStream(*Conn)));
@@ -52,6 +58,9 @@ TCPConnection::TCPConnection()
 //  Output=new wxTextOutputStream(*(new wxSocketOutputStream(*Conn)));
   MsgList=new wxArrayString();
 ///  ::wxLogError(_("Antes de Crear el Thread"));
+
+//#if 0
+
   ListenThread=new TCPThread(Input,MsgList);
 ///  ::wxLogError(_("Antes de Thread.Create"));
   switch (wxThreadError error=ListenThread->Create())
@@ -74,6 +83,9 @@ TCPConnection::TCPConnection()
       }
     }
   }
+
+//#endif
+
 ///  ::wxLogError(_("Despues de Thread.Create"));
 }
 
@@ -100,12 +112,16 @@ void TCPConnection::Connect()
   if (Conn->IsConnected()==TRUE)
   {
 //::wxSafeShowMessage(_("Titanes"),_("Connectado"));
+
+//#if 0
     ListenThread->Run();
+//#endif
+
   }
   else
   {
     // ESTO HAY QUE MODIFICARLO
-::wxSafeShowMessage(_("Titanes"),_("NO Conectado"));
+//::wxSafeShowMessage(_("Titanes"),_("NO Conectado"));
   }
   return;
 }
@@ -113,6 +129,32 @@ void TCPConnection::Connect()
 void TCPConnection::SendMessage(wxString Msg)
 {
 	Output->WriteString(Msg);
+}
+
+void TCPConnection::GetSocketData()
+{
+  wxString msg;
+
+//::wxSafeShowMessage(_("Titanes"),_("Dentro de GetSocketData"));
+  Conn->SetNotify(wxSOCKET_LOST_FLAG);
+  while (Conn->WaitForRead(0,100)==true)
+  {
+//::wxSafeShowMessage(_("Titanes"),_("Antes del ReadLine"));
+    msg=Input->ReadLine();
+//::wxSafeShowMessage(_("Titanes"),_("Antes del Enter"));
+    m_critsec.Enter();
+//::wxSafeShowMessage(_("Titanes"),_("Antes del Add"));
+    MsgList->Add(msg);
+//::wxSafeShowMessage(_("Titanes"),_("Antes del Leave"));
+    m_critsec.Leave();
+//::wxSafeShowMessage(_("Titanes"),_("Despues del Leave"));
+/*
+    ::wxSafeYield();
+    ::wxMilliSleep(300);
+*/
+  }
+  Conn->SetNotify(wxSOCKET_LOST_FLAG | wxSOCKET_INPUT_FLAG);
+//::wxSafeShowMessage(_("Titanes"),_("Dentro de GetSocketData"));
 }
 
 wxString TCPConnection::GetMessage()
