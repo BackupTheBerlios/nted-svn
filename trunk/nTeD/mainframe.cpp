@@ -626,7 +626,7 @@ void wxMainFrame::ProcessGameStart(wxString msg)
   tok=msgtok.GetNextToken();
   tok.ToLong(&longvalue);
   rank=longvalue;
-  StartDuelMode();
+//  StartDuelMode();
   m_DuelWnd->ProcessGameStart(name,deckvalue,rank);
 
   m_ChatWnd->MensajesTextCtrl->AppendText(msg+_T("\n"));
