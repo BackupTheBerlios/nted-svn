@@ -149,7 +149,7 @@ void wxChatDialog::CreateControls()
     item3->Add(item4, 1, wxGROW|wxGROW|wxALL|wxADJUST_MINSIZE, 0);
 
     wxTextCtrl* item5 = new wxTextCtrl;
-    item5->Create( item1, MensajesTextCtrlID, _T(""), wxDefaultPosition, wxSize(340, 300), wxTE_MULTILINE );
+    item5->Create( item1, MensajesTextCtrlID, _T(""), wxDefaultPosition, wxSize(340, 300), wxTE_MULTILINE|wxTE_RICH2 );
     MensajesTextCtrl = item5;
     item4->Add(item5, 1, wxGROW|wxGROW|wxALL, 0);
 
@@ -351,8 +351,9 @@ void wxChatDialog::ProcessDuelChallenged(wxInt32 userid)
   challenge=original;
   challenge.SetStyle(wxITALIC);
   challenge.SetWeight(wxBOLD);
-  MensajesTextCtrl->SetFont(challenge);
-  MensajesTextCtrl->AppendText(chatter->Name+wxString::Format(" le ha desafiado [baraja: %d, rango: %d",chatter->DeckValue,chatter->Rank));
+  MensajesTextCtrl->SetDefaultStyle(wxTextAttr(wxNullColour, wxNullColour,challenge));
+  MensajesTextCtrl->AppendText(chatter->Name+wxString::Format(" le ha desafiado [baraja: %d, rango: %d]\n",chatter->DeckValue,chatter->Rank));
+  MensajesTextCtrl->SetDefaultStyle(wxTextAttr(wxNullColour, wxNullColour,original));
 #if 0
   accepted=::wxMessageBox(chatter->Name+_(" le ha desafiado [baraja: ")+chatter->DeckValue+_(", rango: ")+chatter->Rank+_("]\n"),_("Titanes"),wxYES_NO,this);
   if (accepted==wxYES)
