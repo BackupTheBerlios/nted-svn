@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<resource xmlns="http://www.wxwindows.org/wxxrc">
-    <object class="wxDialog" name="ChatDialog">
-        <style>wxCAPTION|wxRESIZE_BORDER|wxSYSTEM_MENU</style>
+<resource version="2.3.0.1" xmlns="http://www.wxwindows.org/wxxrc">
+    <object class="wxPanel" name="ChatDialog">
+        <style>wxCLOSE_BOX</style>
         <exstyle>wxWS_EX_BLOCK_EVENTS</exstyle>
-        <size>400,300</size>
+        <size>580,350</size>
         <title>Chat</title>
         <centered>1</centered>
         <object class="wxFlexGridSizer">
@@ -14,7 +14,7 @@
             <growablecols>0</growablecols>
             <growablerows>0</growablerows>
             <object class="sizeritem">
-                <flag>wxGROW|wxGROW|wxALL</flag>
+                <flag>wxGROW|wxGROW|wxALL|wxADJUST_MINSIZE</flag>
                 <border>7</border>
                 <option>1</option>
                 <object class="wxFlexGridSizer">
@@ -25,7 +25,7 @@
                     <growablecols>0</growablecols>
                     <growablerows>0</growablerows>
                     <object class="sizeritem">
-                        <flag>wxGROW|wxGROW|wxALL</flag>
+                        <flag>wxGROW|wxGROW|wxALL|wxADJUST_MINSIZE</flag>
                         <border>0</border>
                         <option>1</option>
                         <object class="wxFlexGridSizer">
@@ -40,13 +40,13 @@
                                 <border>0</border>
                                 <option>1</option>
                                 <object class="wxTextCtrl" name="ID_TEXTCTRL">
-                                    <size>-1,-1</size>
+                                    <size>400,300</size>
                                     <style>wxTE_MULTILINE</style>
                                     <value></value>
                                 </object>
                             </object>
                             <object class="sizeritem">
-                                <flag>wxGROW|wxALIGN_CENTER_VERTICAL|wxALL</flag>
+                                <flag>wxGROW|wxALIGN_BOTTOM|wxALL</flag>
                                 <border>0</border>
                                 <option>1</option>
                                 <object class="wxFlexGridSizer">
@@ -82,7 +82,7 @@
                         </object>
                     </object>
                     <object class="sizeritem">
-                        <flag>wxALIGN_CENTER_HORIZONTAL|wxGROW|wxALL</flag>
+                        <flag>wxALIGN_RIGHT|wxGROW|wxALL</flag>
                         <border>0</border>
                         <option>1</option>
                         <object class="wxBoxSizer">
@@ -92,7 +92,7 @@
                                 <border>0</border>
                                 <option>1</option>
                                 <object class="wxListCtrl" name="ID_LISTCTRL">
-                                    <size>100,100</size>
+                                    <size>150,100</size>
                                     <style>wxLC_LIST </style>
                                 </object>
                             </object>
@@ -105,7 +105,7 @@
                                 <flag>wxALIGN_RIGHT|wxALL</flag>
                                 <border>0</border>
                                 <object class="wxListCtrl" name="ID_LISTCTRL1">
-                                    <size>100,100</size>
+                                    <size>150,100</size>
                                     <style></style>
                                 </object>
                             </object>
