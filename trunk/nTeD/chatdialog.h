@@ -42,7 +42,7 @@ class wxListCtrl;
 #define SYMBOL_WXCHATDIALOG_STYLE 0
 #define SYMBOL_WXCHATDIALOG_TITLE _("Chat")
 #define SYMBOL_WXCHATDIALOG_IDNAME ChatDialog
-#define SYMBOL_WXCHATDIALOG_SIZE wxSize(626, 348)
+#define SYMBOL_WXCHATDIALOG_SIZE wxSize(566, 348)
 #define SYMBOL_WXCHATDIALOG_POSITION wxDefaultPosition
 #define MensajesTextCtrlID 10001
 #define MensajeTextCtrlID 10002
