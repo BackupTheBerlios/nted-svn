@@ -48,7 +48,9 @@ class wxListCtrl;
 #define SYMBOL_WXDECKDIALOG_SIZE wxSize(400, 300)
 #define SYMBOL_WXDECKDIALOG_POSITION wxDefaultPosition
 #define ReserveListCtrlID 10001
+#define ReserveNumCardsStaticTextID 10010
 #define CardStaticBitmapID 10008
+#define GoldStaticTextID 10012
 #define ComprarSobreButtonID 10002
 #define CrearBarajaButtonID 10003
 #define RenombrarBarajaButtonID 10004
@@ -56,6 +58,7 @@ class wxListCtrl;
 #define ActivarBarajaButtonID 10006
 #define DecksComboBoxID 10009
 #define CurrentDeckListCtrlID 10007
+#define CurrentNumCardsStaticTextID 10011
 ////@end control identifiers
 
 /*!
@@ -145,9 +148,11 @@ public:
     wxFlexGridSizer* fgschild;
     wxFlexGridSizer* fgsleft;
     wxListCtrl* ReserveListCtrl;
+    wxStaticText* ReserveNumCardsStaticText;
     wxFlexGridSizer* fgscenter;
     wxFlexGridSizer* fgscenterchild;
     wxStaticBitmap* CardStaticBitmap;
+    wxStaticText* GoldStaticText;
     wxFlexGridSizer* fgsbuttons;
     wxButton* ComprarSobreButton;
     wxButton* CrearBarajaButton;
@@ -157,6 +162,7 @@ public:
     wxFlexGridSizer* fgsright;
     wxComboBox* DecksComboBox;
     wxListCtrl* CurrentDeckListCtrl;
+    wxStaticText* CurrentNumCardsStaticText;
     TEDProtocol* m_TEDProtocol;
 ////@end wxDeckDialog member variables
 };
