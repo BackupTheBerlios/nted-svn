@@ -91,7 +91,7 @@ bool wxDuelDialog::Create( wxWindow* parent, wxWindowID id, const wxString& capt
     OppGraveCardStaticBitmap = NULL;
     OppDeckCard2StaticBitmap = NULL;
     OppGraveCard2StaticBitmap = NULL;
-    fgsopptbl = NULL;
+    fgsplayertbl = NULL;
     PlayerDeckCard2StaticBitmap = NULL;
     PlayerGraveCard2StaticBitmap = NULL;
     PlayerDeckCardStaticBitmap = NULL;
@@ -259,7 +259,7 @@ void wxDuelDialog::CreateControls()
     item30->Add(item32, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL, 0);
 
     wxFlexGridSizer* item33 = new wxFlexGridSizer(1, 3, 0, 5);
-    fgsopptbl = item33;
+    fgsplayertbl = item33;
     item33->AddGrowableRow(0);
     item33->AddGrowableCol(1);
     item22->Add(item33, 1, wxGROW|wxGROW|wxALL, 0);

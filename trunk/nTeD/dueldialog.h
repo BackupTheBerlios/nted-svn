@@ -130,7 +130,7 @@ public:
     wxStaticBitmap* OppGraveCardStaticBitmap;
     wxStaticBitmap* OppDeckCard2StaticBitmap;
     wxStaticBitmap* OppGraveCard2StaticBitmap;
-    wxFlexGridSizer* fgsopptbl;
+    wxFlexGridSizer* fgsplayertbl;
     wxStaticBitmap* PlayerDeckCard2StaticBitmap;
     wxStaticBitmap* PlayerGraveCard2StaticBitmap;
     wxStaticBitmap* PlayerDeckCardStaticBitmap;
